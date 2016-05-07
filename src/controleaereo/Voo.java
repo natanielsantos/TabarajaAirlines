@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Voo {
+
+	private String identificacao;
 	private Aviao aviao;
 	private Aeroporto aeroportoPartida;
 	private LocalDate dataPartida;
@@ -15,10 +17,11 @@ public class Voo {
 	private double pesoCargaEmbarcada;
 	private double precoViagem;
 
-	public Voo(Aviao aviao, Aeroporto aeroportoPartida, LocalDate dataPartida, LocalTime horaPartida,
-			Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada, int lotacao,
-			double pesoCargaEmbarcada, double precoViagem) {
-		super();
+	public Voo(String identificacao, Aviao aviao, Aeroporto aeroportoPartida, LocalDate dataPartida,
+			LocalTime horaPartida, Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada,
+			int lotacao, double pesoCargaEmbarcada, double precoViagem) {
+
+		this.identificacao = identificacao;
 		this.aviao = aviao;
 		this.aeroportoPartida = aeroportoPartida;
 		this.dataPartida = dataPartida;
@@ -109,6 +112,26 @@ public class Voo {
 
 	public void setPrecoViagem(double precoViagem) {
 		this.precoViagem = precoViagem;
+	}
+
+	public String getIdentificacao() {
+		return identificacao;
+	}
+
+	public void setIdentificacao(String identificacao) {
+		this.identificacao = identificacao;
+	}
+
+	public void imprimir() {
+		System.out.println("Identificação            : " + identificacao);
+		System.out.println("Avião                    : " + aviao.getIdentificacao());
+		System.out.println("Aeroporto de Partida     : " + aeroportoPartida.getIdentificacao());
+		System.out.println("Data de Partida          : " + dataPartida + " | Hora de Partida   : " + horaPartida);
+		System.out.println("Aeroporto de Chegada     : " + aeroportoChegada.getIdentificacao());
+		System.out.println("Data de Chegada          : " + dataChegada + " | Hora de Chegada   : " + horaChegada);
+		System.out.println("Lotação                  : " + lotacao);
+		System.out.println("Peso da Carga Embarcada  : " + pesoCargaEmbarcada);
+		System.out.println("Preço da Viagem          : " + precoViagem);
 	}
 
 }

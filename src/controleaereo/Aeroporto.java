@@ -1,14 +1,15 @@
 package controleaereo;
 
 public class Aeroporto {
-	 private String identificacao;
-	 private String nome;
-	 private String municipio;
-	 private String estado;
-	 private String pais;
-	 
+
+	private String identificacao;
+	private String nome;
+	private String municipio;
+	private String estado;
+	private String pais;
+
 	public Aeroporto(String identificacao, String nome, String municipio, String estado, String pais) {
-		super();
+
 		this.identificacao = identificacao;
 		this.nome = nome;
 		this.municipio = municipio;
@@ -55,8 +56,15 @@ public class Aeroporto {
 	public void setPais(String pais) {
 		this.pais = pais;
 	}
-	
-	
-	 
-	 
+
+	public void imprimir() {
+		System.out.println("***********************************");
+		System.out.println("Identificação    : " + identificacao);
+		System.out.println("Nome             : " + nome);
+		System.out.println("Município        : " + municipio);
+		System.out.println("Estado           : " + estado);
+		System.out.println("País             : " + pais);
+
+	}
+
 }

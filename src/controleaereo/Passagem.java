@@ -4,14 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Passagem {
+
+	private int numPassagem;
 	private Cliente cliente;
 	private Voo voo;
 	private LocalDate dataVenda;
 	private LocalTime horaVenda;
 	private double precoFinalViagem;
 
-	public Passagem(Cliente cliente, Voo voo, LocalDate dataVenda, LocalTime horaVenda, double precoFinalViagem) {
-		super();
+	public Passagem(int numPassagem, Cliente cliente, Voo voo, LocalDate dataVenda, LocalTime horaVenda,
+			double precoFinalViagem) {
+
 		this.cliente = cliente;
 		this.voo = voo;
 		this.dataVenda = dataVenda;
@@ -58,5 +61,4 @@ public class Passagem {
 	public void setPrecoFinalViagem(double precoFinalViagem) {
 		this.precoFinalViagem = precoFinalViagem;
 	}
-
 }
