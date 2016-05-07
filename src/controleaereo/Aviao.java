@@ -5,7 +5,7 @@ public class Aviao {
 	private String modelo;
 	private int qtdTurbinas;
 	private int capacPassageiros;
-	private double capacCarga;
+	private double capacCarga;//teste
 	
 	
 	public Aviao(String identificacao, String modelo, int qtdTurbinas, int capacPassageiros, double capacCarga) {
