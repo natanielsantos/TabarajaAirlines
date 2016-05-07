@@ -261,7 +261,7 @@ public class GerenciadorPassagem {
 		}
 	}
 
-	public void imprimir() {
+	public void relatorios() {
 
 		if (!voos.isEmpty()) {
 			for (int i = 0; i < voos.size(); i++) {

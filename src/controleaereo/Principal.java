@@ -24,6 +24,25 @@ public class Principal {
 
 		return op;
 	}
+	
+	public static int menuPassagem(String txt) {
+		Scanner ent = new Scanner(System.in);
+		int op, ops;
+
+		System.out.println("               **********======[Módulo Gerenciador]=====**********" + txt + " ");
+		System.out.println("                      *********====[Versão 1.2]===*********");
+		System.out.println("              ---------------------------------------------------");
+		System.out.println("                                1 - Venda");
+		System.out.println("                                2 - Cancalamento de passagem");
+		System.out.println("                                3 - Relatórios ");
+		System.out.println("                                0 - Menu Principal      ");
+
+		System.out.println("                                Opção:");
+		op = ent.nextInt();
+
+		return op;
+	}
+
 
 	public static void main(String args[]) {
 
@@ -195,7 +214,7 @@ public class Principal {
 			case 5:
 				int opsPs;
 				do {
-					opsPs = menu("Passagens");
+					opsPs = menuPassagem("Passagens");
 					System.out.println(opsPs);
 					switch (opsPs) {
 
@@ -208,14 +227,7 @@ public class Principal {
 						break;
 
 					case 3:
-						gps.excluir();
-						break;
-					case 4:
-						gps.consultar();
-						break;
-
-					case 5:
-						gps.imprimir();
+						gps.relatorios();
 						break;
 
 					default:
