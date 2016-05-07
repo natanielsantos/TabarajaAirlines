@@ -45,7 +45,7 @@ public class GerenciadorPassagem {
 		ent = new Scanner(System.in);
 	}
 
-	public void cadastrar() {
+	public void venda () {
 
 		int cod, codCli;
 
@@ -117,7 +117,7 @@ public class GerenciadorPassagem {
 		System.out.println("       *****==[Passagem Cadastrada!]==*****");
 	}
 
-	public void alterar() {
+	public void cancelar() {
 
 		int cod;
 
@@ -288,7 +288,7 @@ public class GerenciadorPassagem {
 					System.out.println("                         ***=[ Informe a Identificação do Voo ]=***     ");
 					posi = ent.nextInt();
 
-					voo.getIdentificacao(Integer.parseInt(posi)).imprimir();
+					voos.get(posi).imprimir();
 
 					if (voo != null) {
 						qtdLugaresAviao = voo.getAviao().getCapacPassageiros();
@@ -310,7 +310,7 @@ public class GerenciadorPassagem {
 					System.out.println("                         ***=[ Informe a Identificação do Voo ]=***     ");
 					posi = ent.nextInt();
 
-					voo.getIdentificacao(Integer.parseInt(posi)).imprimir();
+					voos.get(posi).imprimir();
 
 					if (voo != null) {
 						for (i = 0; i < passagens.size(); i++) {
@@ -330,6 +330,8 @@ public class GerenciadorPassagem {
 				}
 
 			}
+		}else {
+			System.out.println("Não possuem voos para apresentar relatórios! ");
 		}
 	}
 
