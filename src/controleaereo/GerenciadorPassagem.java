@@ -262,9 +262,12 @@ public class GerenciadorPassagem {
 	}
 
 	public void relatorios() {
+		
+		int resp = 0;
 
-		if (!voos.isEmpty()) {
-			for (int i = 0; i < voos.size(); i++) {
+		if (!passagens.isEmpty()) {
+			
+			do{
 
 				System.out.println("                                    *****==[Sub-Menu]==*****                ");
 
@@ -277,7 +280,7 @@ public class GerenciadorPassagem {
 				System.out.println("                               5 - Quantidade Carga Possível por Voo        ");
 				System.out.println("                               6 - Valor que a Companhia deixou de Ganhar   ");
 				System.out.println("                               0 - Voltar ao Menu Principal                 ");
-				int resp = ent.nextInt();
+				resp = ent.nextInt();
 
 				switch (resp) {
 
@@ -329,9 +332,10 @@ public class GerenciadorPassagem {
 
 				}
 
-			}
+			}while(resp != 0);
+			
 		}else {
-			System.out.println("Não possuem voos para apresentar relatórios! ");
+			System.out.println("Não possuem passagens vendidas para apresentar relatórios! ");
 		}
 	}
 
