@@ -195,7 +195,7 @@ public class Principal {
 	for(int i=0; i<2; i++)
 		System.out.println("\n");
 	
-	 System.out.println("Sistema encerrado!");
+	 System.out.println("Sistema encerrado! Obrigado pela visista!");
 
 	}
 
