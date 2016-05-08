@@ -1,13 +1,9 @@
 package controleaereo;
 
-import java.util.ArrayList;
-
 public class Ajuda {
 
-	private ArrayList<Ajuda> help;
+	public Ajuda() {
 
-	public Ajuda(ArrayList<Ajuda> ajd) {
-		help = ajd;
 	}
 
 	public void ajuda() {

@@ -20,7 +20,7 @@ public class Menu {
 
 		System.out.println("              ---------------------------------------------------");
 
-		System.out.println("                           Opção     :                ");
+		System.out.println("                           Opção:                ");
 
 		op = ent.nextInt();
 
@@ -43,7 +43,7 @@ public class Menu {
 		System.out.println("                                5 - Relatório           ");
 		System.out.println("                                0 - Menu Principal      ");
 
-		System.out.println("                                Opção  :                ");
+		System.out.println("                                Opção:                ");
 		op = ent.nextInt();
 
 		return op;

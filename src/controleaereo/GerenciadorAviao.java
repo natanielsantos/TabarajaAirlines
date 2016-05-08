@@ -14,7 +14,7 @@ public class GerenciadorAviao {
 	private int i = 0;
 	private int qtdTurbinas;
 	private int capacPassageiros;
-	private double capCarga, limiteCarga;
+	private double capCarga;
 
 	public GerenciadorAviao(ArrayList<Aviao> avs) {
 		avioes = avs;
