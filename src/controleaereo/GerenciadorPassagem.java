@@ -53,66 +53,67 @@ public class GerenciadorPassagem {
 
 			if (!(voos.isEmpty())) {
 
-						int numPassagem = i;
-						boolean cadastroPermitido = false, permitido = true;
-						boolean clientePermitido = true, vooPermitido = false;
-						double limCarga;
+				int numPassagem = i;
+				boolean cadastroPermitido = false, permitido = true;
+				boolean clientePermitido = true, vooPermitido = false;
+				double limCarga;
 
-						System.out.println("*****==[Módulo de Venda de Passagens Aereas]==*****");
-						System.out.println("             *****==[Versão 1.1]==*****");
-						System.out.println("---------------------------------------------------");
-						
-						do{
-							
-							System.out.println("Identificação                 : " + i);
-						 	System.out.println("Informe o Codigo do voo: ");
-							cod = ent.nextInt();
-							
-							if((cod >= 0 ) && (cod < voos.size())){
-								permitido = false;
-							}else{
-								System.out.println("O voo informado não existe. ");
-								System.out.println("Confira abaixo a lista de voo existente e escolha um");
-								
-								for(int i = 0; i < voos.size(); i++){
-									System.out.println("-------------------------------");
-									System.out.println("Codigo voo: " + voos.get(cod).getIdentificacao());
-									System.out.println("Lotação: " + voos.get(cod).getLotacao());
-									System.out.println("\n");
-								}
-								
-							}
-							
-						}while( permitido );
-						
-						do{
-							
-						 	System.out.println("Informe o Codigo do cliente: ");
-							codCli = ent.nextInt();
-							
-							if((codCli >= 0 ) && (codCli < clientes.size())){
-								
-								clientePermitido = false;
-								
-							}else{
-								
-								System.out.println("O cliente informado não existe. ");
-								System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
-								
-								for(int i = 0; i <= clientes.size(); i++){
-									
-									System.out.println("-------------------------------");
-									System.out.println("Codigo cliente: " + clientes.get(codCli).getIdentificacao());
-									System.out.println("\n");
-									
-								}
-								
-							}
-							
-						}while( clientePermitido );
-						
+				System.out.println("*****==[Módulo de Venda de Passagens Aereas]==*****");
+				System.out.println("             *****==[Versão 1.1]==*****");
+				System.out.println("---------------------------------------------------");
 
-						/*limCarga = voos.get(cod).getAviao().getLimiteCarga();
+				do{
+
+					System.out.println("Identificação                 : " + i);
+					System.out.println("Informe o Codigo do voo: ");
+					cod = ent.nextInt();
+
+					if((cod >= 0 ) && (cod < voos.size())){
+						permitido = false;
+					}else{
+						System.out.println("O voo informado não existe. ");
+						System.out.println("Confira abaixo a lista de voo existente e escolha um");
+
+						for(int i = 0; i < voos.size(); i++){
+							System.out.println("-------------------------------");
+							System.out.println("Codigo voo: " + voos.get(i).getIdentificacao());
+							System.out.println("Lotação: " + voos.get(i).getLotacao());
+							System.out.println("\n");
+							
+						}
+
+					}
+
+				}while( permitido );
+
+				do{
+
+					System.out.println("Informe o Codigo do cliente: ");
+					codCli = ent.nextInt();
+
+					if((codCli >= 0 ) && (codCli < clientes.size())){
+
+						clientePermitido = false;
+
+					}else{
+
+						System.out.println("O cliente informado não existe. ");
+						System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
+
+						for(int i = 0; i < clientes.size(); i++){
+
+							System.out.println("-------------------------------");
+							System.out.println("Codigo cliente: " + clientes.get(i).getIdentificacao());
+							System.out.println("\n");
+
+						}
+
+					}
+
+				}while( clientePermitido );
+
+
+				/*limCarga = voos.get(cod).getAviao().getLimiteCarga();
 
 						if (clientes.get(codCli).getCargaCliente() < limCarga) {
 
@@ -125,24 +126,24 @@ public class GerenciadorPassagem {
 							System.out.println("                            *****==[Cadastre Novamente!]==*****");
 						}*/
 
-					cliente = clientes.get(codCli);
-					voo = voos.get(cod);
+				cliente = clientes.get(codCli);
+				voo = voos.get(cod);
 
-					dataVenda = LocalDate.now();
-					horaVenda = LocalTime.now();
+				dataVenda = LocalDate.now();
+				horaVenda = LocalTime.now();
 
-					precoFinalViagem = 10; // [TESTE]
+				precoFinalViagem = 10; // [TESTE]
 
 
 			} else {
 
 				System.out
-						.println("      *****==[É necessário pelo menos 1 Voo para cadastrar uma passagem!]==*****");
+				.println("      *****==[É necessário pelo menos 1 Voo para cadastrar uma passagem!]==*****");
 			}
 
 		} else {
 			System.out
-					.println("       *****==[É necessário no mínimo 1 Cliente para cadastrar uma passagem!]==*****");
+			.println("       *****==[É necessário no mínimo 1 Cliente para cadastrar uma passagem!]==*****");
 		}
 
 		i++;
@@ -299,11 +300,11 @@ public class GerenciadorPassagem {
 	}
 
 	public void relatorios() {
-		
+
 		int resp = 0;
 
 		if (!passagens.isEmpty()) {
-			
+
 			do{
 
 				System.out.println("                                    *****==[Sub-Menu]==*****                ");
@@ -329,9 +330,9 @@ public class GerenciadorPassagem {
 					posi = ent.nextInt();
 
 					if (voos.get(posi) != null) {
-						
+
 						voos.get(posi).imprimir();
-						
+
 						qtdLugaresAviao = voos.get(posi).getAviao().getCapacPassageiros();
 						auxLotacao = voos.get(posi).getLotacao();
 						qtdDisponivel = qtdLugaresAviao - auxLotacao;
@@ -371,7 +372,7 @@ public class GerenciadorPassagem {
 				}
 
 			}while(resp != 0);
-			
+
 		}else {
 			System.out.println("Não possuem passagens vendidas para apresentar relatórios! ");
 		}

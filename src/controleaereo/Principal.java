@@ -23,6 +23,11 @@ public class Principal {
 		GerenciadorPassagem gps = new GerenciadorPassagem(vo, cls, psg);
 		
 		Menu menus = new Menu();
+		
+		menus.telaInicial();
+		
+		System.out.println("Pressione [ENTER] para entrar!");
+		ent.nextLine();
 
 		do {
 
