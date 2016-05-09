@@ -45,7 +45,7 @@ public class GerenciadorPassagem {
 		ent = new Scanner(System.in);
 	}
 
-	public void venda () {
+	public void venda() {
 
 		int cod, codCli;
 
@@ -53,24 +53,66 @@ public class GerenciadorPassagem {
 
 			if (!(voos.isEmpty())) {
 
-				if (voo.getLotacao() > passagens.size()) {
-
-					do {
 						int numPassagem = i;
-						boolean cadastroPermitido = false;
-						boolean clientePermitido = false, vooPermitido = false;
+						boolean cadastroPermitido = false, permitido = true;
+						boolean clientePermitido = true, vooPermitido = false;
 						double limCarga;
 
 						System.out.println("*****==[Módulo de Venda de Passagens Aereas]==*****");
 						System.out.println("             *****==[Versão 1.1]==*****");
 						System.out.println("---------------------------------------------------");
-						System.out.println("Identificação                 : " + i);
-						System.out.println("Informe o Código do cliente   : ");
-						codCli = ent.nextInt();
-						System.out.println("Informe o Codigo do voo       : ");
-						cod = ent.nextInt();
+						
+						do{
+							
+							System.out.println("Identificação                 : " + i);
+						 	System.out.println("Informe o Codigo do voo: ");
+							cod = ent.nextInt();
+							
+							if((cod >= 0 ) && (cod < voos.size())){
+								permitido = false;
+							}else{
+								System.out.println("O voo informado não existe. ");
+								System.out.println("Confira abaixo a lista de voo existente e escolha um");
+								
+								for(int i = 0; i < voos.size(); i++){
+									System.out.println("-------------------------------");
+									System.out.println("Codigo voo: " + voos.get(cod).getIdentificacao());
+									System.out.println("Lotação: " + voos.get(cod).getLotacao());
+									System.out.println("\n");
+								}
+								
+							}
+							
+						}while( permitido );
+						
+						do{
+							
+						 	System.out.println("Informe o Codigo do cliente: ");
+							codCli = ent.nextInt();
+							
+							if((codCli >= 0 ) && (codCli < clientes.size())){
+								
+								clientePermitido = false;
+								
+							}else{
+								
+								System.out.println("O cliente informado não existe. ");
+								System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
+								
+								for(int i = 0; i <= clientes.size(); i++){
+									
+									System.out.println("-------------------------------");
+									System.out.println("Codigo cliente: " + clientes.get(codCli).getIdentificacao());
+									System.out.println("\n");
+									
+								}
+								
+							}
+							
+						}while( clientePermitido );
+						
 
-						limCarga = voos.get(cod).getAviao().getLimiteCarga();
+						/*limCarga = voos.get(cod).getAviao().getLimiteCarga();
 
 						if (clientes.get(codCli).getCargaCliente() < limCarga) {
 
@@ -81,9 +123,7 @@ public class GerenciadorPassagem {
 							System.out.println(
 									"       *****==[A carga levada pelo passageiro excede o limite para esse voo!]==*****");
 							System.out.println("                            *****==[Cadastre Novamente!]==*****");
-						}
-
-					} while (!cadastroPermitido);
+						}*/
 
 					cliente = clientes.get(codCli);
 					voo = voos.get(cod);
@@ -91,11 +131,8 @@ public class GerenciadorPassagem {
 					dataVenda = LocalDate.now();
 					horaVenda = LocalTime.now();
 
-					precoFinalViagem = calculaPrecoViagem();
+					precoFinalViagem = 10; // [TESTE]
 
-				} else {
-					System.out.println("                         *****==[Voo Lotado!]==*****");
-				}
 
 			} else {
 
@@ -291,11 +328,12 @@ public class GerenciadorPassagem {
 					System.out.println("                         ***=[ Informe a Identificação do Voo ]=***     ");
 					posi = ent.nextInt();
 
-					voos.get(posi).imprimir();
-
-					if (voo != null) {
-						qtdLugaresAviao = voo.getAviao().getCapacPassageiros();
-						auxLotacao = voo.getLotacao();
+					if (voos.get(posi) != null) {
+						
+						voos.get(posi).imprimir();
+						
+						qtdLugaresAviao = voos.get(posi).getAviao().getCapacPassageiros();
+						auxLotacao = voos.get(posi).getLotacao();
 						qtdDisponivel = qtdLugaresAviao - auxLotacao;
 
 						System.out.println("O voo selecionado tem uma quantidade de lugares disponíveis de "
