@@ -22,14 +22,14 @@ public class GerenciadorCliente {
 
 	public void cadastrar() {
 
-		identificacao = i;
 		int res;
 
 		System.out.println("*****==[Módulo de Cadastro de Clientes]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 
 		do {
-			System.out.println("Id                       : " + i);
+			System.out.println("Identificação: ");
+			identificacao = ent.nextInt();
 			System.out.println("Digite o nome do Cliente : ");
 			nome = ent.next();
 			System.out.println("Logradouro               : ");
@@ -69,11 +69,24 @@ public class GerenciadorCliente {
 		int res;
 
 		do {
-			System.out.println("Qual posição do Cliente deseja alterar? ");
+			
+			boolean existe = true;
+			
+			System.out.println("Qual identificação do cliente deseja alterar? ");
 			int posi = ent.nextInt();
+			
+			for(int i = 0; i < clientes.size(); i++){
+				
+				if( posi == clientes.get(i).getIdentificacao()){
+					posi = i;
+					i = clientes.size() + 1;
+				}else{
+					existe = false;
+				}
+			}
 
-			if (!clientes.isEmpty() && posi >= 0) {
-
+			if (!clientes.isEmpty() && (posi >= 0) && existe ) {
+				
 				clientes.get(posi).imprimir();
 
 				System.out.println("Confirma alteração ? (1 - Sim / 2 - Não) ");
@@ -83,9 +96,7 @@ public class GerenciadorCliente {
 
 					Cliente novoCliente;
 
-					identificacao = posi;
-
-					System.out.println("Id                            : " + posi);
+					System.out.println("Identificação                 : " + identificacao);
 					System.out.println("Digite o novo nome do Cliente : ");
 					nome = ent.next();
 					System.out.println("Digite o novo Logradouro      : ");
@@ -127,13 +138,24 @@ public class GerenciadorCliente {
 
 	public void excluir() {
 
-		System.out.println("Qual a posição do cliente deseja excluir ?   ");
+		boolean existe = true;
+		
+		System.out.println("Qual a identificação do cliente deseja excluir ?   ");
 		int posi = ent.nextInt();
+		
+		for(int i = 0; i < clientes.size(); i++){
+			
+			if( posi == clientes.get(i).getIdentificacao()){
+				posi = i;
+				i = clientes.size() + 1;
+			}else{
+				existe = false;
+			}
+		}
 
-		if (!clientes.isEmpty() && posi >= 0) {
+		if (!clientes.isEmpty() && posi >= 0 && existe) {
 
-			clientes.get(posi).imprimir();
-
+			clientes.get(posi).imprimir(); 
 			System.out.println("Deseja excluir esse cliente ? (1 - Sim / 2 - Não) ");
 			int resp = ent.nextInt();
 
