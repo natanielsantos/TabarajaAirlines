@@ -17,24 +17,11 @@ public class GerenciadorPassagem {
 
 	private int numPassagem;
 	private Cliente cliente;
-	private double cargaCliente;
 	private Voo voo;
 	private Passagem passagem;
 	private LocalDate dataVenda;
 	private LocalTime horaVenda;
 	private double precoFinalViagem;
-	private boolean cadastroPermitido;
-	private String identificacao;
-	private Aviao aviao;
-	private Aeroporto aeroportoPartida;
-	private LocalDate dataPartida;
-	private LocalTime horaPartida;
-	private Aeroporto aeroportoChegada;
-	private LocalDate dataChegada;
-	private LocalTime horaChegada;
-	private int lotacao;
-	private double pesoCargaEmbarcada = 0;
-	private double precoViagem;
 
 	int i = 0;
 
@@ -48,6 +35,7 @@ public class GerenciadorPassagem {
 	public void venda() {
 
 		int cod, codCli;
+		double carga, aux;
 
 		if (!(clientes.isEmpty())) {
 
@@ -55,7 +43,7 @@ public class GerenciadorPassagem {
 
 				int numPassagem = i;
 				boolean cadastroPermitido = false, permitido = true;
-				boolean clientePermitido = true, vooPermitido = false;
+				boolean clientePermitido = true, vooPermitido = false, cargaPermitida = true;
 				double limCarga;
 
 				System.out.println("*****==[Módulo de Venda de Passagens Aereas]==*****");
@@ -63,7 +51,9 @@ public class GerenciadorPassagem {
 				System.out.println("---------------------------------------------------");
 
 				do{
-
+					
+					permitido = true;
+					
 					System.out.println("Identificação                 : " + i);
 					System.out.println("Informe o Codigo do voo: ");
 					cod = ent.nextInt();
@@ -87,6 +77,8 @@ public class GerenciadorPassagem {
 				}while( permitido );
 
 				do{
+					
+					clientePermitido = true;
 
 					System.out.println("Informe o Codigo do cliente: ");
 					codCli = ent.nextInt();
@@ -111,20 +103,37 @@ public class GerenciadorPassagem {
 					}
 
 				}while( clientePermitido );
+				
+				do{
+					
+					cargaPermitida = true;
 
+					System.out.println("Informe o peso da carga do cliente: ");
+					carga = ent.nextInt();
+					
+					aux = voos.get(cod).getPesoCargaEmbarcada();
 
-				/*limCarga = voos.get(cod).getAviao().getLimiteCarga();
+					if(carga < aux){
+						
+						carga += voos.get(cod).getPesoCargaEmbarcada();
+						voos.get(cod).setPesoCargaEmbarcada(carga);
 
-						if (clientes.get(codCli).getCargaCliente() < limCarga) {
+					}else{
 
-							clientePermitido = true;
+						System.out.println("O cliente informado não existe. ");
+						System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
 
-						} else {
+						for(int i = 0; i < clientes.size(); i++){
 
-							System.out.println(
-									"       *****==[A carga levada pelo passageiro excede o limite para esse voo!]==*****");
-							System.out.println("                            *****==[Cadastre Novamente!]==*****");
-						}*/
+							System.out.println("-------------------------------");
+							System.out.println("Codigo cliente: " + clientes.get(i).getIdentificacao());
+							System.out.println("\n");
+
+						}
+
+					}
+
+				}while( cargaPermitida );
 
 				cliente = clientes.get(codCli);
 				voo = voos.get(cod);
@@ -157,146 +166,6 @@ public class GerenciadorPassagem {
 
 	public void cancelar() {
 
-		int cod;
-
-		System.out.println("*****==[Módulo de Alteração de Passagens Aereas]==*****");
-		System.out.println("             *****==[Versão 1.1]==*****");
-		System.out.println("-------------------------------------------------------");
-		System.out.println("Qual voo deseja alterar ? (Informe a posição)");
-		int posi = ent.nextInt();
-
-		if (!voos.isEmpty() && posi >= 0) {
-
-			voos.get(posi).imprimir();
-
-			System.out.println("Deseja alterar os dados deste voo ? (1 - Sim / 2 - Não)");
-			int resp = ent.nextInt();
-
-			if (resp == 1) {
-
-				Voo novoVoo;
-
-				identificacao = "VOO-" + i;
-				System.out.println("------------------------------------------------------");
-				System.out.println("Identificação                       : " + identificacao);
-				System.out.println("Informe o Código do Avião           : ");
-				cod = ent.nextInt();
-				aviao = avioes.get(cod);
-
-				System.out.println("Informe o novo aeroporto de partida : ");
-				cod = ent.nextInt();
-				aeroportoPartida = aeroportos.get(cod);
-
-				System.out.println("Informe a nova data de partida      : ");
-				int dia, mes, ano;
-				System.out.print("    Dia  (dd)                         : ");
-				dia = ent.nextInt();
-				System.out.print("    Mês  (mm)                         : ");
-				mes = ent.nextInt();
-				System.out.print("    Ano  (aaaa)                       : ");
-				ano = ent.nextInt();
-				dataPartida = LocalDate.of(ano, mes, dia);
-
-				System.out.println("Informe a nova hora de partida      : ");
-				int hora, minutos;
-				System.out.print("   Hora                               : ");
-				hora = ent.nextInt();
-				System.out.print("   Minuto                             : ");
-				minutos = ent.nextInt();
-				horaPartida = LocalTime.of(hora, minutos);
-
-				System.out.println("Informe o novo aeroporto de chegada : ");
-				cod = ent.nextInt();
-				aeroportoPartida = aeroportos.get(cod);
-
-				System.out.println("Informe a nova data de Chegada      : ");
-				int diac, mesc, anoc;
-				System.out.print("   Dia  (dd)							: ");
-				diac = ent.nextInt();
-				System.out.print("   Mês  (mm)                          : ");
-				mesc = ent.nextInt();
-				System.out.print("   Ano  (aaaa)                        : ");
-				anoc = ent.nextInt();
-				dataPartida = LocalDate.of(anoc, mesc, diac);
-
-				System.out.println("Informe a nova hora de chegada      : ");
-				int horaC, minutosC;
-				System.out.print("   Hora                               : ");
-				horaC = ent.nextInt();
-				System.out.print("   Minuto								: ");
-				minutosC = ent.nextInt();
-				horaPartida = LocalTime.of(horaC, minutosC);
-
-				System.out.println("Lotação                             : " + aviao.getCapacPassageiros());
-				lotacao = aviao.getCapacPassageiros();
-
-				System.out.print("Novo Peso de carga embarcada          : ");
-				pesoCargaEmbarcada = ent.nextDouble();
-
-				System.out.print("Novo Preço da Viagem                  :  $ ");
-				precoViagem = ent.nextDouble();
-
-				i++;
-
-				novoVoo = new Voo(identificacao, aviao, aeroportoPartida, dataPartida, horaPartida, aeroportoChegada,
-						dataChegada, horaChegada, lotacao, pesoCargaEmbarcada, precoViagem);
-
-				voos.set(posi, novoVoo);
-
-				System.out.println("       *****==[Passagem Alterada!]==*****");
-
-			} else {
-				System.out.println("       *****==[Passagem não Alterada!]==*****");
-			}
-
-		} else {
-			System.out.println("       *****==[Voo Inexistente!]==*****");
-		}
-	}
-
-	public void excluir() {
-
-		System.out.println("*****==[Módulo de Exclusão de Passagens Aereas]==*****");
-		System.out.println("             *****==[Versão 1.1]==*****");
-		System.out.println("-------------------------------------------------------");
-		System.out.println("Qual voo deseja excluir ? (Informe a posição)");
-		int posi = ent.nextInt();
-
-		if (!voos.isEmpty() && posi >= 0) {
-
-			voos.get(posi).imprimir();
-
-			System.out.println("Deseja excluir esse voo ? (1 - Sim / 2 - Não)");
-			int resp = ent.nextInt();
-
-			if (resp == 1) {
-
-				voos.remove(posi);
-				System.out.println("       *****==[Exclusão Efetuada com Sucesso!]==*****");
-
-			} else {
-				System.out.println("       *****==[Exclusão não Efetuada!]==*****");
-			}
-		} else {
-			System.out.println("       *****==[Voo Inexistente!]==*****");
-		}
-	}
-
-	public void consultar() {
-
-		System.out.println("*****==[Módulo de Consulta de Passagens Aereas]==*****");
-		System.out.println("             *****==[Versão 1.1]==*****");
-		System.out.println("-------------------------------------------------------");
-		System.out.println("Qual posição deseja consultar ? ");
-		int posi = ent.nextInt();
-
-		if ((!voos.isEmpty()) && (posi >= 0) && posi <= voos.size()) {
-
-			voos.get(posi).imprimir();
-
-		} else {
-			System.out.println("       *****==[Voo Inexistente!]==*****");
-		}
 	}
 
 	public void relatorios() {
@@ -345,6 +214,7 @@ public class GerenciadorPassagem {
 						System.out.println("Voo inexistente!");
 						System.out.println("\n");
 					}
+					break;
 
 				case 2:
 					double totalVendido = 0;
@@ -368,6 +238,18 @@ public class GerenciadorPassagem {
 						System.out.println("Voo inexistente!");
 						System.out.println("\n");
 					}
+					break;
+					
+				case 3:
+					break;
+				case 4:
+					break;
+				case 5:
+					break;
+				case 6:
+					break;
+				default :
+					break;
 
 				}
 

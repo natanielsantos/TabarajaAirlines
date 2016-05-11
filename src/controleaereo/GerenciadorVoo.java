@@ -22,7 +22,7 @@ public class GerenciadorVoo {
 	private LocalDate dataChegada;
 	private LocalTime horaChegada;
 	private int lotacao;
-	private double pesoCargaEmbarcada = 0;
+	private double pesoCargaVoo = 0;
 	private double precoViagem;
 
 	int i = 0;
@@ -121,7 +121,7 @@ public class GerenciadorVoo {
 		i++;
 
 		voo = new Voo(identificacao, aviao, aeroportoPartida, dataPartida, horaPartida, aeroportoChegada, dataChegada,
-				horaChegada, lotacao, pesoCargaEmbarcada, precoViagem);
+				horaChegada, lotacao, pesoCargaVoo, precoViagem);
 		voos.add(voo);
 
 		System.out.println("       *****==[Voo Cadastrado!]==*****");
@@ -204,7 +204,7 @@ public class GerenciadorVoo {
 				lotacao = aviao.getCapacPassageiros();
 
 				System.out.println("Novo Peso de carga embarcada  : ");
-				pesoCargaEmbarcada = ent.nextDouble();
+				pesoCargaVoo = ent.nextDouble();
 
 				System.out.println("Novo Preçoo da viagem		  : $ ");
 				precoViagem = ent.nextDouble();
@@ -288,9 +288,17 @@ public class GerenciadorVoo {
 		}
 	}
 
-	public void somaPesoCarga(double cargaCliente) {
+	public boolean somaPesoCarga(double cargaCliente) {
 
-		pesoCargaEmbarcada += cargaCliente;
+		pesoCargaVoo += cargaCliente;
+		
+		if(pesoCargaVoo > aviao.getCapacCarga()){
+			
+			return false;
+		}else{
+			
+			return true;
+		}
 
 	}
 }

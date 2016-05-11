@@ -5,16 +5,21 @@ import java.util.Scanner;
 public class Menu {
 	
 	public void telaInicial(){
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		System.out.println("\\                    TABAJARA AIR LINES                    \\");
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		System.out.println("\\               CONTROLE DE PASSAGENS AEREAS                \\");
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
-		System.out.println("\\                                                          \\");
-		System.out.println("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\");
+		
+		Scanner ent = new Scanner(System.in);
+		
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("//                    TABAJARA AIR LINES                    //");
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("//               CONTROLE DE PASSAGENS AEREAS               //");
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("//                                                           //");
+		System.out.println("///////////////////////////////////////////////////////////////");
+		System.out.println("                 Pressione [ENTER] para entrar!            ");
+		ent.nextLine();
 	}
 	
 	public int menuPrincipal() {
@@ -30,7 +35,6 @@ public class Menu {
 		System.out.println("                           4 - Gerenciador Voos       ");
 		System.out.println("                           5 - Gerenciador Passagens  ");
 		System.out.println("                           0 - Sair                   ");
-
 		System.out.println("              ---------------------------------------------------");
 
 		System.out.println("                           Opção:                ");
@@ -39,8 +43,6 @@ public class Menu {
 
 		return op;
 	}
-
-	
 
 	public static int menu(String txt) {
 		Scanner ent = new Scanner(System.in);
