@@ -22,6 +22,8 @@ public class GerenciadorPassagem {
 	private LocalDate dataVenda;
 	private LocalTime horaVenda;
 	private double precoFinalViagem;
+	private double cargaCliente;
+	private String status;
 
 	int i = 0;
 
@@ -34,109 +36,140 @@ public class GerenciadorPassagem {
 
 	public void venda() {
 
-		int cod, codCli;
+		int posiVoo, posiCli, cod, codCli;
 		double carga, aux;
 
 		if (!(clientes.isEmpty())) {
 
 			if (!(voos.isEmpty())) {
 
-				int numPassagem = i;
-				boolean cadastroPermitido = false, permitido = true;
-				boolean clientePermitido = true, vooPermitido = false, cargaPermitida = true;
-				double limCarga;
+				int numPassagem;
+				boolean cadastroPermitido = true, permitido = true;
+				boolean clienteProibido = true, vooProibido = true, cargaProibida = true;
+				double cargaCli;
 
 				System.out.println("*****==[Módulo de Venda de Passagens Aereas]==*****");
 				System.out.println("             *****==[Versão 1.1]==*****");
 				System.out.println("---------------------------------------------------");
 
-				do{
-					
-					permitido = true;
-					
-					System.out.println("Identificação          : ");
+
+
+
+					System.out.println("Número da passagem: ");
 					numPassagem = ent.nextInt();
-					
-					System.out.println("Informe o Codigo do voo: ");
-					cod = ent.nextInt();
 
-					if((cod >= 0 ) && (cod < voos.size())){
-						permitido = false;
-					}else{
-						System.out.println("O voo informado não existe. ");
-						System.out.println("Confira abaixo a lista de voo existente e escolha um");
+               // INICIO VERIFICA SE O VOO É PERMITIDO
+					do{
 
-						for (Voo voo : voos){
-							voo.imprimir();
-							System.out.println("-----------------------");
-						}
+								boolean existe = false;
 
-					}
+								System.out.println("Informe a identificação do voo: ");
+								String ident = ent.next();
 
-				}while( permitido );
+									  for(int i = 0; i < voos.size(); i++){
 
-				do{
-					
-					clientePermitido = true;
+													if(voos.get(i).getIdentificacao().equals(ident)){
+															if(voos.get(i).getQtdPassageiros() < voo.get(i).getLotacao){
+																	posiVoo = i;
+																	i = voos.size() + 1;
+																	existe = true;
+															}else{
+																	Sytem.out.println("Este VOO está lotado!");
+																	existe = false;
+															}
+													}else{
+															existe = false;
+														}
+										}
 
-					System.out.println("Informe o Codigo do cliente: ");
-					codCli = ent.nextInt();
+										if ( existe ) {
+											vooProibido = false;
+										}else{
+											System.out.println("O voo informado não existe ou está lotado! ");
+											System.out.println("Confira os voos existentes: ");
 
-					if((codCli >= 0 ) && (codCli < clientes.size())){
+											for (Voo voo : voos){
+												voo.imprimir();
+												System.out.println("-----------------------");
+											}
 
-						clientePermitido = false;
+										}
+					}while( vooProibido );
 
-					}else{
+                // FIM VERIFICA SE O VOO É PERMITIDO
 
-						System.out.println("O cliente informado não existe. ");
-						System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
 
-						for(Cliente cli : clientes){
-							cli.imprimir();;
-						}
+                 // INICIO VERIFICA SE O CLIENTE É PERMITIDO
+					do{
 
-					}
+								boolean existe = false;
 
-				}while( clientePermitido );
-				
-				do{
-					
-					cargaPermitida = true;
+								System.out.println("Informe a identificação do cliente: ");
+								String ident = ent.next();
 
-					System.out.println("Informe o peso da carga do cliente: ");
-					carga = ent.nextInt();
-					
-					aux = voos.get(cod).getPesoCargaEmbarcada();
+									  for(int i = 0; i < clientes.size(); i++){
 
-					if(carga < aux){
-						
-						carga += voos.get(cod).getPesoCargaEmbarcada();
-						voos.get(cod).setPesoCargaEmbarcada(carga);
+													if(clientes.get(i).getIdentificacao().equals(ident)){
+																	posiCli = i;
+																	i = clientes.size() + 1;
+																	existe = true;
+													}
+										}
 
-					}else{
+										if ( existe ) {
+											clienteProibido = false;
+										}else{
+											System.out.println("O cliente informado não existe ");
+											System.out.println("Confira os clientes existentes: ");
 
-						System.out.println("O cliente informado não existe. ");
-						System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
+											for (Cliente cli : clientes){
+												cli.imprimir();
+												System.out.println("-----------------------");
+											}
 
-						for(int i = 0; i < clientes.size(); i++){
+										}
+					}while( clienteProibido );
 
-							System.out.println("-------------------------------");
-							System.out.println("Codigo cliente: " + clientes.get(i).getIdentificacao());
-							System.out.println("\n");
+                // FIM VERIFICA SE O CLIENTE É PERMITIDO
 
-						}
 
-					}
+                 // INICIO VERIFICA CARGA
+					do{
 
-				}while( cargaPermitida );
+								boolean existe = false;
+								double cargaAux;
 
-				cliente = clientes.get(codCli);
-				voo = voos.get(cod);
+								System.out.println("Informe a carga do cliente: ");
+								cargaCli = ent.nextDouble();
 
+										valorEmbarcado = voos.get(posiVoo).getPesoCargaEmbarcada();
+										valorLimiteCarga = voos.get(posiVoo).getAviao().getCapacCarga();
+
+										cargaAux = valorLimiteCarga - valorEmbarcado;
+
+										if ( cargaCli <= cargaAux ) {
+
+											valorEmbarcado += cargaCli;
+											voos.get(posiVoo).setPesoCargaEmbarcada(valorEmbarcado);
+											cargaProibida = false;
+
+										}else{
+											System.out.println("A carga do cliente excede o limite para este voo!");
+											System.out.println("Informe uma carga menor ou 0!");
+										}
+					}while( cargaProibida );
+
+                // FIM VERIFICA CARGA
+
+
+
+				cliente = clientes.get(posiCli);
+				voo = voos.get(posiVoo);
+				cargaCliente = cargaCli;
 				dataVenda = LocalDate.now();
 				horaVenda = LocalTime.now();
 
-				precoFinalViagem = 10; // [TESTE]
+				precoFinalViagem = calculaPrecoViagem(posiVoo);
 
 
 			} else {
@@ -160,6 +193,62 @@ public class GerenciadorPassagem {
 	}
 
 	public void cancelar() {
+
+		if(!(passagens.empty()){
+
+			do{
+				System.out.println)("Informe o número da passagem que deseja cancelar: ");
+				numPsg = ent.nextInt();
+
+					for(int i = 0; i < passagens.size(); i++){
+
+						if(passagens.get(i).getNumPassagem() == numPsg){
+
+							int qtdNova = passagens.get(i).getVoo().getQtdPassageiros();
+							double cargaDoVoo = passagens.get(i).getVoo().getPesoCargaEmbarcada();
+							double cargaDoPassageiro = passagens.get(i).getCargaCliente;
+							double cargaNova = 0;
+
+							passagens.get(numPsg).imprimir();
+							System.out.println("Deseja cancelar essa passagem ? (1 - Sim / 2 - Não) ");
+							int resp = ent.nextInt();
+
+							if (resp == 1) {
+
+								passagens.remove(numPsg);
+
+								passagens.get(i).setStatus("Cancelada");
+								qtdNova--;
+								cargaNova = cargaDoVoo - cargaDoPassageiro;
+
+								passagens.get(i).getVoo().setQtdPassageiros(qtdNova);
+								passagens.get(i).getVoo().setPesoCargaEmbarcada(cargaNova);
+
+								posi = i;
+								i = passagens.size() + 1;
+
+								existe = true;
+
+
+								System.out.println("         *****==[Exclusão Efetuada com Sucesso!!]==*****");
+
+							} else {
+								System.out.println("         *****==[Exclusã não efetuada não Efetuada!]==*****");
+							}
+
+
+						}else{
+
+							System.out.println)("Essa passagem não existe!");
+							existe = false;
+						}
+					}while( exise );
+
+
+		}else{
+
+			System.out.println)("Não existem passagens cadastradas!");
+		}
 
 	}
 
@@ -234,7 +323,7 @@ public class GerenciadorPassagem {
 						System.out.println("\n");
 					}
 					break;
-					
+
 				case 3:
 					break;
 				case 4:
@@ -255,25 +344,24 @@ public class GerenciadorPassagem {
 		}
 	}
 
-	public void somaPesoCarga(double cargaCliente) {
+	public double calculaPrecoViagem(int posiVoo) {
 
-		pesoCargaEmbarcada += cargaCliente;
-
-	}
-
-	public double calculaPrecoViagem() {
-
-		int diferencaDias = dataPartida.compareTo(dataVenda);
+		int diferencaDias = voos.get(posi).getDataPartida.compareTo(dataVenda);
 		double passagemComDesconto = 0;
-		double preco = 0;
 
 		if (diferencaDias < 10) {
-			passagemComDesconto = precoViagem;
 
-		} else if (diferencaDias == 10) {
-			passagemComDesconto = precoViagem - ((precoViagem / 100) * 5.3);
+			precoViagem = precoViagem - ((precoViagem / 100) * 5.3);
+
+		} else {
+
+			precoViagem = precoViagem - ((precoViagem / 100) * 7.4);
+
 		}
+
 		return precoViagem;
 
 	}
 }
+
+
