@@ -58,7 +58,6 @@ public class Aeroporto {
 	}
 
 	public void imprimir() {
-		System.out.println("***********************************");
 		System.out.println("Identificação    : " + identificacao);
 		System.out.println("Nome             : " + nome);
 		System.out.println("Município        : " + municipio);

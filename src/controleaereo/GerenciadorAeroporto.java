@@ -28,7 +28,8 @@ public class GerenciadorAeroporto {
 		System.out.println("*****==[Módulo de Cadastro de Aeroportos]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("------------------------------------------------");
-		System.out.println("Identificação     : " + identificacao);
+		System.out.println("Identificação     : ");
+		identificacao = ent.next();
 		System.out.println("Nome              : ");
 		nome = ent.next();
 		System.out.println("Município         : ");
@@ -49,14 +50,28 @@ public class GerenciadorAeroporto {
 	}
 
 	public void alterar() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[Módulo de Alteração de Aeroportos]==*****");
 		System.out.println("           *****==[Versão 1.1]==*****");
 		System.out.println("-------------------------------------------------");
 		System.out.println("Qual aeroporto deseja alterar? (Informe a posição)");
-		int posi = ent.nextInt();
+		String ident = ent.next();
 
-		if ((!aeroportos.isEmpty()) && (posi >= 0) && (posi <= aeroportos.size())) {
+		for(int i = 0; i < aeroportos.size(); i++){
+
+			if(aeroportos.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = aeroportos.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!aeroportos.isEmpty()) && existe ) {
 
 			aeroportos.get(posi).imprimir();
 
@@ -70,7 +85,8 @@ public class GerenciadorAeroporto {
 				identificacao = "AERO-" + posi;
 
 				System.out.println("-------------------------------------------");
-				System.out.println("Identificação            : " + identificacao);
+				System.out.println("Identificação            : ");
+				identificacao = ent.next();
 				System.out.println("Informe o novo nome      : ");
 				nome = ent.next();
 				System.out.println("Informe o novo Município : ");
@@ -98,15 +114,28 @@ public class GerenciadorAeroporto {
 	}
 
 	public void excluir() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[Módulo de Exclusão de Aeroportos]==*****");
 		System.out.println("           *****==[Versão 1.1]==*****");
 		System.out.println("------------------------------------------------");
-		System.out.println("Qual aeroporto deseja excluir ? (Informe a posição)");
-		int posi = ent.nextInt();
+		System.out.println("Qual a identificação do aeroporto deseja excluir ? (Informe a posição)");
+		String ident = ent.next();
 
-		if ((!aeroportos.isEmpty()) && (posi >= 0) && (posi <= aeroportos.size())) {
+		for(int i = 0; i < aeroportos.size(); i++){
 
+			if(aeroportos.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = aeroportos.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!aeroportos.isEmpty()) && existe ) {
 			aeroportos.get(posi).imprimir();
 
 			System.out.println("Deseja excluir esse aeroporto ? (1 - Sim / 2 - Não)");
@@ -128,14 +157,28 @@ public class GerenciadorAeroporto {
 	}
 
 	public void consultar() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[Módulo de Consulta de Aeroportos]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("------------------------------------------------");
 		System.out.println("Qual a posição deseja consultar ?   ");
-		int posi = ent.nextInt();
+		String ident = ent.next();
 
-		if ((!aeroportos.isEmpty()) && (posi >= 0) && (posi <= aeroportos.size())) {
+		for(int i = 0; i < aeroportos.size(); i++){
+
+			if(aeroportos.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = aeroportos.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!aeroportos.isEmpty()) && existe ) {
 
 			aeroportos.get(posi).imprimir();
 
@@ -147,11 +190,10 @@ public class GerenciadorAeroporto {
 	public void imprimir() {
 
 		if (!aeroportos.isEmpty()) {
-			for (int i = 0; i < aeroportos.size(); i++) {
-
-				System.out.println("---------=======---------");
-				aeroportos.get(i).imprimir();
-				System.out.println("---------=======---------");
+			
+			for (Aeroporto aero :  aeroportos){
+				aero.imprimir();
+				System.out.println("-----------------------------");
 			}
 
 		} else {
