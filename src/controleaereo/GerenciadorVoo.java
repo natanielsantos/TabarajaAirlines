@@ -38,7 +38,7 @@ public class GerenciadorVoo {
 
 		int posi = 0;
 		String ident;
-		boolean aviaoExiste = true, aeroportoExiste = true;
+		boolean aviaoExiste = true, aeroportoExiste = true, continua = true;
 
 		if (!avioes.isEmpty()) {
 
@@ -149,11 +149,17 @@ public class GerenciadorVoo {
 				minutosC = ent.nextInt();
 				horaChegada = LocalTime.of(horaC, minutosC);
 
-				System.out.println("Lotação                     : " + aviao.getCapacPassageiros());
-				lotacao = aviao.getCapacPassageiros();
-				
-				System.out.println("Peso da carga embarcada     : $");
-				pesoCargaEmbarcada = ent.nextDouble();
+				do{
+					System.out.println("Lotação                     : ";
+					int lot = ent.nextInt; 
+					
+					if( lot < aviao.getCapacPassageiros()){
+						lotacao = lot;
+						continua = false;
+					}else{
+						System.out.println("A lotação deve ser inferior à capacidade de carga do avião");
+					}
+				}while( continua );
 
 				System.out.println("Preço da viagem				: $");
 				precoViagem = ent.nextDouble();
