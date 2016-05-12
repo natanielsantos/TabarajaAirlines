@@ -11,10 +11,9 @@ public class Cliente {
 	private String estado;
 	private String cep;
 	private String telefone;
-	private double cargaCliente;
 
 	public Cliente(int identificacao, String nome, String logradouro, String numero, String bairro, String municipio,
-			String estado, String cep, String telefone, double cargaCliente) {
+			String estado, String cep, String telefone) {
 
 		this.identificacao = identificacao;
 		this.nome = nome;
@@ -25,7 +24,6 @@ public class Cliente {
 		this.estado = estado;
 		this.cep = cep;
 		this.telefone = telefone;
-		this.cargaCliente = cargaCliente;
 	}
 
 	public int getIdentificacao() {
@@ -100,13 +98,6 @@ public class Cliente {
 		this.telefone = telefone;
 	}
 
-	public double getCargaCliente() {
-		return cargaCliente;
-	}
-
-	public void setCargaCliente(double cargaCliente) {
-		this.cargaCliente = cargaCliente;
-	}
 
 	public void imprimir() {
 		System.out.println("Identificação    : " + identificacao);
@@ -118,7 +109,6 @@ public class Cliente {
 		System.out.println("Estado           : " + estado);
 		System.out.println("CEP              : " + cep);
 		System.out.println("Telefone         : " + telefone);
-		System.out.println("Carga Cliente    : " + cargaCliente);
 	}
 
 }
