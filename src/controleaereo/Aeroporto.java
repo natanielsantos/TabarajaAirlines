@@ -10,7 +10,7 @@ public class Aeroporto {
 
 	public Aeroporto(String identificacao, String nome, String municipio, String estado, String pais) {
 
-		this.identificacao = identificacao;
+		this.identificacao = identificaca;
 		this.nome = nome;
 		this.municipio = municipio;
 		this.estado = estado;
