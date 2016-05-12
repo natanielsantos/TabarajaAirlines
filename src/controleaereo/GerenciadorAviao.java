@@ -28,7 +28,8 @@ public class GerenciadorAviao {
 		System.out.println("*****==[Módulo de Cadastro de Aviões]==*****");
 		System.out.println("        *****==[Versão 1.1]==*****");
 		System.out.println("--------------------------------------------");
-		System.out.println("Identificação             : " + identificacao);
+		System.out.println("Identificação             : ");
+		identificacao = ent.next();
 		System.out.println("Modelo                    : ");
 		modelo = ent.next();
 		System.out.println("Quantidade de Turbinas    : ");
@@ -44,20 +45,34 @@ public class GerenciadorAviao {
 
 		avioes.add(aviao);
 
-		System.out.println("       *****==[Avião Cadastrado com Sucesso!!]==*****");
+		System.out.println("       *****==[AVIÃO Cadastrado com Sucesso!!]==*****");
 
 	}
 
 	public void alterar() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[Módulo de Alteração de Aviões]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("---------------------------------------------");
 		System.out.println("Qual a posição do avião deseja alterar ? ");
-		int posi = ent.nextInt();
+		String ident = ent.next();
+		
+		for(int i = 0; i < avioes.size(); i++){
 
-		if ((!avioes.isEmpty()) && (posi >= 0) && (posi <= avioes.size())) {
+			if(avioes.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = avioes.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
 
+		if ((!avioes.isEmpty()) && existe) {
+			
 			avioes.get(posi).imprimir();
 
 			System.out.println("Deseja alterar os dados deste avião ? (1 - Sim / 2 - Não)");
@@ -67,10 +82,9 @@ public class GerenciadorAviao {
 
 				Aviao novoAviao;
 
-				identificacao = "AV-" + posi;
-
 				System.out.println("-------------------------------------------------");
-				System.out.println("Identificação                            : " + identificacao);
+				System.out.println("Identificação                            : ");
+				identificacao = ent.next();
 				System.out.println("Informe o novo Modelo                    : ");
 				modelo = ent.next();
 				System.out.println("Informe a nova quantidade de Turbinas    : ");
@@ -86,75 +100,104 @@ public class GerenciadorAviao {
 
 				avioes.set(posi, novoAviao);
 
-				System.out.println("       *****==[Avião Alterado com Sucesso!]==*****");
+				System.out.println("       *****==[AVIÃO Alterado com Sucesso!]==*****");
 
 			} else {
 				System.out.println("       *****==[Alteração não Efetuada!]==*****");
 			}
 
 		} else {
-			System.out.println("       *****==[Avião Inexistente!]==*****");
+			System.out.println("       *****==[ Este AVIÃO não existe]==*****");
 		}
 	}
 
 	public void excluir() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[Módulo de Exclusão de Aviões]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("---------------------------------------------");
-		System.out.println("Qual a posição do Avião deseja excluir ? ");
-		int posi = ent.nextInt();
+		System.out.println("Qual a identificação do AVIÃO que deseja excluir? ");
+		
+		String ident = ent.next();
 
-		if ((!avioes.isEmpty()) && (posi >= 0) && (posi <= avioes.size())) {
+		for(int i = 0; i < avioes.size(); i++){
+
+			if(avioes.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = avioes.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!avioes.isEmpty()) && existe ) {
 
 			avioes.get(posi).imprimir();
 
-			System.out.println("Deseja excluir esse Avião ? (1 - Sim / 2 - Não)");
+			System.out.println("Deseja excluir esse AVIÃO ? (1 - Sim / 2 - Não)");
 			int resp = ent.nextInt();
 
 			if (resp == 1) {
 
 				avioes.remove(posi);
-				System.out.println("       *****==[Avião Excluído com Sucesso!]==*****");
+				System.out.println("       *****==[AVIÃO Excluído com Sucesso!]==*****");
 
 			} else {
 				System.out.println("       *****==[Exclusão não Efetuada!]==*****");
 			}
 
 		} else {
-			System.out.println("       *****==[Avião Inexistente!]==*****");
+			System.out.println("       *****==[Este AVIÃO existe!]==*****");
 		}
 	}
 
 	public void consultar() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[Módulo de Consulta de Aviões]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("---------------------------------------------");
-		System.out.println("Qual a posição deseja consultar ? ");
-		int posi = ent.nextInt();
+		System.out.println("Qual a identificação do AVIÃO que deseja consultar ? ");
+		String ident = ent.next();
 
-		if ((!avioes.isEmpty()) && (posi >= 0) && (posi <= avioes.size())) {
+		for(int i = 0; i < avioes.size(); i++){
+
+			if(avioes.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = avioes.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+
+		if ((!avioes.isEmpty()) && existe ) {
 
 			avioes.get(posi).imprimir();
 
 		} else {
-			System.out.println("       *****==[Avião Inexistente!]==*****");
+			System.out.println("       *****==[Este AVIÃO não existe!]==*****");
 		}
 	}
 
 	public void imprimir() {
 
 		if (!avioes.isEmpty()) {
-			for (int i = 0; i < avioes.size(); i++) {
-
-				System.out.println("---------=======---------");
-				avioes.get(i).imprimir();
-				System.out.println("---------=======---------");
+		
+			for (Aviao av : avioes){
+				av.imprimir();
+				System.out.println("------------------------------");
 			}
 
 		} else {
-			System.out.println("       *****==[Não existe Aviões Cadastrados!]==*****");
+			System.out.println("       *****==[Não existem AVIÕES Cadastrados!]==*****");
 		}
 	}
 }

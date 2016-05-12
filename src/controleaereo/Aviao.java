@@ -70,17 +70,8 @@ public class Aviao {
 		System.out.println("Modelo                    : " + modelo);
 		System.out.println("Quantidade de Turbinas    : " + qtdTurbinas);
 		System.out.println("Capacidade de Passageiros : " + capacPassageiros);
-		System.out.println("Cpacidade de Carga        : " + capacCarga);
-
-		calculaLimiteCarga();
-
-		System.out.println("Limite                    : " + limiteCarga);
-	}
-
-	public void calculaLimiteCarga() {
-
-		limiteCarga = capacCarga / capacPassageiros;
+		System.out.println("Capacidade de Carga       : " + capacCarga);
 
 	}
-
 }
+
