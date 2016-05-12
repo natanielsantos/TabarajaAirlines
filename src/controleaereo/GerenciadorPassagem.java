@@ -92,7 +92,7 @@ public class GerenciadorPassagem {
 						System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
 
 						for(Cliente cli : clientes){
-							cli.i
+							cli.imprimir();;
 						}
 
 					}
