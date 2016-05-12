@@ -54,7 +54,9 @@ public class GerenciadorPassagem {
 					
 					permitido = true;
 					
-					System.out.println("Identificação                 : " + i);
+					System.out.println("Identificação          : ");
+					numPassagem = ent.nextInt();
+					
 					System.out.println("Informe o Codigo do voo: ");
 					cod = ent.nextInt();
 
@@ -64,12 +66,9 @@ public class GerenciadorPassagem {
 						System.out.println("O voo informado não existe. ");
 						System.out.println("Confira abaixo a lista de voo existente e escolha um");
 
-						for(int i = 0; i < voos.size(); i++){
-							System.out.println("-------------------------------");
-							System.out.println("Codigo voo: " + voos.get(i).getIdentificacao());
-							System.out.println("Lotação: " + voos.get(i).getLotacao());
-							System.out.println("\n");
-							
+						for (Voo voo : voos){
+							voo.imprimir();
+							System.out.println("-----------------------");
 						}
 
 					}
@@ -92,12 +91,8 @@ public class GerenciadorPassagem {
 						System.out.println("O cliente informado não existe. ");
 						System.out.println("Confira abaixo a lista de clientes existente e escolha um: ");
 
-						for(int i = 0; i < clientes.size(); i++){
-
-							System.out.println("-------------------------------");
-							System.out.println("Codigo cliente: " + clientes.get(i).getIdentificacao());
-							System.out.println("\n");
-
+						for(Cliente cli : clientes){
+							cli.i
 						}
 
 					}

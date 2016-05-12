@@ -36,7 +36,7 @@ public class GerenciadorVoo {
 
 	public void cadastrar() {
 
-		int cod, posi = 0;
+		int posi = 0;
 		String ident;
 		boolean aviaoExiste = true, aeroportoExiste = true;
 
