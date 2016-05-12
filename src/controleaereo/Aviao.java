@@ -6,7 +6,7 @@ public class Aviao {
 	private String modelo;
 	private int qtdTurbinas;
 	private int capacPassageiros;
-	private double capacCarga, limiteCarga;
+	private double capacCarga;
 
 	public Aviao(String identificacao, String modelo, int qtdTurbinas, int capacPassageiros, double capacCarga) {
 
@@ -55,14 +55,6 @@ public class Aviao {
 
 	public void setCapacCarga(double capacCarga) {
 		this.capacCarga = capacCarga;
-	}
-
-	public double getLimiteCarga() {
-		return limiteCarga;
-	}
-
-	public void setLimiteCarga(double limiteCarga) {
-		this.limiteCarga = limiteCarga;
 	}
 
 	public void imprimir() {
