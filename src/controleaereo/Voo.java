@@ -16,6 +16,7 @@ public class Voo {
 	private int lotacao;
 	private double pesoCargaEmbarcada;
 	private double precoViagem;
+	private int qtdPassageiros;
 
 	public Voo(String identificacao, Aviao aviao, Aeroporto aeroportoPartida, LocalDate dataPartida,
 			LocalTime horaPartida, Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada,
@@ -120,6 +121,14 @@ public class Voo {
 
 	public void setIdentificacao(String identificacao) {
 		this.identificacao = identificacao;
+	}
+	
+	public int getQtdPassageiros() {
+		return qtdPassageiros;
+	}
+
+	public void setQtdPassageiros(int qtdPassageiros) {
+		this.qtdPassageiros = qtdPassageiros;
 	}
 
 	public void imprimir() {
