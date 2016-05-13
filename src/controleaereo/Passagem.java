@@ -22,6 +22,9 @@ public class Passagem {
 		this.dataVenda = dataVenda;
 		this.horaVenda = horaVenda;
 		this.precoFinalViagem = precoFinalViagem;
+		this.numPassagem = numPassagem;
+		this.cargaCliente = cargaCliente;
+		this.status = status;
 	}
 
 	public Cliente getCliente() {

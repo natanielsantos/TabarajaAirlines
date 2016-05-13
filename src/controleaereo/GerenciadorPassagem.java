@@ -55,8 +55,8 @@ public class GerenciadorPassagem {
 
 
 
-					System.out.println("Número da passagem: ");
-					numPassagem = ent.nextInt();
+				System.out.println("Número da passagem: ");
+				numPassagem = ent.nextInt();
 
                // INICIO VERIFICA SE O VOO É PERMITIDO
 					do{
@@ -168,8 +168,15 @@ public class GerenciadorPassagem {
 				status = "REGULAR";
 				dataVenda = LocalDate.now();
 				horaVenda = LocalTime.now();
-
 				precoFinalViagem = calculaPrecoViagem(posiVoo);
+				
+				i++;
+
+				passagem = new Passagem(numPassagem, cliente, voo, dataVenda, horaVenda, precoFinalViagem, cargaCliente, status);
+
+				passagens.add(passagem);
+
+				System.out.println("       *****==[Passagem Cadastrada!]==*****");
 
 
 			} else {
@@ -183,13 +190,7 @@ public class GerenciadorPassagem {
 			.println("       *****==[É necessário no mínimo 1 Cliente para cadastrar uma passagem!]==*****");
 		}
 
-		i++;
-
-		passagem = new Passagem(numPassagem, cliente, voo, dataVenda, horaVenda, precoFinalViagem, cargaCliente, status);
-
-		passagens.add(passagem);
-
-		System.out.println("       *****==[Passagem Cadastrada!]==*****");
+		
 	}
 
 	public void cancelar() {
@@ -202,7 +203,7 @@ public class GerenciadorPassagem {
 			do{
 				System.out.println("Informe o número da passagem que deseja cancelar: ");
 				int numPsg = ent.nextInt();
-for(int i = 0; i < passagens.size(); i++){
+				for(int i = 0; i < passagens.size(); i++){
 						
 						nP = passagens.get(i).getNumPassagem();
 						if( nP == numPsg){
@@ -212,16 +213,14 @@ for(int i = 0; i < passagens.size(); i++){
 							double cargaDoPassageiro = passagens.get(i).getCargaCliente();
 							double cargaNova = 0;
 
-							passagens.get(numPsg).imprimir();
+							passagens.get(i).imprimir();
 							
 							System.out.println("Deseja cancelar essa passagem ? (1 - Sim / 2 - Não) ");
 							int resp = ent.nextInt();
 
 							if (resp == 1) {
 
-								passagens.remove(i);
-
-								passagens.get(i).setStatus("Cancelada");
+								passagens.get(i).setStatus("CANCELADA");
 								qtdNova--;
 								cargaNova = cargaDoVoo - cargaDoPassageiro;
 
@@ -233,11 +232,10 @@ for(int i = 0; i < passagens.size(); i++){
 
 								existe = true;
 
-
-								System.out.println("         *****==[Exclusão Efetuada com Sucesso!!]==*****");
+								System.out.println("         *****==[Cancelamento Efetuada com Sucesso!!]==*****");
 
 							} else {
-								System.out.println("         *****==[Exclusão não efetuada não Efetuada!]==*****");
+								System.out.println("         *****==[Cancelamento não efetuada não Efetuada!]==*****");
 							}
 
 						}else{
