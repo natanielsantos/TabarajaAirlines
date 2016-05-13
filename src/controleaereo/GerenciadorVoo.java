@@ -150,8 +150,8 @@ public class GerenciadorVoo {
 				horaChegada = LocalTime.of(horaC, minutosC);
 
 				do{
-					System.out.println("Lotação                     : ";
-					int lot = ent.nextInt; 
+					System.out.println("Lotação                     :");
+					int lot = ent.nextInt(); 
 					
 					if( lot < aviao.getCapacPassageiros()){
 						lotacao = lot;

@@ -25,6 +25,7 @@ public class GerenciadorPassagem {
 	private double cargaCliente;
 	private String status;
 
+
 	int i = 0;
 
 	public GerenciadorPassagem(ArrayList<Voo> vo, ArrayList<Cliente> cls, ArrayList<Passagem> psg) {
@@ -33,18 +34,17 @@ public class GerenciadorPassagem {
 		passagens = psg;
 		ent = new Scanner(System.in);
 	}
+	
 
 	public void venda() {
 
-		int posiVoo, posiCli, cod, codCli;
-		double carga, aux;
+		int posiVoo = 0, posiCli = 0;
+
 
 		if (!(clientes.isEmpty())) {
 
 			if (!(voos.isEmpty())) {
 
-				int numPassagem;
-				boolean cadastroPermitido = true, permitido = true;
 				boolean clienteProibido = true, vooProibido = true, cargaProibida = true;
 				double cargaCli;
 
@@ -69,12 +69,12 @@ public class GerenciadorPassagem {
 									  for(int i = 0; i < voos.size(); i++){
 
 													if(voos.get(i).getIdentificacao().equals(ident)){
-															if(voos.get(i).getQtdPassageiros() < voo.get(i).getLotacao){
+															if(voos.get(i).getQtdPassageiros() < voos.get(i).getLotacao()){
 																	posiVoo = i;
 																	i = voos.size() + 1;
 																	existe = true;
 															}else{
-																	Sytem.out.println("Este VOO está lotado!");
+																	System.out.println("Este VOO está lotado!");
 																	existe = false;
 															}
 													}else{
@@ -105,11 +105,11 @@ public class GerenciadorPassagem {
 								boolean existe = false;
 
 								System.out.println("Informe a identificação do cliente: ");
-								String ident = ent.next();
+								posiCli = ent.nextInt();
 
 									  for(int i = 0; i < clientes.size(); i++){
 
-													if(clientes.get(i).getIdentificacao().equals(ident)){
+													if(clientes.get(i).getIdentificacao() == posiCli){
 																	posiCli = i;
 																	i = clientes.size() + 1;
 																	existe = true;
@@ -136,8 +136,7 @@ public class GerenciadorPassagem {
                  // INICIO VERIFICA CARGA
 					do{
 
-								boolean existe = false;
-								double cargaAux;
+								double cargaAux, valorEmbarcado, valorLimiteCarga;
 
 								System.out.println("Informe a carga do cliente: ");
 								cargaCli = ent.nextDouble();
@@ -166,6 +165,7 @@ public class GerenciadorPassagem {
 				cliente = clientes.get(posiCli);
 				voo = voos.get(posiVoo);
 				cargaCliente = cargaCli;
+				status = "REGULAR";
 				dataVenda = LocalDate.now();
 				horaVenda = LocalTime.now();
 
@@ -185,7 +185,7 @@ public class GerenciadorPassagem {
 
 		i++;
 
-		passagem = new Passagem(numPassagem, cliente, voo, dataVenda, horaVenda, precoFinalViagem);
+		passagem = new Passagem(numPassagem, cliente, voo, dataVenda, horaVenda, precoFinalViagem, cargaCliente, status);
 
 		passagens.add(passagem);
 
@@ -193,29 +193,33 @@ public class GerenciadorPassagem {
 	}
 
 	public void cancelar() {
-
-		if(!(passagens.empty()){
+		
+		boolean existe = true;
+		int posi = 0, nP;
+		
+		if(!(passagens.isEmpty())){
 
 			do{
-				System.out.println)("Informe o número da passagem que deseja cancelar: ");
-				numPsg = ent.nextInt();
-
-					for(int i = 0; i < passagens.size(); i++){
-
-						if(passagens.get(i).getNumPassagem() == numPsg){
+				System.out.println("Informe o número da passagem que deseja cancelar: ");
+				int numPsg = ent.nextInt();
+for(int i = 0; i < passagens.size(); i++){
+						
+						nP = passagens.get(i).getNumPassagem();
+						if( nP == numPsg){
 
 							int qtdNova = passagens.get(i).getVoo().getQtdPassageiros();
 							double cargaDoVoo = passagens.get(i).getVoo().getPesoCargaEmbarcada();
-							double cargaDoPassageiro = passagens.get(i).getCargaCliente;
+							double cargaDoPassageiro = passagens.get(i).getCargaCliente();
 							double cargaNova = 0;
 
 							passagens.get(numPsg).imprimir();
+							
 							System.out.println("Deseja cancelar essa passagem ? (1 - Sim / 2 - Não) ");
 							int resp = ent.nextInt();
 
 							if (resp == 1) {
 
-								passagens.remove(numPsg);
+								passagens.remove(i);
 
 								passagens.get(i).setStatus("Cancelada");
 								qtdNova--;
@@ -233,21 +237,20 @@ public class GerenciadorPassagem {
 								System.out.println("         *****==[Exclusão Efetuada com Sucesso!!]==*****");
 
 							} else {
-								System.out.println("         *****==[Exclusã não efetuada não Efetuada!]==*****");
+								System.out.println("         *****==[Exclusão não efetuada não Efetuada!]==*****");
 							}
-
 
 						}else{
 
-							System.out.println)("Essa passagem não existe!");
 							existe = false;
 						}
-					}while( exise );
-
+					}
+					
+				}while( existe );
 
 		}else{
 
-			System.out.println)("Não existem passagens cadastradas!");
+			System.out.println("Não existem passagens cadastradas!");
 		}
 
 	}
@@ -346,8 +349,8 @@ public class GerenciadorPassagem {
 
 	public double calculaPrecoViagem(int posiVoo) {
 
-		int diferencaDias = voos.get(posi).getDataPartida.compareTo(dataVenda);
-		double passagemComDesconto = 0;
+		int diferencaDias = voos.get(posiVoo).getDataPartida().compareTo(dataVenda);
+		double precoViagem = voos.get(posiVoo).getPrecoViagem();
 
 		if (diferencaDias < 10) {
 
