@@ -2,205 +2,178 @@ package controleaereo;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import DAO.ClienteDAO;
 
 public class GerenciadorCliente {
 
-	Scanner ent;
-	private Cliente cliente;
-	private ArrayList<Cliente> clientes;
+    Scanner ler = new Scanner(System.in);
+    private final ClienteDAO CliBd = new ClienteDAO();
 
-	String nome, logradouro, bairro, numero, municipio, estado, cep, telefone;
+    public GerenciadorCliente() {
 
-	double cargaCliente;
+    }
 
-	int i = 0, identificacao;
+    public void cadastrar() {
+        String nome;
+        long cod;
+        Cliente cli = new Cliente();
+        try {
+            System.out.println("==Inserção de Clientes==");
+            System.out.println("Digite os dados do novo cliente: \n");
 
-	public GerenciadorCliente(ArrayList<Cliente> cls) {
-		clientes = cls;
-		ent = new Scanner(System.in);
-	}
+            System.out.println("Identificação :");
+            cli.setIdentificacao(ler.nextInt());
+            ler.next();
+            System.out.println("Nome: ");
+            cli.setNome(ler.nextLine());
+            System.out.println("Logradouro: ");
+            cli.setLogradouro(ler.nextLine());
+            System.out.println("Numero: ");
+            cli.setNumero(ler.nextInt());
+            System.out.println("Bairro: ");
+            cli.setBairro(ler.nextLine());
+            System.out.println("Município: ");
+            cli.setMunicípio(ler.nextLine());
+            System.out.println("Estado: ");
+            cli.setEstado(ler.nextLine());
+            System.out.println("Cep: ");
+            cli.setCep(ler.nextLine());
+            System.out.println("Telefone: ");
+            cli.setTelefone(ler.nextLine());
+            System.out.println("CPF :");
+            cli.setCpf(ler.nextLine());
+            
+            CliBd.inserirNoBanco(cli);
+            System.out.println("\nNovo cliente cadastrado com sucesso. \n");
+        } catch (Exception ex) {
+            System.out.println("Inclusão não efetuada. Erro: " + ex);
+        }
+    }
 
-	public void cadastrar() {
+    public void alterar() {
+        long cod;
+        String nome;
 
-		int res;
+        System.out.println("==== Alteração de clientes  ====");
 
-		System.out.println("*****==[Módulo de Cadastro de Clientes]==*****");
-		System.out.println("          *****==[Versão 1.1]==*****");
+        System.out.println("Qual o código do cliente que você deseja alterar? ");
+        cod = ler.nextInt();
+        ler.skip("\n");
 
-		do {
-			System.out.println("Identificação: ");
-			identificacao = ent.nextInt();
-			System.out.println("Digite o nome do Cliente : ");
-			nome = ent.next();
-			System.out.println("Logradouro               : ");
-			logradouro = ent.next();
-			System.out.println("Numero                   : ");
-			numero = ent.next();
-			System.out.println("Bairro                   : ");
-			bairro = ent.next();
-			System.out.println("Municipio                : ");
-			municipio = ent.next();
-			System.out.println("Estado                   : ");
-			estado = ent.next();
-			System.out.println("CEP                      : ");
-			cep = ent.next();
-			System.out.println("Telefone                 : ");
-			telefone = ent.next();
+        Cliente cli = CliBd.consultar(cod);
 
-			i++;
+        if (cli != null) {
+            System.out.println("==== Dados do cliente =====");
+            cli.consultar();
+            System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
+            int resp = ler.nextInt();
+            ler.skip("\n");
+            if (resp == 1) {
+                System.out.println("Digite os  novos dados do cliente: \n");
+                System.out.println("Nome: ");
+                cli.setNome(ler.nextLine());
+                System.out.println("Logradouro: ");
+                cli.setLogradouro(ler.nextLine());
+                System.out.println("Numero: ");
+                cli.setNumero(ler.nextInt());
+                System.out.println("Bairro: ");
+                cli.setBairro(ler.nextLine());
+                System.out.println("Município: ");
+                cli.setMunicípio(ler.nextLine());
+                System.out.println("Estado: ");
+                cli.setEstado(ler.nextLine());
+                System.out.println("Cep: ");
+                cli.setCep(ler.nextLine());
+                System.out.println("Telefone: ");
+                cli.setTelefone(ler.nextLine());
+                System.out.println("CPF :");
+                cli.setCpf(ler.nextLine());
+                try {
+                   CliBd.alterarNoBanco(cli);
+                    System.out.println("Alteração efetuada com sucesso.");
+                } catch (Exception ex) {
+                    System.out.println("Alteração não efetuada. Erro: " + ex.getMessage());
+                }
+            }else{
+                System.out.println("Cancelado com sucesso!!");
+            }
 
-			cliente = new Cliente(identificacao, nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
+        }
+    }
 
-			clientes.add(cliente);
+    public void excluir() {
+        long cod;
+        int resp;
 
-			System.out.println("       *****==[Cliente Cadastrado com Sucesso!!]==*****");
+        System.out.println("==== Exclusão de clientes ====");
 
-			System.out.println("Deseja cadastrar outro cliente ? (1-Sim / 2-Não)");
-			res = ent.nextInt();
+        System.out.println("Qual o código do Cliente que você deseja excluir? ");
+        cod = ler.nextInt();
+        ler.skip("\n");
 
-		} while (res != 2);
-	}
+        Cliente cli = CliBd.consultar(cod);
 
-	public void alterar() {
+        if (cli != null) {
+            System.out.println("===== Dados do cliente =====");
+            cli.consultar();
+            System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
+            resp = ler.nextInt();
+            ler.skip("\n");
 
-		int res;
+            if (resp == 1) {
+                try {
+                    CliBd.excluirDoBanco(cli);
+                    System.out.println("Exclusão efetuada com sucesso.");
+                } catch (Exception ex) {
+                    System.out.println("Exclusão não efetuada. Erro: " + ex.getMessage());
+                }
+            } else {
+                System.out.println("Exclusão não efetuada.");
+            }
+        }
 
-		do {
-			
-			boolean existe = true;
-			
-			System.out.println("Qual identificação do cliente deseja alterar? ");
-			int posi = ent.nextInt();
-			
-			for(int i = 0; i < clientes.size(); i++){
-				
-				if( posi == clientes.get(i).getIdentificacao()){
-					posi = i;
-					i = clientes.size() + 1;
-				}else{
-					existe = false;
-				}
-			}
+    }
 
-			if (!clientes.isEmpty() && (posi >= 0) && existe ) {
-				
-				clientes.get(posi).imprimir();
+    public void consultar() {
+        long cod;
 
-				System.out.println("Confirma alteração ? (1 - Sim / 2 - Não) ");
-				int resp = ent.nextInt();
+        System.out.println("==== Consulta de clientes ====");
 
-				if (resp == 1) {
+        System.out.println("Qual o código do cliente que você deseja consultar? ");
+        cod = ler.nextLong();
+        ler.skip("\n");
 
-					Cliente novoCliente;
+        Cliente cli = CliBd.consultar(cod);
 
-					System.out.println("Identificação                 : " + identificacao);
-					System.out.println("Digite o novo nome do Cliente : ");
-					nome = ent.next();
-					System.out.println("Digite o novo Logradouro      : ");
-					logradouro = ent.next();
-					System.out.println("Digite o novo Numero          : ");
-					numero = ent.next();
-					System.out.println("Digite o novo Bairro          : ");
-					bairro = ent.next();
-					System.out.println("Digite o novo Municipio       : ");
-					municipio = ent.next();
-					System.out.println("Informe o Estado (UF)         : ");
-					estado = ent.next();
-					System.out.println("Informe o CEP                 : ");
-					cep = ent.next();
-					System.out.println("Digite o número do telefone   : ");
-					telefone = ent.next();
+        if (cli != null) {
+            System.out.println("===== Dados do cliente =====");
+            cli.consultar();
+        } else {
+            System.out.println("Não existe pessoa com este código.");
+        }
+    }
 
-					novoCliente = new Cliente(identificacao, nome, logradouro, numero, bairro, municipio, estado, cep,
-							telefone);
+    public void relatorio() {
+        
+        ArrayList<Cliente> cli = new ArrayList<>();
 
-					clientes.set(posi, novoCliente);
+        System.out.println("==== Relatório de Clientes ====");
 
-					System.out.println("         *****==[Alteração Efetuada com Sucesso!!]==*****");
+        try {
+            cli = CliBd.relatorio();
 
-				} else {
-					System.out.println("         *****==[Alteração não Efetuada!]==*****");
-				}
-			} else {
-				System.out.println("         *****==[Cliente Inexistente!]==*****");
-			}
+            if (cli != null) {
+                System.out.println("===== Lista de clientes =====");
+                for (Cliente c : cli) {
+                    c.consultar();
+                    System.out.println("============================================");
+                }
+            } else {
+                System.out.println("\nNão existem pessoas cadastradas.");
+            }
+        } catch (Exception ex) {
+            System.out.println("Erro: " + ex.getMessage());
+        }
+    }
 
-			System.out.println("Deseja realizar outra alteração ? (1-Sim / 2-Não)");
-			res = ent.nextInt();
-
-		} while (res != 2);
-	}
-
-	public void excluir() {
-
-		boolean existe = true;
-		
-		System.out.println("Qual a identificação do cliente deseja excluir ?   ");
-		int posi = ent.nextInt();
-		
-		for(int i = 0; i < clientes.size(); i++){
-			
-			if( posi == clientes.get(i).getIdentificacao()){
-				posi = i;
-				i = clientes.size() + 1;
-			}else{
-				existe = false;
-			}
-		}
-
-		if (!clientes.isEmpty() && posi >= 0 && existe) {
-
-			clientes.get(posi).imprimir(); 
-			System.out.println("Deseja excluir esse cliente ? (1 - Sim / 2 - Não) ");
-			int resp = ent.nextInt();
-
-			if (resp == 1) {
-
-				clientes.remove(posi);
-				System.out.println("         *****==[Exclusão Efetuada com Sucesso!!]==*****");
-
-			} else {
-				System.out.println("         *****==[Alteração não Efetuada!]==*****");
-			}
-
-		} else {
-			System.out.println("         *****==[Cliente não encontrado!]==*****");
-		}
-	}
-
-	public void consultar() {
-
-		int res;
-
-		do {
-			System.out.println("Qual a posição deseja consultar ?   ");
-			int posi = ent.nextInt();
-
-			if ((!clientes.isEmpty()) && (posi >= 0) && posi <= clientes.size()) {
-
-				clientes.get(posi).imprimir();
-
-			} else {
-				System.out.println("         *****==[Cliente não encontrado!]==*****");
-			}
-			System.out.println("Deseja realizar outra consulta ? (1-Sim / 2-Não)");
-			res = ent.nextInt();
-
-		} while (res != 2);
-
-	}
-
-	public void imprimir() {
-
-		if (!clientes.isEmpty()) {
-			for (int i = 0; i < clientes.size(); i++) {
-				System.out.println("---------=======---------");
-				clientes.get(i).imprimir();
-				System.out.println("--------=======----------");
-			}
-
-		} else {
-			System.out.println("         *****==[Não existem clientes cadastrados!]==*****");
-		}
-	}
 }
