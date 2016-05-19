@@ -22,7 +22,7 @@ public class GerenciadorVoo {
 	private LocalDate dataChegada;
 	private LocalTime horaChegada;
 	private int lotacao;
-	private double pesoCargaVoo = 0;
+	private double pesoCargaEmbarcada = 0;
 	private double precoViagem;
 
 	int i = 0;
@@ -36,25 +36,61 @@ public class GerenciadorVoo {
 
 	public void cadastrar() {
 
-		int cod;
+		int posi = 0;
+		String ident;
+		boolean aviaoExiste = true, aeroportoExiste = true, continua = true;
 
 		if (!avioes.isEmpty()) {
 
 			if ((!aeroportos.isEmpty()) && (aeroportos.size() > 1)) {
 
-				identificacao = "VOO-" + i;
-
 				System.out.println("*****==[   Módulo de Cadastro de Voo   ]==*****");
 				System.out.println("          *****==[Versão 1.1]==*****");
 				System.out.println("----------------------------------------------");
-				System.out.println("Identificação               : " + identificacao);
-				System.out.println("Informe o Código do avião   : ");
-				cod = ent.nextInt();
-				aviao = avioes.get(cod);
+				System.out.println("Identificação               : ");
+				identificacao = ent.next();
+				
+				do{
+					
+					System.out.println("Informe a identificação do avião   : ");
+					ident = ent.next();
 
-				System.out.println("Informe o aeroporto de partida: ");
-				cod = ent.nextInt();
-				aeroportoPartida = aeroportos.get(cod);
+					for(int i = 0; i < avioes.size(); i++){
+
+						if(avioes.get(i).getIdentificacao().equals(ident)){
+							posi = i;
+							i = avioes.size() + 1;
+							aviaoExiste = true;
+						}else{
+							aviaoExiste = false;
+						}
+					}
+					
+					aviao = avioes.get(posi);
+					
+				}while (!aviaoExiste);
+				
+
+				do{
+
+					System.out.println("Informe a identificação do aeroporto de Partida: ");
+					ident = ent.next();
+
+					for(int i = 0; i < aeroportos.size(); i++){
+
+						if(aeroportos.get(i).getIdentificacao().equals(ident)){
+							posi = i;
+							i = aeroportos.size() + 1;
+							aeroportoExiste = true;
+						}else{
+							aeroportoExiste = false;
+						}
+					}
+
+					aeroportoPartida = aeroportos.get(posi);
+
+				}while (!aeroportoExiste);
+				
 
 				System.out.println("Informe o data de partida   : ");
 				int dia, mes, ano;
@@ -74,9 +110,26 @@ public class GerenciadorVoo {
 				minutos = ent.nextInt();
 				horaPartida = LocalTime.of(hora, minutos);
 
-				System.out.println("Informe o aeroporto de chegada: ");
-				cod = ent.nextInt();
-				aeroportoChegada = aeroportos.get(cod);
+				do{
+
+					System.out.println("Informe a identificação do aeroporto de Chegada: ");
+					ident = ent.next();
+
+					for(int i = 0; i < aeroportos.size(); i++){
+
+						if(aeroportos.get(i).getIdentificacao().equals(ident)){
+							posi = i;
+							i = aeroportos.size() + 1;
+							aeroportoExiste = true;
+						}else{
+							aeroportoExiste = false;
+						}
+					}
+
+					aeroportoChegada = aeroportos.get(posi);
+
+				}while (!aeroportoExiste);
+				
 
 				System.out.println("Informe o data de Chegada	: ");
 				int diac, mesc, anoc;
@@ -96,17 +149,20 @@ public class GerenciadorVoo {
 				minutosC = ent.nextInt();
 				horaChegada = LocalTime.of(horaC, minutosC);
 
-				System.out.println("Lotação                     : " + aviao.getCapacPassageiros());
-				lotacao = aviao.getCapacPassageiros();
-
-				System.out.println("Peso de carga embarcada     : " + pesoCargaEmbarcada);
+				do{
+					System.out.println("Lotação                     :");
+					int lot = ent.nextInt(); 
+					
+					if( lot < aviao.getCapacPassageiros()){
+						lotacao = lot;
+						continua = false;
+					}else{
+						System.out.println("A lotação deve ser inferior à capacidade de carga do avião");
+					}
+				}while( continua );
 
 				System.out.println("Preço da viagem				: $");
 				precoViagem = ent.nextDouble();
-
-				aviao.calculaLimiteCarga();
-
-				System.out.println("Limite de carga por passageiro: " + aviao.getLimiteCarga());
 
 			} else {
 
@@ -121,7 +177,7 @@ public class GerenciadorVoo {
 		i++;
 
 		voo = new Voo(identificacao, aviao, aeroportoPartida, dataPartida, horaPartida, aeroportoChegada, dataChegada,
-				horaChegada, lotacao, pesoCargaVoo, precoViagem);
+				horaChegada, lotacao, pesoCargaEmbarcada, precoViagem);
 		voos.add(voo);
 
 		System.out.println("       *****==[Voo Cadastrado!]==*****");
@@ -130,15 +186,28 @@ public class GerenciadorVoo {
 
 	public void alterar() {
 
-		int cod;
+		int cod, posi = 0;
+		boolean existe = true;
+		boolean aviaoExiste = true, aeroportoExiste = true;
 
 		System.out.println("*****==[   Módulo de Alteração de Voo   ]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("----------------------------------------------");
-		System.out.println("Qual voo deseja alterar ? (Informe a posição)");
-		int posi = ent.nextInt();
+		System.out.println("Qual voo deseja alterar ? (Informe a identificação)");
+		String ident = ent.next();
 
-		if ((!voos.isEmpty()) && (posi >= 0) && (posi <= voos.size())) {
+		for(int i = 0; i < voos.size(); i++){
+
+			if(voos.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = voos.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!voos.isEmpty()) && existe ) {
 
 			voos.get(posi).imprimir();
 
@@ -149,16 +218,52 @@ public class GerenciadorVoo {
 
 				Voo novoVoo;
 
-				identificacao = "VOO-" + i;
+				
 				System.out.println("----------------------------------------------");
-				System.out.println("Identificação                : " + identificacao);
-				System.out.println("Informe o Código de um avião : ");
-				cod = ent.nextInt();
-				aviao = avioes.get(cod);
+				System.out.println("Identificação                : ");
+				identificacao = ent.next();
+				
+				
+				do{
 
-				System.out.println("Informe o novo aeroporto de partida: ");
-				cod = ent.nextInt();
-				aeroportoPartida = aeroportos.get(cod);
+					System.out.println("Informe a identificação do avião   : ");
+					ident = ent.next();
+
+					for(int i = 0; i < avioes.size(); i++){
+
+						if(avioes.get(i).getIdentificacao().equals(ident)){
+							posi = i;
+							i = avioes.size() + 1;
+							aviaoExiste = true;
+						}else{
+							aviaoExiste = false;
+						}
+					}
+
+					aviao = avioes.get(posi);
+
+				}while (!aviaoExiste);
+
+
+				do{
+
+					System.out.println("Informe a identificação do aeroporto de Partida: ");
+					ident = ent.next();
+
+					for(int i = 0; i < aeroportos.size(); i++){
+
+						if(aeroportos.get(i).getIdentificacao().equals(ident)){
+							posi = i;
+							i = aeroportos.size() + 1;
+							aeroportoExiste = true;
+						}else{
+							aeroportoExiste = false;
+						}
+					}
+
+					aeroportoPartida = aeroportos.get(posi);
+
+				}while (!aeroportoExiste);
 
 				System.out.println("Informe a nova data de partida: ");
 				int dia, mes, ano;
@@ -204,7 +309,7 @@ public class GerenciadorVoo {
 				lotacao = aviao.getCapacPassageiros();
 
 				System.out.println("Novo Peso de carga embarcada  : ");
-				pesoCargaVoo = ent.nextDouble();
+				pesoCargaEmbarcada = ent.nextDouble();
 
 				System.out.println("Novo Preçoo da viagem		  : $ ");
 				precoViagem = ent.nextDouble();
@@ -228,14 +333,28 @@ public class GerenciadorVoo {
 	}
 
 	public void excluir() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[   Módulo de Exclusão de Voo   ]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("----------------------------------------------");
 		System.out.println("Qual voo deseja excluir ? (Informe a posição)");
-		int posi = ent.nextInt();
+		String ident = ent.next();
 
-		if ((!voos.isEmpty()) && (posi >= 0) && (posi <= voos.size())) {
+		for(int i = 0; i < voos.size(); i++){
+
+			if(voos.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = voos.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!voos.isEmpty()) && existe ) {
 
 			voos.get(posi).imprimir();
 
@@ -257,14 +376,28 @@ public class GerenciadorVoo {
 	}
 
 	public void consultar() {
+		
+		int posi = 0;
+		boolean existe = true;
 
 		System.out.println("*****==[   Módulo de Consulta de Voo   ]==*****");
 		System.out.println("          *****==[Versão 1.1]==*****");
 		System.out.println("----------------------------------------------");
 		System.out.println("Qual voo deseja consultar ? ");
-		int posi = ent.nextInt();
+		String ident = ent.next();
 
-		if ((!voos.isEmpty()) && (posi >= 0) && (posi <= voos.size())) {
+		for(int i = 0; i < voos.size(); i++){
+
+			if(voos.get(i).getIdentificacao().equals(ident)){
+				posi = i;
+				i = voos.size() + 1;
+				existe = true;
+			}else{
+				existe = false;
+			}
+		}
+
+		if ((!voos.isEmpty()) && existe ) {
 
 			voos.get(posi).imprimir();
 
@@ -276,11 +409,10 @@ public class GerenciadorVoo {
 	public void imprimir() {
 
 		if (!voos.isEmpty()) {
-			for (int i = 0; i < voos.size(); i++) {
-
-				System.out.println("               ---------=======---------");
-				voos.get(i).imprimir();
-				System.out.println("               --------=======----------");
+			
+			for (Voo voo : voos){
+				voo.imprimir();
+				System.out.println("------------------------");
 			}
 
 		} else {
@@ -288,17 +420,4 @@ public class GerenciadorVoo {
 		}
 	}
 
-	public boolean somaPesoCarga(double cargaCliente) {
-
-		pesoCargaVoo += cargaCliente;
-		
-		if(pesoCargaVoo > aviao.getCapacCarga()){
-			
-			return false;
-		}else{
-			
-			return true;
-		}
-
-	}
 }

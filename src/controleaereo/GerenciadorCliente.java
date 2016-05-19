@@ -46,13 +46,10 @@ public class GerenciadorCliente {
 			cep = ent.next();
 			System.out.println("Telefone                 : ");
 			telefone = ent.next();
-			System.out.println("Carga do Cliente         : ");
-			cargaCliente = ent.nextDouble();
 
 			i++;
 
-			cliente = new Cliente(identificacao, nome, logradouro, numero, bairro, municipio, estado, cep, telefone,
-					cargaCliente);
+			cliente = new Cliente(identificacao, nome, logradouro, numero, bairro, municipio, estado, cep, telefone);
 
 			clientes.add(cliente);
 
@@ -113,11 +110,9 @@ public class GerenciadorCliente {
 					cep = ent.next();
 					System.out.println("Digite o número do telefone   : ");
 					telefone = ent.next();
-					System.out.println("Carga do Cliente              : ");
-					cargaCliente = ent.nextDouble();
 
 					novoCliente = new Cliente(identificacao, nome, logradouro, numero, bairro, municipio, estado, cep,
-							telefone, cargaCliente);
+							telefone);
 
 					clientes.set(posi, novoCliente);
 

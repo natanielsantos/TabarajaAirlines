@@ -10,7 +10,7 @@ public class Aeroporto {
 
 	public Aeroporto(String identificacao, String nome, String municipio, String estado, String pais) {
 
-		this.identificacao = identificaca;
+		this.identificacao = identificacao;
 		this.nome = nome;
 		this.municipio = municipio;
 		this.estado = estado;
@@ -58,7 +58,6 @@ public class Aeroporto {
 	}
 
 	public void imprimir() {
-		System.out.println("***********************************");
 		System.out.println("Identificação    : " + identificacao);
 		System.out.println("Nome             : " + nome);
 		System.out.println("Município        : " + municipio);
