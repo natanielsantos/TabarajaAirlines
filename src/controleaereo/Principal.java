@@ -16,7 +16,7 @@ public class Principal {
 		ArrayList<Voo> vo = new ArrayList<>();
 		ArrayList<Passagem> psg = new ArrayList<>();
 
-		GerenciadorCliente gc = new GerenciadorCliente(cls);
+		GerenciadorCliente gc = new GerenciadorCliente();
 		GerenciadorAviao ga = new GerenciadorAviao(avs);
 		GerenciadorAeroporto gae = new GerenciadorAeroporto(aero);
 		GerenciadorVoo gvo = new GerenciadorVoo(vo, avs, aero);
@@ -55,7 +55,7 @@ public class Principal {
 						break;
 
 					case 5:
-						gc.imprimir();
+						gc.relatorio();
 						break;
 					default:
 
