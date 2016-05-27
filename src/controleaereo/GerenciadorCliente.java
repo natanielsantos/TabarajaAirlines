@@ -6,7 +6,7 @@ import DAO.ClienteDAO;
 
 public class GerenciadorCliente {
 
-    Scanner ler = new Scanner(System.in);
+    Scanner ent = new Scanner(System.in);
     private final ClienteDAO CliBd = new ClienteDAO();
 
     public GerenciadorCliente() {
@@ -22,26 +22,27 @@ public class GerenciadorCliente {
             System.out.println("Digite os dados do novo cliente: \n");
 
             System.out.println("Identificação :");
-            cli.setIdentificacao(ler.nextInt());
-            ler.next();
-            System.out.println("Nome: ");
-            cli.setNome(ler.nextLine());
-            System.out.println("Logradouro: ");
-            cli.setLogradouro(ler.nextLine());
-            System.out.println("Numero: ");
-            cli.setNumero(ler.nextInt());
-            System.out.println("Bairro: ");
-            cli.setBairro(ler.nextLine());
-            System.out.println("Município: ");
-            cli.setMunicípio(ler.nextLine());
-            System.out.println("Estado: ");
-            cli.setEstado(ler.nextLine());
-            System.out.println("Cep: ");
-            cli.setCep(ler.nextLine());
-            System.out.println("Telefone: ");
-            cli.setTelefone(ler.nextLine());
-            System.out.println("CPF :");
-            cli.setCpf(ler.nextLine());
+            cli.setIdentificacao(ent.nextInt());
+            ent.nextLine();
+            System.out.printf("Nome: ");
+            cli.setNome(ent.nextLine());
+            System.out.printf("Logradouro: ");
+            cli.setLogradouro(ent.nextLine());
+            System.out.printf("Numero: ");
+            cli.setNumero(ent.nextInt());
+            ent.nextLine();
+            System.out.printf("Bairro: ");
+            cli.setBairro(ent.nextLine());
+            System.out.printf("Município: ");
+            cli.setMunicípio(ent.nextLine());
+            System.out.printf("Estado: ");
+            cli.setEstado(ent.nextLine());
+            System.out.printf("Cep: ");
+            cli.setCep(ent.nextLine());
+            System.out.printf("Telefone: ");
+            cli.setTelefone(ent.nextLine());
+            System.out.printf("CPF :");
+            cli.setCpf(ent.nextLine());
             
             CliBd.inserirNoBanco(cli);
             System.out.println("\nNovo cliente cadastrado com sucesso. \n");
@@ -57,8 +58,8 @@ public class GerenciadorCliente {
         System.out.println("==== Alteração de clientes  ====");
 
         System.out.println("Qual o código do cliente que você deseja alterar? ");
-        cod = ler.nextInt();
-        ler.skip("\n");
+        cod = ent.nextInt();
+        ent.nextLine();
 
         Cliente cli = CliBd.consultar(cod);
 
@@ -66,28 +67,29 @@ public class GerenciadorCliente {
             System.out.println("==== Dados do cliente =====");
             cli.consultar();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
-            int resp = ler.nextInt();
-            ler.skip("\n");
+            int resp = ent.nextInt();
+            ent.nextLine();
             if (resp == 1) {
                 System.out.println("Digite os  novos dados do cliente: \n");
-                System.out.println("Nome: ");
-                cli.setNome(ler.nextLine());
-                System.out.println("Logradouro: ");
-                cli.setLogradouro(ler.nextLine());
-                System.out.println("Numero: ");
-                cli.setNumero(ler.nextInt());
-                System.out.println("Bairro: ");
-                cli.setBairro(ler.nextLine());
-                System.out.println("Município: ");
-                cli.setMunicípio(ler.nextLine());
-                System.out.println("Estado: ");
-                cli.setEstado(ler.nextLine());
-                System.out.println("Cep: ");
-                cli.setCep(ler.nextLine());
-                System.out.println("Telefone: ");
-                cli.setTelefone(ler.nextLine());
-                System.out.println("CPF :");
-                cli.setCpf(ler.nextLine());
+                System.out.printf("Nome: ");
+                cli.setNome(ent.nextLine());
+                System.out.printf("Logradouro: ");
+                cli.setLogradouro(ent.nextLine());
+                System.out.printf("Numero: ");
+                cli.setNumero(ent.nextInt());
+                ent.nextLine();
+                System.out.printf("Bairro: ");
+                cli.setBairro(ent.nextLine());
+                System.out.printf("Município: ");
+                cli.setMunicípio(ent.nextLine());
+                System.out.printf("Estado: ");
+                cli.setEstado(ent.nextLine());
+                System.out.printf("Cep: ");
+                cli.setCep(ent.nextLine());
+                System.out.printf("Telefone: ");
+                cli.setTelefone(ent.nextLine());
+                System.out.printf("CPF :");
+                cli.setCpf(ent.nextLine());
                 try {
                    CliBd.alterarNoBanco(cli);
                     System.out.println("Alteração efetuada com sucesso.");
@@ -108,8 +110,8 @@ public class GerenciadorCliente {
         System.out.println("==== Exclusão de clientes ====");
 
         System.out.println("Qual o código do Cliente que você deseja excluir? ");
-        cod = ler.nextInt();
-        ler.skip("\n");
+        cod = ent.nextInt();
+        ent.nextLine();
 
         Cliente cli = CliBd.consultar(cod);
 
@@ -117,8 +119,8 @@ public class GerenciadorCliente {
             System.out.println("===== Dados do cliente =====");
             cli.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
-            resp = ler.nextInt();
-            ler.skip("\n");
+            resp = ent.nextInt();
+            ent.skip("\n");
 
             if (resp == 1) {
                 try {
@@ -140,8 +142,8 @@ public class GerenciadorCliente {
         System.out.println("==== Consulta de clientes ====");
 
         System.out.println("Qual o código do cliente que você deseja consultar? ");
-        cod = ler.nextLong();
-        ler.skip("\n");
+        cod = ent.nextLong();
+        ent.nextLine();
 
         Cliente cli = CliBd.consultar(cod);
 
