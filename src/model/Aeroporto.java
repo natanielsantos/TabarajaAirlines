@@ -1,69 +1,48 @@
-package controleaereo;
-
+package model;
 public class Aeroporto {
+    
+    private String identificacao;
+    private String nome;
+    private Cidade cidade;
 
-	private String identificacao;
-	private String nome;
-	private String municipio;
-	private String estado;
-	private String pais;
+    public Aeroporto() {
+    }
+    
+    public Aeroporto(String identificacao, String nome, Cidade cidade) {
+        this.identificacao = identificacao;
+        this.nome = nome;
+        this.cidade = cidade;
+    }
 
-	public Aeroporto(String identificacao, String nome, String municipio, String estado, String pais) {
+    public String getIdentificacao() {
+        return identificacao;
+    }
 
-		this.identificacao = identificacao;
-		this.nome = nome;
-		this.municipio = municipio;
-		this.estado = estado;
-		this.pais = pais;
-	}
+    public void setIdentificacao(String identificacao) {
+        this.identificacao = identificacao;
+    }
 
-	public String getIdentificacao() {
-		return identificacao;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public void setIdentificacao(String identificacao) {
-		this.identificacao = identificacao;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public Cidade getCidade() {
+        return cidade;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getMunicipio() {
-		return municipio;
-	}
-
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	public String getPais() {
-		return pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
-	public void imprimir() {
-		System.out.println("Identificação    : " + identificacao);
-		System.out.println("Nome             : " + nome);
-		System.out.println("Município        : " + municipio);
-		System.out.println("Estado           : " + estado);
-		System.out.println("País             : " + pais);
-
-	}
-
+    public void setCidade(Cidade cidade) {
+        this.cidade = cidade;
+    }
+         
+    public void consultar(){
+        System.out.println("Identificação: "+ identificacao); 
+        System.out.println("Nome: "+ nome); 
+        System.out.println("===Cidade===");
+        cidade.consultar();
+       
+    }
 }

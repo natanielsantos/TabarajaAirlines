@@ -1,146 +1,166 @@
-package controleaereo;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+/**
+ *
+ * @author MaxVictor
+ */
 public class Voo {
+    
+    private int id_voo;
+    private Aeronave aviao;
+    private Aeroporto aeroportoPartida;
+    private LocalDate dataPartida;
+    private LocalTime horaPartida;
+    private Aeroporto aeroportoChegada;
+    private LocalDate dataChegada;
+    private LocalTime horaChegada;
+    private int lotacao;
+    private double pesoCargaEmbarcada;
+    private double precoViagem;
+    private int tipoAeronave;
 
-	private String identificacao;
-	private Aviao aviao;
-	private Aeroporto aeroportoPartida;
-	private LocalDate dataPartida;
-	private LocalTime horaPartida;
-	private Aeroporto aeroportoChegada;
-	private LocalDate dataChegada;
-	private LocalTime horaChegada;
-	private int lotacao;
-	private double pesoCargaEmbarcada;
-	private double precoViagem;
-	private int qtdPassageiros;
+    public Voo() {
+    }
 
-	public Voo(String identificacao, Aviao aviao, Aeroporto aeroportoPartida, LocalDate dataPartida,
-			LocalTime horaPartida, Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada,
-			int lotacao, double pesoCargaEmbarcada, double precoViagem) {
+    public Voo(int id_voo, Aeronave aviao, Aeroporto aeroportoPartida, LocalDate dataPartida, LocalTime horaPartida, Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada, int lotacao, double pesoCargaEmbarcada, double precoViagem, int tipoAeronave) {
+        this.id_voo = id_voo;
+        this.aviao = aviao;
+        this.aeroportoPartida = aeroportoPartida;
+        this.dataPartida = dataPartida;
+        this.horaPartida = horaPartida;
+        this.aeroportoChegada = aeroportoChegada;
+        this.dataChegada = dataChegada;
+        this.horaChegada = horaChegada;
+        this.lotacao = lotacao;
+        this.pesoCargaEmbarcada = pesoCargaEmbarcada;
+        this.precoViagem = precoViagem;
+        this.tipoAeronave = tipoAeronave;
+    }
 
-		this.identificacao = identificacao;
-		this.aviao = aviao;
-		this.aeroportoPartida = aeroportoPartida;
-		this.dataPartida = dataPartida;
-		this.horaPartida = horaPartida;
-		this.aeroportoChegada = aeroportoChegada;
-		this.dataChegada = dataChegada;
-		this.horaChegada = horaChegada;
-		this.lotacao = lotacao;
-		this.pesoCargaEmbarcada = pesoCargaEmbarcada;
-		this.precoViagem = precoViagem;
-	}
+    
 
-	public Aviao getAviao() {
-		return aviao;
-	}
+    
 
-	public void setAviao(Aviao aviao) {
-		this.aviao = aviao;
-	}
+    public Aeronave getAviao() {
+        return aviao;
+    }
 
-	public Aeroporto getAeroportoPartida() {
-		return aeroportoPartida;
-	}
+    public void setAviao(Aeronave aviao) {
+        this.aviao = aviao;
+    }
 
-	public void setAeroportoPartida(Aeroporto aeroportoPartida) {
-		this.aeroportoPartida = aeroportoPartida;
-	}
+    public Aeroporto getAeroportoPartida() {
+        return aeroportoPartida;
+    }
 
-	public LocalDate getDataPartida() {
-		return dataPartida;
-	}
+    public void setAeroportoPartida(Aeroporto aeroportoPartida) {
+        this.aeroportoPartida = aeroportoPartida;
+    }
 
-	public void setDataPartida(LocalDate dataPartida) {
-		this.dataPartida = dataPartida;
-	}
+    public LocalDate getDataPartida() {
+        return dataPartida;
+    }
 
-	public LocalTime getHoraPartida() {
-		return horaPartida;
-	}
+    public void setDataPartida(LocalDate dataPartida) {
+        this.dataPartida = dataPartida;
+    }
 
-	public void setHoraPartida(LocalTime horaPartida) {
-		this.horaPartida = horaPartida;
-	}
+    public LocalTime getHoraPartida() {
+        return horaPartida;
+    }
 
-	public Aeroporto getAeroportoChegada() {
-		return aeroportoChegada;
-	}
+    public void setHoraPartida(LocalTime horaPartida) {
+        this.horaPartida = horaPartida;
+    }
 
-	public void setAeroportoChegada(Aeroporto aeroportoChegada) {
-		this.aeroportoChegada = aeroportoChegada;
-	}
+    public Aeroporto getAeroportoChegada() {
+        return aeroportoChegada;
+    }
 
-	public LocalDate getDataChegada() {
-		return dataChegada;
-	}
+    public void setAeroportoChegada(Aeroporto aeroportoChegada) {
+        this.aeroportoChegada = aeroportoChegada;
+    }
 
-	public void setDataChegada(LocalDate dataChegada) {
-		this.dataChegada = dataChegada;
-	}
+    public LocalDate getDataChegada() {
+        return dataChegada;
+    }
 
-	public LocalTime getHoraChegada() {
-		return horaChegada;
-	}
+    public void setDataChegada(LocalDate dataChegada) {
+        this.dataChegada = dataChegada;
+    }
 
-	public void setHoraChegada(LocalTime horaChegada) {
-		this.horaChegada = horaChegada;
-	}
+    public LocalTime getHoraChegada() {
+        return horaChegada;
+    }
 
-	public int getLotacao() {
-		return lotacao;
-	}
+    public void setHoraChegada(LocalTime horaChegada) {
+        this.horaChegada = horaChegada;
+    }
 
-	public void setLotacao(int lotacao) {
-		this.lotacao = lotacao;
-	}
+    public int getLotacao() {
+        return lotacao;
+    }
 
-	public double getPesoCargaEmbarcada() {
-		return pesoCargaEmbarcada;
-	}
+    public void setLotacao(int lotacao) {
+        this.lotacao = lotacao;
+    }
 
-	public void setPesoCargaEmbarcada(double pesoCargaEmbarcada) {
-		this.pesoCargaEmbarcada = pesoCargaEmbarcada;
-	}
+    public double getPesoCargaEmbarcada() {
+        return pesoCargaEmbarcada;
+    }
 
-	public double getPrecoViagem() {
-		return precoViagem;
-	}
+    public void setPesoCargaEmbarcada(double pesoCargaEmbarcada) {
+        this.pesoCargaEmbarcada = pesoCargaEmbarcada;
+    }
 
-	public void setPrecoViagem(double precoViagem) {
-		this.precoViagem = precoViagem;
-	}
+    public double getPrecoViagem() {
+        return precoViagem;
+    }
 
-	public String getIdentificacao() {
-		return identificacao;
-	}
+    public void setPrecoViagem(double precoViagem) {
+        this.precoViagem = precoViagem;
+    }
 
-	public void setIdentificacao(String identificacao) {
-		this.identificacao = identificacao;
-	}
-	
-	public int getQtdPassageiros() {
-		return qtdPassageiros;
-	}
+    public int getId_voo() {
+        return id_voo;
+    }
 
-	public void setQtdPassageiros(int qtdPassageiros) {
-		this.qtdPassageiros = qtdPassageiros;
-	}
+    public void setId_voo(int id_voo) {
+        this.id_voo = id_voo;
+    }
 
-	public void imprimir() {
-		System.out.println("Identificação            : " + identificacao);
-		System.out.println("Avião                    : " + aviao.getIdentificacao());
-		System.out.println("Aeroporto de Partida     : " + aeroportoPartida.getIdentificacao());
-		System.out.println("Data de Partida          : " + dataPartida + " | Hora de Partida   : " + horaPartida);
-		System.out.println("Aeroporto de Chegada     : " + aeroportoChegada.getIdentificacao());
-		System.out.println("Data de Chegada          : " + dataChegada + " | Hora de Chegada   : " + horaChegada);
-		System.out.println("Lotação                  : " + lotacao);
-		System.out.println("Peso da Carga Embarcada  : " + pesoCargaEmbarcada);
-		System.out.println("Preço da Viagem          : " + precoViagem);
-	}
+    public int getTipoAeronave() {
+        return tipoAeronave;
+    }
 
+    public void setTipoAeronave(int tipoAeronave) {
+        this.tipoAeronave = tipoAeronave;
+    }
+    
+    
+    
+    
+    public void consultar(){
+        System.out.println("=== Aeronave ===");
+        aviao.consultar();
+        System.out.println("=== Aeroporto Partida ===");
+        aeroportoPartida.consultar();
+        System.out.println("Data Partida: " + dataPartida);
+        System.out.println("Hora Partida: " + horaPartida);
+        System.out.println("=== Aeroporto Chegada ===");
+        aeroportoChegada.consultar();
+        System.out.println("Data Chegada: " + dataChegada);
+        System.out.println("Hora Chegada: " + horaChegada);
+        System.out.println("Lotação: " + lotacao);
+        System.out.println("Peso Carga Embarcada: " + pesoCargaEmbarcada);
+        System.out.println("Preço da Viagem: " + precoViagem);
+    }
 }

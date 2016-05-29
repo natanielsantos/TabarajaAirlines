@@ -1,7 +1,18 @@
-package controleaereo;
+package view;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import controller.GerenciaAeroporto;
+import controller.GerenciaAviao;
+import controller.GerenciaCliente;
+import controller.GerenciaVoo;
+
+import model.Aeroporto;
+import model.Aviao;
+import model.Cliente;
+import model.Passagem;
+import model.Voo;
 
 public class Principal {
 
@@ -16,11 +27,14 @@ public class Principal {
 		ArrayList<Voo> vo = new ArrayList<>();
 		ArrayList<Passagem> psg = new ArrayList<>();
 
-		GerenciadorCliente gc = new GerenciadorCliente();
-		GerenciadorAviao ga = new GerenciadorAviao(avs);
-		GerenciadorAeroporto gae = new GerenciadorAeroporto(aero);
-		GerenciadorVoo gvo = new GerenciadorVoo(vo, avs, aero);
-		GerenciadorPassagem gps = new GerenciadorPassagem(vo, cls, psg);
+		GerenciaCliente gc = new GerenciaCliente();
+		GerenciaAviao ga = new GerenciaAviao();
+		//GerenciaAviao ga = new GerenciaAviao(avs);
+		GerenciaAeroporto gae = new GerenciaAeroporto(aero);
+		GerenciaVoo gvo = new GerenciaVoo();
+		//GerenciaVoo gvo = new GerenciaVoo(vo, avs, aero);
+		//GerenciaPassagem gps = new GerenciaPassagem();
+		//GerenciaPassagem gps = new GerenciaPassagem(vo, cls, psg);
 		
 		Menu menus = new Menu();
 		

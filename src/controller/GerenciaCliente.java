@@ -1,21 +1,21 @@
-package controleaereo;
+package controller;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import DAO.ClienteDAO;
+import model.Cliente;
 
-public class GerenciadorCliente {
+public class GerenciaCliente {
 
     Scanner ent = new Scanner(System.in);
     private final ClienteDAO CliBd = new ClienteDAO();
 
-    public GerenciadorCliente() {
+    public GerenciaCliente() {
 
     }
 
     public void cadastrar() {
-        String nome;
-        long cod;
+
         Cliente cli = new Cliente();
         try {
             System.out.println("==Inserção de Clientes==");
@@ -53,7 +53,7 @@ public class GerenciadorCliente {
 
     public void alterar() {
         long cod;
-        String nome;
+
 
         System.out.println("==== Alteração de clientes  ====");
 

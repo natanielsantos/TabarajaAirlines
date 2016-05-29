@@ -1,4 +1,4 @@
-package controleaereo;
+package view;
 
 import java.util.Scanner;
 

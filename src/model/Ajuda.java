@@ -1,4 +1,4 @@
-package controleaereo;
+package model;
 
 public class Ajuda {
 

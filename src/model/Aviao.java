@@ -1,69 +1,44 @@
-package controleaereo;
+package model;
 
-public class Aviao {
+public class Aviao extends Aeronave {
 
-	private String identificacao;
-	private String modelo;
-	private int qtdTurbinas;
-	private int capacPassageiros;
-	private double capacCarga;
+    int qtdTurbinas;
+    Float capcCombustPorTurbina;
 
-	public Aviao(String identificacao, String modelo, int qtdTurbinas, int capacPassageiros, double capacCarga) {
+    public Aviao() {
+        super();
+    }
+    
+    public Aviao(int qtdTurbinas, float capcCombustPorTurbina, String identificacao, String modelo, 
+            int capacPassageiros, double capacCarga) {
+        super(identificacao, modelo, capacPassageiros, capacCarga);
+        this.qtdTurbinas = qtdTurbinas;
+        this.capcCombustPorTurbina = capcCombustPorTurbina;
+    }
 
-		this.identificacao = identificacao;
-		this.modelo = modelo;
-		this.qtdTurbinas = qtdTurbinas;
-		this.capacPassageiros = capacPassageiros;
-		this.capacCarga = capacCarga;
-	}
+    public int getQtdTurbinas() {
+        return qtdTurbinas;
+    }
 
-	public String getIdentificacao() {
-		return identificacao;
-	}
+    public void setQtdTurbinas(int qtdTurbinas) {
+        this.qtdTurbinas = qtdTurbinas;
+    }
 
-	public void setIdentificacao(String identificacao) {
-		this.identificacao = identificacao;
-	}
+    public Float getCapcCombustPorTurbina() {
+        return capcCombustPorTurbina;
+    }
 
-	public String getModelo() {
-		return modelo;
-	}
+    public void setCapcCombustPorTurbina(Float capcCombustPorTurbina) {
+        this.capcCombustPorTurbina = capcCombustPorTurbina;
+    }
 
-	public void setModelo(String modelo) {
-		this.modelo = modelo;
-	}
+    public void consultar() {
+        System.out.println("===Avião===");
+        super.consultar();
+        System.out.println("Quantidade de Turbinas: " + qtdTurbinas);
+        System.out.println("Capacidade de Combustivel Por Turbina: " + capcCombustPorTurbina);
 
-	public int getQtdTurbinas() {
-		return qtdTurbinas;
-	}
-
-	public void setQtdTurbinas(int qtdTurbinas) {
-		this.qtdTurbinas = qtdTurbinas;
-	}
-
-	public int getCapacPassageiros() {
-		return capacPassageiros;
-	}
-
-	public void setCapacPassageiros(int capacPassageiros) {
-		this.capacPassageiros = capacPassageiros;
-	}
-
-	public double getCapacCarga() {
-		return capacCarga;
-	}
-
-	public void setCapacCarga(double capacCarga) {
-		this.capacCarga = capacCarga;
-	}
-
-	public void imprimir() {
-		System.out.println("Identificação             : " + identificacao);
-		System.out.println("Modelo                    : " + modelo);
-		System.out.println("Quantidade de Turbinas    : " + qtdTurbinas);
-		System.out.println("Capacidade de Passageiros : " + capacPassageiros);
-		System.out.println("Capacidade de Carga       : " + capacCarga);
-
-	}
+    }
+    
+ 
 }
-

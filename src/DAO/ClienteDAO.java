@@ -3,7 +3,8 @@ package DAO;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import controleaereo.Cliente;
+
+import model.Cliente;
 
 public class ClienteDAO {
     
