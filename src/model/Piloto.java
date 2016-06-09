@@ -2,11 +2,11 @@ package model;
 
 public class Piloto {
 
-    //int identificacao;
+    private String identificacao;
     private String nome;
     private String identidade;
     private String cpf;
-    private String numeroBrever;
+    private String numeroBreve;
     private String logradouro;
     private String numero;
     private Cidade cidade;
@@ -15,26 +15,26 @@ public class Piloto {
     public Piloto() {
     }
 
-    public Piloto(/*int identificacao,*/ String nome, String identidade, String cpf, 
-            String numeroBrever, String logradouro, String numero, Cidade cidade, String telefone) {
-        //this.identificacao = identificacao;
+    public Piloto(String identificacao, String nome, String identidade, String cpf, 
+            String numeroBreve, String logradouro, String numero, Cidade cidade, String telefone) {
+        this.identificacao = identificacao;
         this.nome = nome;
         this.identidade = identidade;
         this.cpf = cpf;
-        this.numeroBrever = numeroBrever;
+        this.numeroBreve = numeroBreve;
         this.logradouro = logradouro;
         this.numero = numero;
         this.cidade = cidade;
         this.telefone = telefone;
     }
 
-    /*public int getIdentificacao() {
+    public String getIdentificacao() {
         return identificacao;
-    }*/
+    }
 
-    /*public void setIdentificacao(int identificacao) {
+    public void setIdentificacao(String identificacao) {
         this.identificacao = identificacao;
-    }*/
+    }
 
     public String getNome() {
         return nome;
@@ -60,12 +60,12 @@ public class Piloto {
         this.cpf = cpf;
     }
 
-    public String getNumeroBrever() {
-        return numeroBrever;
+    public String getNumeroBreve() {
+        return numeroBreve;
     }
 
-    public void setNumeroBrever(String numeroBrever) {
-        this.numeroBrever = numeroBrever;
+    public void setNumeroBrever(String numeroBreve) {
+        this.numeroBreve = numeroBreve;
     }
 
     public String getLogradouro() {
@@ -103,11 +103,11 @@ public class Piloto {
     
 
     public void consultar() {
-        //System.out.println("Identificador de Piloto: " + identificacao);
+        System.out.println("Identificador de Piloto: " + identificacao);
         System.out.println("Nome: " + nome);
         System.out.println("Identidade: " + identidade);
         System.out.println("CPF: " + cpf);
-        System.out.println("Número do Breve: " + numeroBrever);
+        System.out.println("Número do Breve: " + numeroBreve);
         System.out.println("Logradouro: " + logradouro);
         System.out.println("Numero: " + numero);
         System.out.println("===Cidade===");

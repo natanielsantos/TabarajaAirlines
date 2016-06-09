@@ -29,11 +29,13 @@ public class Menu {
 		System.out.println("              **********======[Módulo Gerenciador]=====**********");
 		System.out.println("                     *********====[Versão 1.2]===*********");
 		System.out.println("              ---------------------------------------------------");
-		System.out.println("                           1 - Gerenciador Clientes   ");
-		System.out.println("                           2 - Gerenciador Aviões     ");
-		System.out.println("                           3 - Gerenciador Aeroportos ");
-		System.out.println("                           4 - Gerenciador Voos       ");
-		System.out.println("                           5 - Gerenciador Passagens  ");
+		System.out.println("                           1 - Cliente   ");
+		System.out.println("                           2 - Piloto   ");
+		System.out.println("                           3 - Cidade   ");
+		System.out.println("                           4 - Aeroporto ");
+		System.out.println("                           5 - Voo       ");
+		System.out.println("                           6 - Aeronave  ");
+		System.out.println("                           7 - Passagem ");
 		System.out.println("                           0 - Sair                   ");
 		System.out.println("              ---------------------------------------------------");
 

@@ -10,7 +10,7 @@ public class ClienteDAO {
     
     // connection e um objeto de conexão e o que conecta com o banco de dados.
     private Connection con;
-    private Statement stm;
+
     Conexao bancoDeDados = Conexao.getInstance(); // essa conexão esta recebendo a conexão que eu criei com o postgree na clase ConectaBD 
                                                       // O getinstance e por que estou usando singleton 
                                                       // ou seja so existe 1 objeto de conexão ele apenas pega a instancia.

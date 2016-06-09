@@ -5,7 +5,9 @@ import java.util.Scanner;
 
 import controller.GerenciaAeroporto;
 import controller.GerenciaAviao;
+import controller.GerenciaCidade;
 import controller.GerenciaCliente;
+import controller.GerenciaPiloto;
 import controller.GerenciaVoo;
 
 import model.Aeroporto;
@@ -21,17 +23,14 @@ public class Principal {
 		Scanner ent = new Scanner(System.in);
 		int op = 0;
 
-		ArrayList<Cliente> cls = new ArrayList<>();
-		ArrayList<Aviao> avs = new ArrayList<>();
-		ArrayList<Aeroporto> aero = new ArrayList<>();
-		ArrayList<Voo> vo = new ArrayList<>();
-		ArrayList<Passagem> psg = new ArrayList<>();
-
 		GerenciaCliente gc = new GerenciaCliente();
-		GerenciaAviao ga = new GerenciaAviao();
+		GerenciaCidade gci = new GerenciaCidade();
+		GerenciaPiloto gp = new GerenciaPiloto();
+
+		//GerenciaAviao gci = new GerenciaAviao();
 		//GerenciaAviao ga = new GerenciaAviao(avs);
-		GerenciaAeroporto gae = new GerenciaAeroporto(aero);
-		GerenciaVoo gvo = new GerenciaVoo();
+		//GerenciaAeroporto gae = new GerenciaAeroporto(aero);
+		//GerenciaVoo gvo = new GerenciaVoo();
 		//GerenciaVoo gvo = new GerenciaVoo(vo, avs, aero);
 		//GerenciaPassagem gps = new GerenciaPassagem();
 		//GerenciaPassagem gps = new GerenciaPassagem(vo, cls, psg);
@@ -43,111 +42,71 @@ public class Principal {
 		do {
 
 			op = menus.menuPrincipal();
+			int ops;
 
 			switch (op) {
 			case 1:
 
-				int ops;
 				do {
 					ops = menus.menu("Clientes");
 					System.out.println(ops);
+					
 					switch (ops) {
 
-					case 1:
-						gc.cadastrar();
-						break;
+						case 1:	gc.cadastrar();	break;
+						case 2:	gc.alterar();break;
+						case 3:	gc.excluir();break;
+						case 4:	gc.consultar();	break;
+						case 5:	gc.relatorio();	break;
+						default:
+					}
+				}while (ops != 0);
+				break;
 
-					case 2:
-						gc.alterar();
-						break;
+			case 2:
 
-					case 3:
-						gc.excluir();
-						break;
-					case 4:
-						gc.consultar();
-						break;
-
-					case 5:
-						gc.relatorio();
-						break;
-					default:
-
+				do {
+					
+					ops = menus.menu("Pilotos");
+					System.out.println(ops);
+					
+					switch (ops) {
+						case 1:	gp.cadastrar();	break;
+						case 2:	gp.alterar();break;
+						case 3:	gp.excluir(); break;
+						case 4: gp.consultar();	break;
+						case 5:	gp.relatorio();	break;
+						default:
 					}
 				} while (ops != 0);
 
 				break;
 
-			case 2:
-
-				int opsA;
-				do {
-					opsA = menus.menu("Aviões");
-					System.out.println(opsA);
-					switch (opsA) {
-
-					case 1:
-						ga.cadastrar();
-						break;
-
-					case 2:
-						ga.alterar();
-						break;
-
-					case 3:
-						ga.excluir();
-						break;
-					case 4:
-						ga.consultar();
-						break;
-
-					case 5:
-						ga.imprimir();
-						break;
-					default:
-
-					}
-				} while (opsA != 0);
-
-				break;
-
 			case 3:
-				int opsAe;
+
 				do {
-					opsAe = menus.menu("Aeroportos");
-					System.out.println(opsAe);
-					switch (opsAe) {
 
-					case 1:
-						gae.cadastrar();
-						break;
+					ops = menus.menu("Cidades");
+					System.out.println(ops);
 
-					case 2:
-						gae.alterar();
-						break;
-
-					case 3:
-						gae.excluir();
-						break;
-					case 4:
-						gae.consultar();
-						break;
-
-					case 5:
-						gae.imprimir();
-						break;
+					switch (ops) {
+					case 1:	gci.cadastrar();break;
+					case 2:	gci.alterar();break;
+					case 3:	gci.excluir(); break;
+					case 4: gci.consultar();break;
+					case 5:	gci.relatorio();break;
 					default:
-
 					}
-				} while (opsAe != 0);
+				} while (ops != 0);
+
 
 				break;
 
 			case 4:
-
+            /*
 				int opsVo;
 				do {
-					opsVo = menus.menu("Voos");
+					opsVo = menus.menu("Aeroporto");
 					System.out.println(opsVo);
 					switch (opsVo) {
 
@@ -173,12 +132,12 @@ public class Principal {
 						System.out.println("Opção selecionada inexistente. Por favor, escolha uma opção! ");
 
 					}
-				} while (opsVo != 0);
+				} while (opsVo != 0); */
 
 				break;
 
 			case 5:
-				int opsPs;
+				/*int opsPs;
 				do {
 					opsPs = menus.menuPassagem("Passagens");
 					System.out.println(opsPs);
@@ -200,7 +159,7 @@ public class Principal {
 						System.out.println("Opção selecionada inexistente. Por favor, escolha uma opção! ");
 
 					}
-				} while (opsPs != 0);
+				} while (opsPs != 0);*/
 
 				break;
 

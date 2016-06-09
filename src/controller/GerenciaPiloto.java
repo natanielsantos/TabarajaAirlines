@@ -1,50 +1,52 @@
 package controller;
 
-import DAO.CidadeBD;
+import DAO.CidadeDAO;
 import java.util.ArrayList;
 import java.util.Scanner;
-import DAO.PilotoBD;
+import DAO.PilotoDAO;
+import model.Piloto;
 
 public class GerenciaPiloto {
     
-    private final CidadeBD CidBd = new CidadeBD();
+    private final CidadeDAO CidBd = new CidadeDAO();
     private final GerenciaCidade gc = new GerenciaCidade();
-    Scanner ler = new Scanner(System.in);
-    private final PilotoBD PilBd = new PilotoBD();
+    Scanner ent = new Scanner(System.in);
+    private final PilotoDAO PilBd = new PilotoDAO();
 
     public GerenciaPiloto() {
 
     }
 
-    public void cadastro() {
-        String nome;
-        long cod,aux;
+    public void cadastrar() {
+
+        long aux;
+        
         Piloto pil = new Piloto();
         try {
             System.out.println("==Inserção de pilotos==");
             System.out.println("Digite os dados do novo piloto: \n");
             System.out.println("Nome: ");
-            pil.setNome(ler.nextLine());
+            pil.setNome(ent.nextLine());
             System.out.println("Identidade: ");
-            pil.setIdentidade(ler.nextLine());
+            pil.setIdentidade(ent.nextLine());
             System.out.println("CPF: ");
-            pil.setCpf(ler.nextLine());
+            pil.setCpf(ent.nextLine());
             System.out.println("Número do Brever: ");
-            pil.setNumeroBrever(ler.nextLine());
+            pil.setNumeroBrever(ent.nextLine());
             System.out.println("Logradouro: ");
-            pil.setLogradouro(ler.nextLine());
+            pil.setLogradouro(ent.nextLine());
             System.out.println("Numero: ");
-            pil.setNumero(ler.nextLine());
+            pil.setNumero(ent.nextLine());
             System.out.println("\nCIDADES DISPONÍVEIS.");
             System.out.println("======================================");
             gc.relatorio();
             System.out.println("======================================");
             System.out.println("\nDigite a identificação da Cidade: ");
-            aux = ler.nextLong();
+            aux = ent.nextLong();
             pil.setCidade(CidBd.consultar(aux));
-            ler.skip("\n");       
+            ent.nextLine();      
             System.out.println("Telefone:");
-            pil.setTelefone(ler.nextLine());
+            pil.setTelefone(ent.nextLine());
             PilBd.inserirNoBanco(pil);
             System.out.println("\nNovo piloto cadastrado com sucesso. \n");
         } catch (Exception ex) {
@@ -54,12 +56,12 @@ public class GerenciaPiloto {
 
     public void alterar() {
         String cod;
-        String nome;
+
 
         System.out.println("==== Alteração de pilotos  ====");
 
         System.out.println("Qual a identidade do piloto que você deseja alterar? ");
-        cod = ler.nextLine();
+        cod = ent.nextLine();
 
         Piloto pil = PilBd.consultar(cod);
 
@@ -67,30 +69,30 @@ public class GerenciaPiloto {
             System.out.println("==== Dados do piloto =====");
             pil.consultar();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
-            int resp = ler.nextInt();
-            ler.skip("\n");
+            int resp = ent.nextInt();
+            ent.nextLine();
             if (resp == 1) {
                 System.out.println("Digite os  novos dados do piloto: \n");
                 System.out.println("Nome: ");
-                pil.setNome(ler.nextLine());
+                pil.setNome(ent.nextLine());
                 System.out.println("CPF: ");
-                pil.setCpf(ler.nextLine());
+                pil.setCpf(ent.nextLine());
                 System.out.println("Número do Brever: ");
-                pil.setNumeroBrever(ler.nextLine());
+                pil.setNumeroBrever(ent.nextLine());
                 System.out.println("Logradouro: ");
-                pil.setLogradouro(ler.nextLine());
+                pil.setLogradouro(ent.nextLine());
                 System.out.println("Numero: ");
-                pil.setNumero(ler.nextLine());
+                pil.setNumero(ent.nextLine());
                 System.out.println("\nCIDADES DISPONÍVEIS.");
                 System.out.println("======================================");
                 gc.relatorio();
                 System.out.println("======================================");
                 System.out.println("\nDigite a identificação da Cidade: ");
-                long aux = ler.nextLong();
-                ler.skip("\n");             
+                long aux = ent.nextLong();
+                ent.nextLine();           
                 pil.setCidade(CidBd.consultar(aux));
                 System.out.println("Telefone:");
-                pil.setTelefone(ler.nextLine());
+                pil.setTelefone(ent.nextLine());
                 
                 try {
                     PilBd.alterarNoBanco(pil);
@@ -112,7 +114,7 @@ public class GerenciaPiloto {
         System.out.println("==== Exclusão de pilotos ====");
 
         System.out.println("Qual a identidade do piloto que você deseja excluir? ");
-        cod = ler.nextLine();
+        cod = ent.nextLine();
 
         Piloto pil = PilBd.consultar(cod);
 
@@ -120,8 +122,8 @@ public class GerenciaPiloto {
             System.out.println("===== Dados do Piloto =====");
             pil.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
-            resp = ler.nextInt();
-            ler.skip("\n");
+            resp = ent.nextInt();
+            ent.nextLine();
 
             if (resp == 1) {
                 try {
@@ -145,7 +147,7 @@ public class GerenciaPiloto {
         System.out.println("==== Consulta de pilotos ====");
 
         System.out.println("Qual a identidade do piloto que você deseja consultar? ");
-        cod = ler.nextLine();
+        cod = ent.nextLine();
 
         Piloto pil = PilBd.consultar(cod);
 

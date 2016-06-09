@@ -2,28 +2,28 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import tabajara.airlines.Cidade;
-import tabajara.airlines.Piloto;
+import model.Cidade;
+import model.Piloto;
 
-public class PilotoBD {
+public class PilotoDAO {
 
     private Connection con;
-    private Statement stm;
-    ConectaBD bancoDeDados = ConectaBD.getInstance();
+    
+    Conexao bancoDeDados = Conexao.getInstance();
 
-    public PilotoBD() {
+    public PilotoDAO() {
         con = bancoDeDados.iniciaBanco();
     }
 
     public void inserirNoBanco(Piloto pil) {
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO pilotos "
+            PreparedStatement pst = con.prepareStatement("INSERT INTO piloto "
                     + "VALUES (?,?,?,?,?,?,?,?)");
  
             pst.setString(1, pil.getIdentidade());
             pst.setString(2, pil.getNome());
             pst.setString(3, pil.getCpf());
-            pst.setString(4, pil.getNumeroBrever());
+            pst.setString(4, pil.getNumeroBreve());
             pst.setString(5, pil.getLogradouro());
             pst.setString(6, pil.getNumero());
             pst.setInt(7, pil.getCidade().getIdentificacao());
@@ -38,7 +38,7 @@ public class PilotoBD {
     public void excluirDoBanco(Piloto pil) {
         try {
 
-            PreparedStatement pst = con.prepareStatement("DELETE FROM pilotos WHERE identidade = ?");
+            PreparedStatement pst = con.prepareStatement("DELETE FROM piloto WHERE identidade = ?");
             pst.setString(1, pil.getIdentidade());
             pst.execute();
 
@@ -49,13 +49,13 @@ public class PilotoBD {
 
     public void alterarNoBanco(Piloto pil) {
         try {
-            PreparedStatement pst = con.prepareStatement("UPDATE pilotos SET"
-                    + " nome = ?, cpf = ?, numerodobrever = ?, "
+            PreparedStatement pst = con.prepareStatement("UPDATE piloto SET"
+                    + " nome = ?, cpf = ?, numerodobreve = ?, "
                     + "logradouro = ?, numero = ?, cidade = ?,telefone = ? WHERE identidade = ?");
             
             pst.setString(1, pil.getNome());
             pst.setString(2, pil.getCpf());
-            pst.setString(3, pil.getNumeroBrever());
+            pst.setString(3, pil.getNumeroBreve());
             pst.setString(4, pil.getLogradouro());
             pst.setString(5, pil.getNumero());
             pst.setInt(6, pil.getCidade().getIdentificacao());
@@ -74,17 +74,17 @@ public class PilotoBD {
         ResultSet rs;
 
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM pilotos "
-                    + "INNER JOIN cidades ON pilotos.cidade = cidades.idcidade WHERE identidade = ?");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM piloto "
+                    + "INNER JOIN cidade ON piloto.cidade = cidade.idcidade WHERE identidade = ?");
 
             pst.setString(1, cod);
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                pil = new Piloto(rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
-                        rs.getString("numerodobrever"), rs.getString("logradouro"), rs.getString("numero"), 
-                        new Cidade(rs.getInt("idcidade"), rs.getString("pais"), rs.getString("estado"), 
-                                rs.getString("nomeCidade")), rs.getString("telefone"));
+                pil = new Piloto(rs.getString("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                        rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
+                        new Cidade(rs.getInt("identificacao"), rs.getString("pais"), rs.getString("estado"), 
+                                rs.getString("municipio")), rs.getString("telefone"));
 
                 return pil;
             } else {
@@ -97,23 +97,23 @@ public class PilotoBD {
         }
     }
 
-    public ArrayList relatorio() {
+    public ArrayList<Piloto> relatorio() {
         ArrayList<Piloto> pilotos;
         ResultSet rs;
 
         try {
             pilotos = new ArrayList<>();
 
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM pilotos INNER JOIN "
-                    + "cidades ON pilotos.cidade = cidades.idcidade");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM piloto INNER JOIN "
+                    + "cidade ON piloto.cidade = cidade.identificacao");
             
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
-                pilotos.add(new Piloto(rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
-                        rs.getString("numerodobrever"), rs.getString("logradouro"), rs.getString("numero"), 
-                        new Cidade(rs.getInt("idcidade"), rs.getString("pais"), rs.getString("estado"), 
+                pilotos.add(new Piloto(rs.getString("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                        rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
+                        new Cidade(rs.getInt("identificacao"), rs.getString("pais"), rs.getString("estado"), 
                                 rs.getString("nome")), rs.getString("telefone")));
             }
             return pilotos;

@@ -10,7 +10,7 @@ public class Cidade {
     public Cidade() {
     }
     
-    public Cidade(int identificacao, String pais, String estado , String nome) {
+    public Cidade(int identificacao, String nome, String pais, String estado ) {
         this.identificacao = identificacao;
         this.pais = pais;
         this.estado = estado;
@@ -51,8 +51,9 @@ public class Cidade {
 
     public void consultar() {
         System.out.println("Identificação: " + identificacao);
+        System.out.println("Município :" + nome);
         System.out.println("Pais: " + pais);
         System.out.println("Estado: " + estado);
-        System.out.println("nome da cidade :" + nome);
+        
     }
 }

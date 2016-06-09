@@ -1,20 +1,22 @@
 package controller;
 
-import DAO.CidadeBD;
+import DAO.CidadeDAO;
+import model.Cidade;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GerenciaCidade {
 
     private int resp;
-    private Scanner ler = new Scanner(System.in);
-    ;
-    private final CidadeBD CidBd = new CidadeBD();
+    private Scanner ent = new Scanner(System.in);
+    
+    private final CidadeDAO CidBd = new CidadeDAO();
 
     public GerenciaCidade() {
     }
 
-    public void cadastro() {
+    public void cadastrar() {
         String nome;
         long cod;
         Cidade cid = new Cidade();
@@ -23,14 +25,15 @@ public class GerenciaCidade {
             System.out.println("==Inserção de Cidades==");
             System.out.println("Digite os dados da nova cidade: \n");
             System.out.println("Identificação:");
-            cid.setIdentificacao(ler.nextInt());
-            ler.skip("\n");
+            cid.setIdentificacao(ent.nextInt());
+            ent.nextLine();
+            System.out.println("Município: ");
+            cid.setNome(ent.nextLine());
             System.out.println("País: ");
-            cid.setPais(ler.nextLine());
+            cid.setPais(ent.nextLine());
             System.out.println("Estado: ");
-            cid.setEstado(ler.nextLine());
-            System.out.println("Nome: ");
-            cid.setNome(ler.nextLine());
+            cid.setEstado(ent.nextLine());
+        
             CidBd.inserirNoBanco(cid);
             System.out.println("\nNova cidade cadastrada com sucesso. \n");
         } catch (Exception ex) {
@@ -39,13 +42,13 @@ public class GerenciaCidade {
     }
 
     public void alterar() {
-        long cod;
+        int cod;
         String nome;
 
         System.out.println("==== Alteração de cidades  ====");
         System.out.println("Qual o código da cidade que você deseja alterar? ");
-        cod = ler.nextLong();
-        ler.skip("\n");
+        cod = ent.nextInt();
+        ent.nextLine();
 
         Cidade cid = CidBd.consultar(cod);
 
@@ -53,16 +56,17 @@ public class GerenciaCidade {
             System.out.println("==== Dados da cidade =====");
             cid.consultar();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
-            int resp = ler.nextInt();
-            ler.skip("\n");
+            int resp = ent.nextInt();
+            ent.nextLine();
             if (resp == 1) {
                 System.out.println("Digite os  novos dados da cidade: \n");
+                System.out.println("Município: ");
+                cid.setNome(ent.nextLine());
                 System.out.println("País: ");
-                cid.setPais(ler.nextLine());
+                cid.setPais(ent.nextLine());
                 System.out.println("Estado: ");
-                cid.setEstado(ler.nextLine());
-                System.out.println("Nome: ");
-                cid.setNome(ler.nextLine());
+                cid.setEstado(ent.nextLine());
+                
                 try {
                     CidBd.alterarNoBanco(cid);
                     System.out.println("Alteração efetuada com sucesso.");
@@ -79,14 +83,14 @@ public class GerenciaCidade {
     }
 
     public void excluir() {
-        long cod;
+        int cod;
         int resp;
 
         System.out.println("==== Exclusão de cidadess ====");
 
         System.out.println("Qual o código da Cidade que você deseja excluir? ");
-        cod = ler.nextInt();
-        ler.skip("\n");
+        cod = ent.nextInt();
+        ent.nextLine();
 
         Cidade cid = CidBd.consultar(cod);
 
@@ -94,8 +98,8 @@ public class GerenciaCidade {
             System.out.println("===== Dados da cidade =====");
             cid.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
-            resp = ler.nextInt();
-            ler.skip("\n");
+            resp = ent.nextInt();
+            ent.nextLine();
 
             if (resp == 1) {
                 try {
@@ -112,13 +116,13 @@ public class GerenciaCidade {
     }
 
     public void consultar() {
-        long cod;
+        int cod;
 
         System.out.println("==== Consulta de cidades ====");
 
         System.out.println("Qual o código da cidade que você deseja consultar? ");
-        cod = ler.nextLong();
-        ler.skip("\n");
+        cod = ent.nextInt();
+        ent.nextLine();
 
         Cidade cid = CidBd.consultar(cod);
 
