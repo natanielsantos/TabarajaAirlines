@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class GerenciaCidade {
 
-    private int resp;
     private Scanner ent = new Scanner(System.in);
     
     private final CidadeDAO CidBd = new CidadeDAO();
@@ -17,17 +16,14 @@ public class GerenciaCidade {
     }
 
     public void cadastrar() {
-        String nome;
-        long cod;
+
         Cidade cid = new Cidade();
 
         try {
             System.out.println("==Inserção de Cidades==");
             System.out.println("Digite os dados da nova cidade: \n");
-            System.out.println("Identificação:");
-            cid.setIdentificacao(ent.nextInt());
-            ent.nextLine();
-            System.out.println("Município: ");
+            
+            System.out.println("Nome da Cidade: ");
             cid.setNome(ent.nextLine());
             System.out.println("País: ");
             cid.setPais(ent.nextLine());
@@ -43,7 +39,6 @@ public class GerenciaCidade {
 
     public void alterar() {
         int cod;
-        String nome;
 
         System.out.println("==== Alteração de cidades  ====");
         System.out.println("Qual o código da cidade que você deseja alterar? ");

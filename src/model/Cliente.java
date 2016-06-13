@@ -109,9 +109,9 @@ public class Cliente {
         this.cpf = cpf;
     }
 
-    public void consultar() {
-        System.out.println("Identificação: " + identificacao);
-        System.out.println("Nome  : " + nome);
+   public void consultar() {
+        System.out.println("Identificação:" + identificacao);
+        System.out.println("Nome:" + nome);
         System.out.println("Logradouro: " + logradouro);
         System.out.println("Numero: " + numero);
         System.out.println("Bairro: " + bairro);
@@ -121,4 +121,9 @@ public class Cliente {
         System.out.println("Telefone: " + telefone);
         System.out.println("CPF :" + cpf);
     }
+    /*
+    public void consultar() {
+        System.out.println(identificacao + "\t" + nome + "\t" + logradouro + "\t"+numero + "\t"+bairro + "\t"+municipio + "\t"+estado + "\t"+cep + "\t"+telefone + "\t"+cpf);
+       
+    }*/
 }

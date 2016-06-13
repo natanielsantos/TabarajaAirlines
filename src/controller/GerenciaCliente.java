@@ -21,9 +21,6 @@ public class GerenciaCliente {
             System.out.println("==Inserção de Clientes==");
             System.out.println("Digite os dados do novo cliente: \n");
 
-            System.out.println("Identificação :");
-            cli.setIdentificacao(ent.nextInt());
-            ent.nextLine();
             System.out.printf("Nome: ");
             cli.setNome(ent.nextLine());
             System.out.printf("Logradouro: ");
@@ -120,7 +117,7 @@ public class GerenciaCliente {
             cli.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
             resp = ent.nextInt();
-            ent.skip("\n");
+            ent.nextLine();
 
             if (resp == 1) {
                 try {
@@ -166,9 +163,10 @@ public class GerenciaCliente {
 
             if (cli != null) {
                 System.out.println("===== Lista de clientes =====");
+                //System.out.printf("\n%-5s%s\t\t%s\n%-5s%s\n", "Id","Nome","Logradouro","----","------------\t---------------");
                 for (Cliente c : cli) {
-                    c.consultar();
-                    System.out.println("============================================");
+                       c.consultar();
+                       System.out.println("----------------------");
                 }
             } else {
                 System.out.println("\nNão existem pessoas cadastradas.");

@@ -7,7 +7,6 @@ import model.Cidade;
 public class CidadeDAO {
     
     private Connection con;
-    private Statement stm;
     Conexao bancoDeDados = Conexao.getInstance();
 
     public CidadeDAO() {
@@ -16,13 +15,12 @@ public class CidadeDAO {
     
     public void inserirNoBanco(Cidade cid) {
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO cidade "
-                    + "VALUES (?,?,?,?)");
+            PreparedStatement pst = con.prepareStatement("INSERT INTO cidade(municipio,pais,estado) "
+                    + "VALUES (?,?,?)");
             
-            pst.setInt(1, cid.getIdentificacao());
-            pst.setString(2, cid.getNome());
-            pst.setString(3, cid.getPais());
-            pst.setString(4, cid.getEstado());
+            pst.setString(1, cid.getNome());
+            pst.setString(2, cid.getPais());
+            pst.setString(3, cid.getEstado());
             
             pst.executeUpdate();
             pst.close();
@@ -34,7 +32,7 @@ public class CidadeDAO {
     public void excluirDoBanco(Cidade cid) {
         try {
             
-            PreparedStatement pst = con.prepareStatement("DELETE FROM cidade WHERE identificacao = ?");
+            PreparedStatement pst = con.prepareStatement("DELETE FROM cidade WHERE idcidade = ?");
             pst.setInt(1, cid.getIdentificacao());
             pst.execute();
       
@@ -46,7 +44,7 @@ public class CidadeDAO {
     public void alterarNoBanco(Cidade cid) {
         try {
             PreparedStatement pst = con.prepareStatement("UPDATE cidade SET pais = ?,"
-                    + " estado = ? ,municipio = ? WHERE identificacao = ?");
+                    + " estado = ? ,municipio = ? WHERE idcidade = ?");
 
             pst.setString(1, cid.getPais());
             pst.setString(2, cid.getEstado());
@@ -63,15 +61,15 @@ public class CidadeDAO {
         Cidade cid;
         ResultSet rs;
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT identificacao, municipio, pais, estado "
+            PreparedStatement pst = con.prepareStatement("SELECT idcidade, municipio, pais, estado "
                     + "FROM cidade"
-                    + " WHERE identificacao = ? ");
+                    + " WHERE idcidade = ? ");
             
             pst.setInt(1, (int)cod);
             rs= pst.executeQuery();
             
             if (rs.next()) {
-              cid = new Cidade(rs.getInt("identificacao"), rs.getString("municipio"), rs.getString("pais"), rs.getString("estado"));
+              cid = new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"), rs.getString("estado"));
 
                 return cid;
             } else {
@@ -84,7 +82,7 @@ public class CidadeDAO {
         }
     }
 
-     public ArrayList relatorio() {
+     public ArrayList<Cidade> relatorio() {
         ArrayList<Cidade> cidades;
         ResultSet rs;
 
@@ -96,7 +94,7 @@ public class CidadeDAO {
        
             while (rs.next()) {
 
-                cidades.add(new Cidade(rs.getInt("identificacao"), rs.getString("municipio"), rs.getString("pais"), rs.getString("estado")
+                cidades.add(new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"), rs.getString("estado")
                         ));
             }
             return cidades;

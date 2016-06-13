@@ -54,6 +54,11 @@ public class Cidade {
         System.out.println("Município :" + nome);
         System.out.println("Pais: " + pais);
         System.out.println("Estado: " + estado);
-        
+    }
+    
+    public void consultarP() {
+        System.out.println("Município :" + nome);
+        System.out.println("Pais: " + pais);
+        System.out.println("Estado: " + estado);
     }
 }

@@ -17,7 +17,7 @@ public class PilotoDAO {
 
     public void inserirNoBanco(Piloto pil) {
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO piloto "
+            PreparedStatement pst = con.prepareStatement("INSERT INTO piloto(identidade,nome,cpf,numerodobreve,logradouro,numero,cidade,telefone)"
                     + "VALUES (?,?,?,?,?,?,?,?)");
  
             pst.setString(1, pil.getIdentidade());
@@ -81,10 +81,10 @@ public class PilotoDAO {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                pil = new Piloto(rs.getString("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                pil = new Piloto(rs.getInt("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
-                        new Cidade(rs.getInt("identificacao"), rs.getString("pais"), rs.getString("estado"), 
-                                rs.getString("municipio")), rs.getString("telefone"));
+                        new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"), 
+                                rs.getString("estado")), rs.getString("telefone"));
 
                 return pil;
             } else {
@@ -105,16 +105,16 @@ public class PilotoDAO {
             pilotos = new ArrayList<>();
 
             PreparedStatement pst = con.prepareStatement("SELECT * FROM piloto INNER JOIN "
-                    + "cidade ON piloto.cidade = cidade.identificacao");
+                    + "cidade ON piloto.cidade = cidade.idcidade");
             
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
-                pilotos.add(new Piloto(rs.getString("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                pilotos.add(new Piloto(rs.getInt("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
-                        new Cidade(rs.getInt("identificacao"), rs.getString("pais"), rs.getString("estado"), 
-                                rs.getString("nome")), rs.getString("telefone")));
+                        new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"), 
+                                rs.getString("estado")), rs.getString("telefone")));
             }
             return pilotos;
 

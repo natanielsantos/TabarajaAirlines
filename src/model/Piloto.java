@@ -2,7 +2,7 @@ package model;
 
 public class Piloto {
 
-    private String identificacao;
+    private int identificacao;
     private String nome;
     private String identidade;
     private String cpf;
@@ -15,7 +15,7 @@ public class Piloto {
     public Piloto() {
     }
 
-    public Piloto(String identificacao, String nome, String identidade, String cpf, 
+    public Piloto(int identificacao, String nome, String identidade, String cpf, 
             String numeroBreve, String logradouro, String numero, Cidade cidade, String telefone) {
         this.identificacao = identificacao;
         this.nome = nome;
@@ -28,11 +28,11 @@ public class Piloto {
         this.telefone = telefone;
     }
 
-    public String getIdentificacao() {
+    public int getIdentificacao() {
         return identificacao;
     }
 
-    public void setIdentificacao(String identificacao) {
+    public void setIdentificacao(int identificacao) {
         this.identificacao = identificacao;
     }
 
@@ -84,14 +84,6 @@ public class Piloto {
         this.numero = numero;
     }
 
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
-    }
-
     public String getTelefone() {
         return telefone;
     }
@@ -99,10 +91,21 @@ public class Piloto {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
     
+    public Cidade getCidade() {
+		return cidade;
+	}
 
-    public void consultar() {
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
+	}
+
+	public void setNumeroBreve(String numeroBreve) {
+		this.numeroBreve = numeroBreve;
+	}
+
+	public void consultar() {
+		
         System.out.println("Identificador de Piloto: " + identificacao);
         System.out.println("Nome: " + nome);
         System.out.println("Identidade: " + identidade);
@@ -110,8 +113,7 @@ public class Piloto {
         System.out.println("Número do Breve: " + numeroBreve);
         System.out.println("Logradouro: " + logradouro);
         System.out.println("Numero: " + numero);
-        System.out.println("===Cidade===");
-        cidade.consultar();
+        cidade.consultarP();
         System.out.println("Telefone: " + telefone);
     }
 
