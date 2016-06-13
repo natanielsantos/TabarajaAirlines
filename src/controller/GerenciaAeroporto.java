@@ -1,8 +1,8 @@
 package controller;
 
-import DAO.AeroportoBD;
-import DAO.CidadeBD;
-import DAO.PilotoBD;
+import DAO.AeroportoDAO;
+import DAO.CidadeDAO;
+import DAO.PilotoDAO;
 import model.Aeroporto;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.Scanner;
 
 public class GerenciaAeroporto {
 
-    private final CidadeBD CidBd = new CidadeBD();
+    private final CidadeDAO CidBd = new CidadeDAO();
     private final GerenciaCidade gc = new GerenciaCidade();
     Scanner ent = new Scanner(System.in);
-    private final AeroportoBD ABd = new AeroportoBD();
+    private final AeroportoDAO ABd = new AeroportoDAO();
     private ArrayList<Aeroporto> aeroportos;
     
     public GerenciaAeroporto(ArrayList<Aeroporto> aero) {
@@ -25,7 +25,7 @@ public class GerenciaAeroporto {
 
     }
 
-    public void cadastro() {
+    public void cadastrar() {
         Aeroporto aer = new Aeroporto();
         try {
             System.out.println("\n==Inserção de Aeroportos==");
@@ -41,7 +41,7 @@ public class GerenciaAeroporto {
             System.out.println("\nDigite a identificação da Cidade: ");
             long aux = ent.nextLong();
             aer.setCidade(CidBd.consultar(aux));
-            ent.skip("\n");
+            ent.nextLine();
             ABd.inserirNoBanco(aer);
             System.out.println("\nNovo aeroporto cadastrado com sucesso. \n");
         } catch (Exception ex) {
@@ -49,9 +49,8 @@ public class GerenciaAeroporto {
         }
     }
 
-    public void alteracao() {
+    public void alterar() {
         String cod;
-        String nome;
 
         System.out.println("==== Alteração de aeroportos  ====");
 
@@ -62,10 +61,10 @@ public class GerenciaAeroporto {
 
         if (aer != null) {
             System.out.println("==== Dados do aeoporto =====");
-            aer.consultar();
+            aer.consultarA();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
             int resp = ent.nextInt();
-            ent.skip("\n");
+            ent.nextLine();
             if (resp == 1) {
                 System.out.println("Digite os  novos dados do aeroporto: \n");
                 System.out.println("Nome do Aeroporto: ");
@@ -76,7 +75,7 @@ public class GerenciaAeroporto {
                 System.out.println("======================================");
                 System.out.println("\nDigite a identificação da Cidade: ");
                 long aux = ent.nextLong();
-                ent.skip("\n");
+                ent.nextLine();
                 aer.setCidade(CidBd.consultar(aux));
 
                 try {
@@ -92,7 +91,7 @@ public class GerenciaAeroporto {
         }
     }
 
-    public void exclusao() {
+    public void excluir() {
         String cod;
         int resp;
 
@@ -105,10 +104,10 @@ public class GerenciaAeroporto {
 
         if (aer != null) {
             System.out.println("===== Dados do Aeroporto =====");
-            aer.consultar();
+            aer.consultarA();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
             resp = ent.nextInt();
-            ent.skip("\n");
+            ent.nextLine();
 
             if (resp == 1) {
                 try {
@@ -123,7 +122,7 @@ public class GerenciaAeroporto {
         }
     }
 
-    public void consulta() {
+    public void consultar() {
         String cod;
         System.out.println("==== Consulta de Aeroportos ====");
 
@@ -134,7 +133,7 @@ public class GerenciaAeroporto {
 
         if (aer != null) {
             System.out.println("===== Dados do Aeroporto =====");
-            aer.consultar();
+            aer.consultarA();
         } else {
             System.out.println("Não existe Aeroporto com esta identidade.");
         }
@@ -151,7 +150,7 @@ public class GerenciaAeroporto {
             if (aer != null) {
                 System.out.println("===== Lista de aeroportos =====");
                 for (Aeroporto c : aer) {
-                    c.consultar();
+                    c.consultarA();
                     System.out.println("============================================");
                 }
             } else {

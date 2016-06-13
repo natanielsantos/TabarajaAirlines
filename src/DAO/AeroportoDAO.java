@@ -2,22 +2,21 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import tabajara.airlines.Aeroporto;
-import tabajara.airlines.Cidade;
+import model.Aeroporto;
+import model.Cidade;
 
-public class AeroportoBD {
+public class AeroportoDAO {
 
     private Connection con;
-    private Statement stm;
-    ConectaBD bancoDeDados = ConectaBD.getInstance();
+    Conexao bancoDeDados = Conexao.getInstance();
 
-    public AeroportoBD() {
+    public AeroportoDAO() {
         con = bancoDeDados.iniciaBanco();
     }
 
     public void inserirNoBanco(Aeroporto aer) {
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO aeroportos "
+            PreparedStatement pst = con.prepareStatement("INSERT INTO aeroporto "
                     + "VALUES (?,?,?)");
 
             pst.setString(1, aer.getIdentificacao());
@@ -33,7 +32,7 @@ public class AeroportoBD {
     public void excluirDoBanco(Aeroporto aer) {
         try {
 
-            PreparedStatement pst = con.prepareStatement("DELETE FROM aeroportos WHERE idaeroporto = ?");
+            PreparedStatement pst = con.prepareStatement("DELETE FROM aeroporto WHERE idaeroporto = ?");
             pst.setString(1, aer.getIdentificacao());
             pst.execute();
 
@@ -44,7 +43,7 @@ public class AeroportoBD {
 
     public void alterarNoBanco(Aeroporto aer) {
         try {
-            PreparedStatement pst = con.prepareStatement("UPDATE aeroportos SET  nome = ?, "
+            PreparedStatement pst = con.prepareStatement("UPDATE aeroporto SET  nome = ?, "
                     + "cidade = ? WHERE idaeroporto = ?");
 
             pst.setString(1, aer.getNome());
@@ -63,16 +62,16 @@ public class AeroportoBD {
         ResultSet rs;
 
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM aeroportos "
-                    + "INNER JOIN cidades ON aeroportos.cidade = cidades.idcidade WHERE idaeroporto = ?");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM aeroporto "
+                    + "INNER JOIN cidade ON aeroporto.cidade = cidade.idcidade WHERE idaeroporto = ?");
 
             pst.setString(1, cod);
             rs = pst.executeQuery();
 
             if (rs.next()) {
                 aer = new Aeroporto(rs.getString("idaeroporto"),
-                        rs.getString("nome"),new Cidade(rs.getInt("idcidade"), rs.getString("pais"), 
-                        rs.getString("estado"),rs.getString("nomeCidade")));
+                        rs.getString("nome"),new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), 
+                        rs.getString("pais"),rs.getString("estado")));
 
                 return aer;
             } else {
@@ -85,23 +84,23 @@ public class AeroportoBD {
         }
     }
 
-    public ArrayList relatorio() {
+    public ArrayList<Aeroporto> relatorio() {
         ArrayList<Aeroporto> aeroportos;
         ResultSet rs;
 
         try {
             aeroportos = new ArrayList<>();
 
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM aeroportos INNER JOIN "
-                    + "cidades ON aeroportos.cidade = cidades.idcidade");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM aeroporto INNER JOIN "
+                    + "cidade ON aeroporto.cidade = cidade.idcidade");
 
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
                 aeroportos.add(new Aeroporto(rs.getString("idaeroporto"),
-                        rs.getString("nome"),new Cidade(rs.getInt("idcidade"), rs.getString("pais"), 
-                        rs.getString("estado"),rs.getString("nomeCidade"))));
+                        rs.getString("nome"),new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), 
+                        rs.getString("pais"),rs.getString("estado"))));
             }
             return aeroportos;
 

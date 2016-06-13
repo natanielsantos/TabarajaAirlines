@@ -45,4 +45,11 @@ public class Aeroporto {
         cidade.consultar();
        
     }
+    
+    public void consultarA(){
+    	System.out.println("Identificação: "+ identificacao);
+        System.out.println("Nome: "+ nome); 
+        cidade.consultarP();
+       
+    }
 }

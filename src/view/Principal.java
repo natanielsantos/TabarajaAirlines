@@ -26,10 +26,11 @@ public class Principal {
 		GerenciaCliente gc = new GerenciaCliente();
 		GerenciaCidade gci = new GerenciaCidade();
 		GerenciaPiloto gp = new GerenciaPiloto();
-
+		GerenciaAeroporto gae = new GerenciaAeroporto();
+		
 		//GerenciaAviao gci = new GerenciaAviao();
 		//GerenciaAviao ga = new GerenciaAviao(avs);
-		//GerenciaAeroporto gae = new GerenciaAeroporto(aero);
+		
 		//GerenciaVoo gvo = new GerenciaVoo();
 		//GerenciaVoo gvo = new GerenciaVoo(vo, avs, aero);
 		//GerenciaPassagem gps = new GerenciaPassagem();
@@ -103,36 +104,20 @@ public class Principal {
 				break;
 
 			case 4:
-            /*
-				int opsVo;
+            
 				do {
-					opsVo = menus.menu("Aeroporto");
-					System.out.println(opsVo);
-					switch (opsVo) {
-
-					case 1:
-						gvo.cadastrar();
-						break;
-
-					case 2:
-						gvo.alterar();
-						break;
-
-					case 3:
-						gvo.excluir();
-						break;
-					case 4:
-						gvo.consultar();
-						break;
-
-					case 5:
-						gvo.imprimir();
-						break;
+					ops = menus.menu("Aeroportos");
+					System.out.println(ops);
+					
+					switch (ops) {
+					case 1:	gae.cadastrar();break;
+					case 2:	gae.alterar();break;
+					case 3:	gae.excluir(); break;
+					case 4: gae.consultar();break;
+					case 5:	gae.relatorio();break;
 					default:
-						System.out.println("Opção selecionada inexistente. Por favor, escolha uma opção! ");
-
 					}
-				} while (opsVo != 0); */
+				} while (ops != 0);
 
 				break;
 
