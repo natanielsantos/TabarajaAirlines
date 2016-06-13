@@ -3,18 +3,8 @@ package view;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import controller.GerenciaAeroporto;
-import controller.GerenciaAviao;
-import controller.GerenciaCidade;
-import controller.GerenciaCliente;
-import controller.GerenciaPiloto;
-import controller.GerenciaVoo;
-
-import model.Aeroporto;
-import model.Aviao;
-import model.Cliente;
-import model.Passagem;
-import model.Voo;
+import controller.*;
+import model.*;
 
 public class Principal {
 
@@ -27,6 +17,8 @@ public class Principal {
 		GerenciaCidade gci = new GerenciaCidade();
 		GerenciaPiloto gp = new GerenciaPiloto();
 		GerenciaAeroporto gae = new GerenciaAeroporto();
+		GerenciaAviao gav = new GerenciaAviao();
+		GerenciaHelicoptero ghe = new GerenciaHelicoptero();
 		
 		//GerenciaAviao gci = new GerenciaAviao();
 		//GerenciaAviao ga = new GerenciaAviao(avs);
@@ -43,7 +35,7 @@ public class Principal {
 		do {
 
 			op = menus.menuPrincipal();
-			int ops;
+			int ops, ops2=0;
 
 			switch (op) {
 			case 1:
@@ -122,29 +114,52 @@ public class Principal {
 				break;
 
 			case 5:
-				/*int opsPs;
+
 				do {
-					opsPs = menus.menuPassagem("Passagens");
-					System.out.println(opsPs);
-					switch (opsPs) {
-
+					ops = menus.menuAeronave("Aeronaves");
+					System.out.println(ops);
+					do {
+						
+					switch(ops){
+					
 					case 1:
-						gps.venda();
+						ops2 = menus.menu("Avião");
+							switch (ops2) {
+							case 1:	gav.cadastrar();break;
+							case 2:	gav.alterar();break;
+							case 3:	gav.excluir(); break;
+							case 4: gav.consultar();break;
+							case 5:	gav.relatorio();break;
+							default:
+						}
 						break;
-
 					case 2:
-						gps.cancelar();
-						break;
-
-					case 3:
-						gps.relatorios();
-						break;
-
-					default:
-						System.out.println("Opção selecionada inexistente. Por favor, escolha uma opção! ");
-
+						ops2 = menus.menu("Carro");
+						switch (ops2) {
+						case 1:	gae.cadastrar();break;
+						case 2:	gae.alterar();break;
+						case 3:	gae.excluir(); break;
+						case 4: gae.consultar();break;
+						case 5:	gae.relatorio();break;
+						default:
 					}
-				} while (opsPs != 0);*/
+						break;
+					
+					case 3:
+						ops2 = menus.menu("Helicóptero");
+						switch (ops2) {
+						case 1:	ghe.cadastrar();break;
+						case 2:	ghe.alterar();break;
+						case 3:	ghe.excluir(); break;
+						case 4: ghe.consultar();break;
+						case 5:	ghe.relatorio();break;
+						default:
+					}
+						break;
+					}
+				  }while (ops2 != 0);
+					
+				} while (ops != 0);
 
 				break;
 

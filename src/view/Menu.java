@@ -33,8 +33,8 @@ public class Menu {
 		System.out.println("                           2 - Piloto   ");
 		System.out.println("                           3 - Cidade   ");
 		System.out.println("                           4 - Aeroporto ");
-		System.out.println("                           5 - Voo       ");
-		System.out.println("                           6 - Aeronave  ");
+		System.out.println("                           5 - Aeronave");
+		System.out.println("                           6 - Voo  ");
 		System.out.println("                           7 - Passagem ");
 		System.out.println("                           0 - Sair                   ");
 		System.out.println("              ---------------------------------------------------");
@@ -82,6 +82,24 @@ public class Menu {
 		op = ent.nextInt();
 
 		return op;
+	}
+	
+	public static int menuAeronave(String txt){
+			Scanner ent = new Scanner(System.in);
+			int op, ops;
+
+			System.out.println("               **********======[Módulo Gerenciador]=====**********" + txt + " ");
+			System.out.println("                      *********====[Versão 1.2]===*********");
+			System.out.println("              ---------------------------------------------------");
+			System.out.println("                                1 - Avião");
+			System.out.println("                                2 - Carro");
+			System.out.println("                                3 - Helicóptero");
+			System.out.println("                                0 - Menu Principal      ");
+
+			System.out.println("                                Opção:");
+			op = ent.nextInt();
+
+			return op;
 	}
 
 

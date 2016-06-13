@@ -2,20 +2,19 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import tabajara.airlines.*;
+import model.*;
 
-public class AviaoBD {
+public class AviaoDAO {
     private Connection con;
-    private Statement stm;
-    ConectaBD bancoDeDados = ConectaBD.getInstance();
+    Conexao bancoDeDados = Conexao.getInstance();
 
-    public AviaoBD() {
+    public AviaoDAO() {
         con = bancoDeDados.iniciaBanco();
     }  
 
     public void inserirNoBanco(Aviao av) {
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO avioes "
+            PreparedStatement pst = con.prepareStatement("INSERT INTO aviao "
                     + "VALUES (?,?,?,?,?,?)");
             pst.setString(1, av.getIdentificacao());
             pst.setString(2,av.getModelo() );
@@ -33,7 +32,7 @@ public class AviaoBD {
     public void excluirDoBanco(Aviao av) {
         try {
 
-            PreparedStatement pst = con.prepareStatement("DELETE FROM avioes WHERE idaviao = ?");
+            PreparedStatement pst = con.prepareStatement("DELETE FROM aviao WHERE identificacao = ?");
             pst.setString(1, av.getIdentificacao());
             pst.execute();
 
@@ -44,10 +43,10 @@ public class AviaoBD {
 
     public void alterarNoBanco(Aviao av) {
         try {
-            PreparedStatement pst = con.prepareStatement("UPDATE avioes SET modelo = ?, "
-                    + "capacidade_de_passageiros = ?, capacidade_de_carga = ?, qtdTurbinas = ?, "
-                    + "capacCombustPorturbina = ? "
-                    + "WHERE idaviao = ?");
+            PreparedStatement pst = con.prepareStatement("UPDATE aviao SET modelo = ?, "
+                    + "capac_passageiros = ?, capac_carga = ?, qtd_turbinas = ?, "
+                    + "capac_combust_por_turbina = ? "
+                    + "WHERE identificacao = ?");
 
             pst.setString(1, av.getModelo());
             pst.setInt(2, av.getCapacPassageiros());
@@ -62,20 +61,20 @@ public class AviaoBD {
         }
     }
 
-    public Aviao consultar(long cod) {
+    public Aviao consultar(String cod) {
         Aviao av;
         ResultSet rs;
 
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM avioes WHERE idaviao = ? ");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM aviao WHERE identificacao = ? ");
 
-            pst.setInt(1, (int) cod);
+            pst.setString(1, cod);
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                av = new Aviao(rs.getInt("qtdTurbinas"),rs.getFloat("capacCombustPorturbina"),
-                        rs.getString("idaviao"),rs.getString("modelo"),
-                rs.getInt("capacidade_de_passageiros"),rs.getDouble("capacidade_de_carga"));
+                av = new Aviao(rs.getInt("qtd_turbinas"),rs.getFloat("capac_combust_por_turbina"),
+                        rs.getString("identificacao"),rs.getString("modelo"),
+                rs.getInt("capac_passageiros"),rs.getDouble("capac_carga"));
 
                 return av;
             } else {
@@ -88,21 +87,21 @@ public class AviaoBD {
         }
     }
 
-    public ArrayList relatorio() {
+    public ArrayList<Aviao> relatorio() {
         ArrayList<Aviao> av;
         ResultSet rs;
 
         try {
             av = new ArrayList<>();
 
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM avioes");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM aviao");
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
-                av.add(new Aviao(rs.getInt("qtdTurbinas"),rs.getFloat("capacCombustPorturbina"),
-                        rs.getString("idaviao"),rs.getString("modelo"),
-                rs.getInt("capacidade_de_passageiros"),rs.getDouble("capacidade_de_carga")));
+                av.add(new Aviao(rs.getInt("qtd_turbinas"),rs.getFloat("capac_combust_por_turbina"),
+                        rs.getString("identificacao"),rs.getString("modelo"),
+                rs.getInt("capac_passageiros"),rs.getDouble("capac_carga")));
             }
 
             return av;

@@ -1,41 +1,42 @@
 package controller;
 
 import DAO.*;
+import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GerenciaAviao {
 
     private int resp;
-    private Scanner ler = new Scanner(System.in);
-    private final AviaoBD ABd = new AviaoBD();
+    private Scanner ent = new Scanner(System.in);
+    private final AviaoDAO ABd = new AviaoDAO();
 
     public GerenciaAviao() {
     }
 
-    public void cadastro() {
+    public void cadastrar() {
         String nome;
         long cod;
         Aviao avi = new Aviao();
         try {
             System.out.println("==Inserção de Avião==");
             System.out.println("Identificação :");
-            avi.setIdentificacao(ler.nextLine());
+            avi.setIdentificacao(ent.nextLine());
             System.out.println("Digite os dados do novo avião: \n");
             System.out.println("Modelo: ");
-            avi.setModelo(ler.nextLine());
+            avi.setModelo(ent.nextLine());
             System.out.println("Capacidade de Passageiro: ");
-            avi.setCapacPassageiros(ler.nextInt());
-            ler.skip("\n");
+            avi.setCapacPassageiros(ent.nextInt());
+            ent.nextLine();
             System.out.println("Capacidade de Carga: ");
-            avi.setCapacCarga(ler.nextDouble());
-            ler.skip("\n");
+            avi.setCapacCarga(ent.nextDouble());
+            ent.nextLine();
             System.out.println("Quantidade de Turbinas: ");
-            avi.setQtdTurbinas(ler.nextInt());
-            ler.skip("\n");
+            avi.setQtdTurbinas(ent.nextInt());
+            ent.nextLine();
             System.out.println("Capacidade de Combustível Por Turbina:");
-            avi.setCapcCombustPorTurbina(ler.nextFloat());
-            ler.skip("\n");
+            avi.setCapcCombustPorTurbina(ent.nextFloat());
+            ent.nextLine();
             ABd.inserirNoBanco(avi);
             System.out.println("\nNovo avião cadastrado com sucesso. \n");
         } catch (Exception ex) {
@@ -44,13 +45,12 @@ public class GerenciaAviao {
     }
 
     public void alterar() {
-        long cod;
+        String cod;
         String nome;
 
         System.out.println("==== Alteração de aviões  ====");
-        System.out.println("Qual o código do avião que você deseja alterar? ");
-        cod = ler.nextLong();
-        ler.skip("\n");
+        System.out.println("Qual a identificacao do avião que você deseja alterar? ");
+        cod = ent.nextLine();
 
         Aviao avi = ABd.consultar(cod);
 
@@ -58,24 +58,24 @@ public class GerenciaAviao {
             System.out.println("==== Dados do avião =====");
             avi.consultar();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
-            int resp = ler.nextInt();
-            ler.skip("\n");
+            int resp = ent.nextInt();
+            ent.nextLine();
             if (resp == 1) {
                 System.out.println("\nDigite os novos dados do avião: ");
                 System.out.println("Modelo: ");
-                avi.setModelo(ler.nextLine());
+                avi.setModelo(ent.nextLine());
                 System.out.println("Capacidade de Passageiro: ");
-                avi.setCapacPassageiros(ler.nextInt());
-                ler.skip("\n");
+                avi.setCapacPassageiros(ent.nextInt());
+                ent.nextLine();
                 System.out.println("Capacidade de Carga: ");
-                avi.setCapacCarga(ler.nextDouble());
-                ler.skip("\n");
+                avi.setCapacCarga(ent.nextDouble());
+                ent.nextLine();
                 System.out.println("Quantidade de Turbinas: ");
-                avi.setQtdTurbinas(ler.nextInt());
-                ler.skip("\n");
+                avi.setQtdTurbinas(ent.nextInt());
+                ent.nextLine();
                 System.out.println("Capacidade de Combustível Por Turbina:");
-                avi.setCapcCombustPorTurbina(ler.nextFloat());
-                ler.skip("\n");
+                avi.setCapcCombustPorTurbina(ent.nextFloat());
+                ent.nextLine();
 
                 try {
                     ABd.alterarNoBanco(avi);
@@ -93,14 +93,13 @@ public class GerenciaAviao {
     }
 
     public void excluir() {
-        long cod;
+        String cod;
         int resp;
 
         System.out.println("==== Exclusão de aviões ====");
 
-        System.out.println("Qual o código do avião que você deseja excluir? ");
-        cod = ler.nextInt();
-        ler.skip("\n");
+        System.out.println("Qual a identificação do avião que você deseja excluir? ");
+        cod = ent.nextLine();;
 
         Aviao avi = ABd.consultar(cod);
 
@@ -108,8 +107,8 @@ public class GerenciaAviao {
             System.out.println("===== Dados do avião =====");
             avi.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
-            resp = ler.nextInt();
-            ler.skip("\n");
+            resp = ent.nextInt();
+            ent.nextLine();
 
             if (resp == 1) {
                 try {
@@ -125,13 +124,12 @@ public class GerenciaAviao {
     }
 
     public void consultar() {
-        long cod;
+        String cod;
 
         System.out.println("==== Consulta de avioes ====");
 
-        System.out.println("Qual o código do avião que você deseja consultar? ");
-        cod = ler.nextLong();
-        ler.skip("\n");
+        System.out.println("Qual a identificação do avião que você deseja consultar? ");
+        cod = ent.nextLine();
 
         Aviao av = ABd.consultar(cod);
 

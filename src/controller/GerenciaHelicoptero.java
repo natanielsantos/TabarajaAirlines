@@ -1,20 +1,21 @@
 package controller;
 
 import DAO.*;
+import model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GerenciaHelicoptero {
 
     private int resp;
-    private Scanner ler = new Scanner(System.in);
-    private final HelicopteroBD HBd = new HelicopteroBD();
+    private Scanner ent = new Scanner(System.in);
+    private final HelicopteroDAO HBd = new HelicopteroDAO();
 
     public GerenciaHelicoptero() {
 
     }
 
-    public void cadastro() {
+    public void cadastrar() {
         String nome;
         long cod;
         Helicoptero hel = new Helicoptero();
@@ -23,18 +24,18 @@ public class GerenciaHelicoptero {
             System.out.println("==Inserção de Helicoptero==");
             System.out.println("Digite os dados do novo helicoptero: \n");
             System.out.println("Identificação :");
-            hel.setIdentificacao(ler.nextLine());
+            hel.setIdentificacao(ent.nextLine());
             System.out.println("Modelo: ");
-            hel.setModelo(ler.nextLine());
+            hel.setModelo(ent.nextLine());
             System.out.println("Capacidade de Passageiro: ");
-            hel.setCapacPassageiros(ler.nextInt());
-            ler.skip("\n");
+            hel.setCapacPassageiros(ent.nextInt());
+            ent.nextLine();
             System.out.println("Capacidade de Carga: ");
-            hel.setCapacCarga(ler.nextDouble());
-            ler.skip("\n");
+            hel.setCapacCarga(ent.nextDouble());
+            ent.nextLine();
             System.out.println("Quantidade de Helices: ");
-            hel.setQtdHelices(ler.nextInt());
-            ler.skip("\n");
+            hel.setQtdHelices(ent.nextInt());
+            ent.nextLine();
             HBd.inserirNoBanco(hel);
             System.out.println("\nNovo helicoptero cadastrado com sucesso. \n");
         } catch (Exception ex) {
@@ -48,8 +49,7 @@ public class GerenciaHelicoptero {
 
         System.out.println("==== Alteração de helicopteros  ====");
         System.out.println("Qual o código do helicoptero que você deseja alterar? ");
-        cod = ler.nextLine();
-        ler.skip("\n");
+        cod = ent.nextLine();
 
         Helicoptero hel = HBd.consultar(cod);
 
@@ -57,22 +57,22 @@ public class GerenciaHelicoptero {
             System.out.println("==== Dados do helicoptero =====");
             hel.consultar();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
-            int resp = ler.nextInt();
-            ler.skip("\n");
+            int resp = ent.nextInt();
+            ent.nextLine();
             if (resp == 1) {
                         
                         System.out.println("\nDigite os novos dados do helicoptero: ");
                         System.out.println("Modelo: ");
-                        hel.setModelo(ler.nextLine());
+                        hel.setModelo(ent.nextLine());
                         System.out.println("Capacidade de Passageiro: ");
-                        hel.setCapacPassageiros(ler.nextInt());
-                        ler.skip("\n");
+                        hel.setCapacPassageiros(ent.nextInt());
+                        ent.nextLine();
                         System.out.println("Capacidade de Carga: ");
-                        hel.setCapacCarga(ler.nextDouble());
-                        ler.skip("\n");
+                        hel.setCapacCarga(ent.nextDouble());
+                        ent.nextLine();
                         System.out.println("Quantidade de Helices: ");
-                        hel.setQtdHelices(ler.nextInt());
-                        ler.skip("\n");
+                        hel.setQtdHelices(ent.nextInt());
+                        ent.nextLine();
                 try {
                     HBd.alterarNoBanco(hel);
                     System.out.println("Alteração efetuada com sucesso.");
@@ -95,8 +95,7 @@ public class GerenciaHelicoptero {
         System.out.println("==== Exclusão de helicopteros ====");
 
         System.out.println("Qual o código do helicoptero que você deseja excluir? ");
-        cod = ler.nextLine();
-        ler.skip("\n");
+        cod = ent.nextLine();
 
         Helicoptero hel = HBd.consultar(cod);
 
@@ -104,8 +103,8 @@ public class GerenciaHelicoptero {
             System.out.println("===== Dados do helicoptero =====");
             hel.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
-            resp = ler.nextInt();
-            ler.skip("\n");
+            resp = ent.nextInt();
+            ent.nextLine();
 
             if (resp == 1) {
                 try {
@@ -126,8 +125,7 @@ public class GerenciaHelicoptero {
         System.out.println("==== Consulta de helicopteros ====");
 
         System.out.println("Qual o código do helicopterp que você deseja consultar? ");
-        cod = ler.nextLine();
-        ler.skip("\n");
+        cod = ent.nextLine();
 
         Helicoptero hel = HBd.consultar(cod);
 

@@ -2,21 +2,20 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import tabajara.airlines.Helicoptero;
+import model.Helicoptero;
 
-public class HelicopteroBD {
+public class HelicopteroDAO {
 
     private Connection con;
-    private Statement stm;
-    ConectaBD bancoDeDados = ConectaBD.getInstance();
+    Conexao bancoDeDados = Conexao.getInstance();
 
-    public HelicopteroBD() {
+    public HelicopteroDAO() {
         con = bancoDeDados.iniciaBanco();
     }
 
     public void inserirNoBanco(Helicoptero hel) {
         try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO helicopteros "
+            PreparedStatement pst = con.prepareStatement("INSERT INTO helicoptero "
                     + "VALUES (?,?,?,?,?)");
             pst.setString(1, hel.getIdentificacao());
             pst.setString(2, hel.getModelo());
@@ -33,7 +32,7 @@ public class HelicopteroBD {
     public void excluirDoBanco(Helicoptero hel) {
         try {
 
-            PreparedStatement pst = con.prepareStatement("DELETE FROM helicopteros WHERE idhelicoptero = ?");
+            PreparedStatement pst = con.prepareStatement("DELETE FROM helicoptero WHERE identificacao = ?");
             pst.setString(1, hel.getIdentificacao());
             pst.execute();
 
@@ -44,9 +43,9 @@ public class HelicopteroBD {
 
     public void alterarNoBanco(Helicoptero hel) {
         try {
-            PreparedStatement pst = con.prepareStatement("UPDATE helicopteros SET modelo = ?, "
-                    + "capacidade_de_passageiros = ?, capacidade_de_carga = ?, qtdHelices = ? "
-                    + "WHERE idhelicoptero = ?");
+            PreparedStatement pst = con.prepareStatement("UPDATE helicoptero SET modelo = ?, "
+                    + "capac_passageiros = ?, capac_carga = ?, qtd_helices = ? "
+                    + "WHERE identificacao = ?");
 
             pst.setString(1, hel.getModelo());
             pst.setInt(2, hel.getCapacPassageiros());
@@ -65,14 +64,14 @@ public class HelicopteroBD {
         ResultSet rs;
 
         try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM helicopteros WHERE idhelicoptero = ? ");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM helicoptero WHERE identificacao = ? ");
 
             pst.setString(1, cod);
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                hel = new Helicoptero(rs.getInt("qtdHelices"),rs.getString("idhelicoptero"),rs.getString("modelo"),
-                rs.getInt("capacidade_de_passageiros"),rs.getDouble("capacidade_de_carga"));
+                hel = new Helicoptero(rs.getInt("qtd_helices"),rs.getString("identificacao"),rs.getString("modelo"),
+                rs.getInt("capac_passageiros"),rs.getDouble("capac_carga"));
 
                 return hel;
             } else {
@@ -92,13 +91,13 @@ public class HelicopteroBD {
         try {
             heli = new ArrayList<>();
 
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM helicopteros");
+            PreparedStatement pst = con.prepareStatement("SELECT * FROM helicoptero");
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
-                heli.add(new Helicoptero(rs.getInt("qtdHelices"),rs.getString("idhelicoptero"),rs.getString("modelo"),
-                rs.getInt("capacidade_de_passageiros"),rs.getDouble("capacidade_de_carga")));
+                heli.add(new Helicoptero(rs.getInt("qtd_helices"),rs.getString("identificacao"),rs.getString("modelo"),
+                rs.getInt("capac_passageiros"),rs.getDouble("capac_carga")));
             }
 
             return heli;
