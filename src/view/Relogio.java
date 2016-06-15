@@ -12,9 +12,8 @@ public class Relogio implements Runnable{
         while(true){
         	Date hora = Calendar.getInstance().getTime();
             try{
-            	System.out.print("\r");
-            	System.out.print(hora);
-            	
+            	System.out.print("\r " + hora);
+                  	
                 Thread.sleep(1000);
                 
             }catch( InterruptedException e ){}

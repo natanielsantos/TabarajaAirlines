@@ -68,36 +68,53 @@ public class GerenciaCarro{
     public void alterar() {
         String cod;
         String nome;
+        String aux;
+        long aux2;
 
-        System.out.println("==== Alteração de aviões  ====");
-        System.out.println("Qual a identificacao do avião que você deseja alterar? ");
-        cod = ent.nextLine();
+        System.out.println("==== Alteração de carros  ====");
+        System.out.println("Qual a identificacao do carro que você deseja alterar? ");
+        cod= ent.nextLine();
 
-        Aviao avi = ABd.consultar(cod);
+        Carro car = ABd.consultar(cod);
 
-        if (avi != null) {
-            System.out.println("==== Dados do avião =====");
-            avi.consultar();
+        if (car != null) {
+            System.out.println("==== Dados do carro =====");
+            car.consultar();
             System.out.println("\n\nConfirma alteração? (1-sim/2-não) ");
             int resp = ent.nextInt();
             ent.nextLine();
             if (resp == 1) {
-                System.out.println("\nDigite os novos dados do avião: ");
+                System.out.println("\nDigite os novos dados do carro: ");
+                System.out.println("Digite os dados do novo carro: \n");
                 System.out.println("Modelo: ");
-                avi.setModelo(ent.nextLine());
+                car.setModelo(ent.nextLine());
                 System.out.println("Capacidade de Passageiro: ");
-                avi.setCapacPassageiros(ent.nextInt());
+                car.setCapacPassageiros(ent.nextInt());
                 ent.nextLine();
                 System.out.println("Capacidade de Carga: ");
-                avi.setCapacCarga(ent.nextDouble());
+                car.setCapacCarga(ent.nextDouble());
                 ent.nextLine();
-                System.out.println("Quantidade de Turbinas: ");
-                avi.setQtdTurbinas(ent.nextInt());
+                
+                System.out.println("\nPILOTOS DISPONÍVEIS.");
+                System.out.println("======================================");
+                gp.relatorio();
+                System.out.println("\nIdentifidade do Piloto: ");
+                aux = ent.nextLine();
+                car.setPiloto(Pil.consultar(aux));
+                System.out.println("\nCIDADES DISPONÍVEIS.");
+                System.out.println("======================================");
+                gc.relatorio();
+                System.out.println("======================================");
+                System.out.println("Cidade de Origem: ");
+                aux2= ent.nextLong();
+                car.setCidadeOrigem(CidBd.consultar(aux2));
                 ent.nextLine();
-                System.out.println("Capacidade de Combustível Por Turbina:");
-                avi.setCapcCombustPorTurbina(ent.nextFloat());
+                System.out.println("Cidade de Destino: ");
+                aux2= ent.nextLong();
+                car.setCidadeDestino(CidBd.consultar(aux2));
                 ent.nextLine();
-
+                System.out.println("Autonomia:");
+                car.setAutonomia(ent.nextFloat());
                 try {
                     ABd.alterarNoBanco(car);
                     System.out.println("Alteração efetuada com sucesso.");
@@ -117,23 +134,23 @@ public class GerenciaCarro{
         String cod;
         int resp;
 
-        System.out.println("==== Exclusão de aviões ====");
+        System.out.println("==== Exclusão de carros ====");
 
-        System.out.println("Qual a identificação do avião que você deseja excluir? ");
+        System.out.println("Qual a identificação do carro que você deseja excluir? ");
         cod = ent.nextLine();;
 
-        Aviao avi = ABd.consultar(cod);
+        Carro car = ABd.consultar(cod);
 
-        if (avi != null) {
-            System.out.println("===== Dados do avião =====");
-            avi.consultar();
+        if (car != null) {
+            System.out.println("===== Dados do carro =====");
+            car.consultar();
             System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
             resp = ent.nextInt();
             ent.nextLine();
 
             if (resp == 1) {
                 try {
-                    ABd.excluirDoBanco(avi);
+                    ABd.excluirDoBanco(car);
                     System.out.println("Exclusão efetuada com sucesso.");
                 } catch (Exception ex) {
                     System.out.println("Exclusão não efetuada. Erro: " + ex.getMessage());
@@ -147,18 +164,18 @@ public class GerenciaCarro{
     public void consultar() {
         String cod;
 
-        System.out.println("==== Consulta de avioes ====");
+        System.out.println("==== Consulta de carros ====");
 
-        System.out.println("Qual a identificação do avião que você deseja consultar? ");
+        System.out.println("Qual a identificação do carro que você deseja consultar? ");
         cod = ent.nextLine();
 
-        Aviao av = ABd.consultar(cod);
+        Carro ca = ABd.consultar(cod);
 
-        if (av != null) {
-            System.out.println("===== Dados do avião =====");
-            av.consultar();
+        if (ca != null) {
+            System.out.println("===== Dados do carro =====");
+            ca.consultar();
         } else {
-            System.out.println("Não existe avião com este código.");
+            System.out.println("Não existe carro com este código.");
         }
     }
 

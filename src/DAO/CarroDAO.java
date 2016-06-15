@@ -37,7 +37,7 @@ public class CarroDAO {
 	public void excluirDoBanco(Carro car) {
 		try {
 
-			PreparedStatement pst = con.prepareStatement("DELETE FROM carros WHERE idcarro = ?");
+			PreparedStatement pst = con.prepareStatement("DELETE FROM carro WHERE identificacao = ?");
 			pst.setString(1, car.getIdentificacao());
 			pst.execute();
 
@@ -49,8 +49,8 @@ public class CarroDAO {
 	public void alterarNoBanco(Carro car) {
 		try {
 			PreparedStatement pst = con.prepareStatement(
-					"UPDATE carros SET modelo = ?, " + "capacidade_de_passageiros = ?, capacidade_de_carga = ?, "
-							+ "autonomia = ?, piloto = ?, cidadeOrigem = ?,cidadeDestino  = ?  " + "WHERE idcarro = ?");
+					"UPDATE carro SET modelo = ?, " + "capac_passageiros = ?, capac_carga = ?, "
+							+ "autonomia = ?, piloto = ?, cidade_origem = ?,cidade_destino  = ?  " + "WHERE identificacao = ?");
 
 			pst.setString(1, car.getModelo());
 			pst.setInt(2, car.getCapacPassageiros());
@@ -68,50 +68,35 @@ public class CarroDAO {
 	}
 	
 	public Carro consultar(String cod) {
+        Carro car;
+        ResultSet rs;
 
-		Carro car;
-		ResultSet rs,rs2,rs3,rs4;
+        try {
+        	PreparedStatement pst = con.prepareStatement("SELECT * FROM (carro " // FUNCIONA MAS APARECE OS DOIS DA MESMA CIDADE.			                    
+                    + "INNER JOIN piloto pil ON carro.piloto = pil.identidade "
+                    + "INNER JOIN cidade AS c1 ON carro.cidade_origem = c1.idcidade) "
+						   + "INNER JOIN cidade AS c2 ON carro.cidade_destino = c2.idcidade WHERE carro.identificacao=?");
 
-		try {
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM carros WHERE identidade = ?");
-			pst.setString(1, cod);
-			rs = pst.executeQuery();
-			int cidadeOrigem = rs.getInt("cidadeorigem");
+            pst.setString(1, cod);
+            rs = pst.executeQuery();
 
-			PreparedStatement pst2 = con.prepareStatement("SELECT * FROM cidades WHERE idcidade = ?");
-			pst.setInt(1, cidadeOrigem);
-			rs2 = pst2.executeQuery();
-			Cidade cidOrigem = new Cidade(rs2.getInt("idcidade"),rs2.getString("pais"),rs2.getString("estado"),rs2.getString("nomecidade"));
-			int cidadeDestino = rs.getInt("cidadedestino");
+            if (rs.next()) {
+            	car = new Carro(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                        rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
+                        new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")), rs.getString("telefone")),
+						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
+						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
+						rs.getFloat("autonomia"),rs.getString("identificacao"),rs.getString("modelo"),rs.getInt("capac_passageiros"),rs.getDouble("capac_carga"));
 
-			PreparedStatement pst3 = con.prepareStatement("SELECT * FROM cidades WHERE idcidade = ?");
-			pst.setInt(1, cidadeDestino);
-			rs3 = pst3.executeQuery();
-			Cidade cidDestino = new Cidade(rs3.getInt("idcidade"),rs3.getString("pais"),rs3.getString("estado"),rs3.getString("nomecidade"));
+                return car;
+            } else {
+                return null;
+            }
 
-			String piloto;
-			piloto = rs.getString("piloto");
-			PreparedStatement pst4 = con.prepareStatement("SELECT * FROM pilotos WHERE identidade = ?");
-			pst4.setString(1, piloto);
-			Piloto pil = new Piloto(rs4)
-
-					if(){
-
-						pst.setString(1, cod);
-						rs = pst.executeQuery();
-
-						if (rs.next()) {
-							car = new Carro();
-
-							return car;
-						} else {
-							return null;
-						}
-					}
-				} catch (SQLException ex) {
-						System.out.println("Erro: " + ex);
-						return null;
-					}
+        } catch (SQLException ex) {
+            System.out.println("Erro: " + ex);
+            return null;
+        }
 	}
 
 	public ArrayList<Carro> relatorio() {
