@@ -2,16 +2,14 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import tabajara.airlines.Cidade;
-import tabajara.airlines.Piloto;
-import tabajara.airlines.Voo;
+import model.*;
 
-public class VooBD {
+public class VooDAO {
 
     private Connection con;
-    ConectaBD bancoDeDados = ConectaBD.getInstance();
+    Conexao bancoDeDados = Conexao.getInstance();
 
-    public VooBD() {
+    public VooDAO() {
         con = bancoDeDados.iniciaBanco();
     }
 
@@ -59,7 +57,7 @@ public class VooBD {
             
             pst.setString(1, pil.getNome());
             pst.setString(2, pil.getCpf());
-            pst.setString(3, pil.getNumeroBrever());
+            pst.setString(3, pil.getNumeroBreve());
             pst.setString(4, pil.getLogradouro());
             pst.setString(5, pil.getNumero());
             pst.setInt(6, pil.getCidade().getIdentificacao());
@@ -85,12 +83,12 @@ public class VooBD {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                pil = new Piloto(rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+               /* pil = new Piloto(rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobrever"), rs.getString("logradouro"), rs.getString("numero"), 
                         new Cidade(rs.getInt("idcidade"), rs.getString("pais"), rs.getString("estado"), 
                                 rs.getString("nomeCidade")), rs.getString("telefone"));
 
-                return pil;
+                return pil;*/
             } else {
                 return null;
             }
@@ -101,11 +99,11 @@ public class VooBD {
         }
     }
 
-    public ArrayList relatorio() {
+    public ArrayList<Voo> relatorio() {
         ArrayList<Piloto> pilotos;
         ResultSet rs;
 
-        try {
+       /* try {
             pilotos = new ArrayList<>();
 
             PreparedStatement pst = con.prepareStatement("SELECT * FROM pilotos INNER JOIN "
@@ -125,6 +123,6 @@ public class VooBD {
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex);
             return null;
-        }
+        }*/
     }
 }

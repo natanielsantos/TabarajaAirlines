@@ -19,6 +19,8 @@ public class Principal {
 		GerenciaAeroporto gae = new GerenciaAeroporto();
 		GerenciaAviao gav = new GerenciaAviao();
 		GerenciaHelicoptero ghe = new GerenciaHelicoptero();
+		GerenciaCarro gca = new GerenciaCarro();
+		GerenciaVoo gvo = new GerenciaVoo();
 		
 		//GerenciaAviao gci = new GerenciaAviao();
 		//GerenciaAviao ga = new GerenciaAviao(avs);
@@ -136,11 +138,11 @@ public class Principal {
 					case 2:
 						ops2 = menus.menu("Carro");
 						switch (ops2) {
-						case 1:	gae.cadastrar();break;
-						case 2:	gae.alterar();break;
-						case 3:	gae.excluir(); break;
-						case 4: gae.consultar();break;
-						case 5:	gae.relatorio();break;
+						case 1:	gca.cadastrar();break;
+						case 2:	gca.alterar();break;
+						case 3:	gca.excluir(); break;
+						case 4: gca.consultar();break;
+						case 5:	gca.relatorio();break;
 						default:
 					}
 						break;
@@ -161,6 +163,22 @@ public class Principal {
 					
 				} while (ops != 0);
 
+				break;
+				
+			case 6:
+				do {
+					ops = menus.menu("Voos");
+					System.out.println(ops);
+					
+					switch (ops) {
+					case 1:	gvo.cadastrar();break;
+					case 2:	gvo.alterar();break;
+					case 3:	gvo.excluir(); break;
+					case 4: gvo.consultar();break;
+					case 5:	gvo.relatorio();break;
+					default:
+					}
+				} while (ops != 0);
 				break;
 
 			}

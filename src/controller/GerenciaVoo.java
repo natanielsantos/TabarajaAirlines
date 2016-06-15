@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Scanner;
-import DAO.VooBD;
+import model.*;
 
 public class GerenciaVoo {
 
@@ -21,17 +21,17 @@ public class GerenciaVoo {
     private Carro carro = new Carro();
     private Helicoptero helicoptero = new Helicoptero();
     private Aeroporto aeroporto = new Aeroporto();
-    private final AeroportoBD AerBd = new AeroportoBD();
-    private final AviaoBD AviBd = new AviaoBD();
-    private final CarroBD CarBd = new CarroBD();
-    private final HelicopteroBD HelBd = new HelicopteroBD();
-    private final ConectaBD con = ConectaBD.getInstance();
-    private final VooBD VooBd = new VooBD();
+    private final AeroportoDAO AerBd = new AeroportoDAO();
+    private final AviaoDAO AviBd = new AviaoDAO();
+    private final CarroDAO CarBd = new CarroDAO();
+    private final HelicopteroDAO HelBd = new HelicopteroDAO();
+    private final Conexao con = Conexao.getInstance();
+    private final VooDAO VooBd = new VooDAO();
     private Scanner sc = new Scanner(System.in);
     private Voo voo;
     private int resp;
     private int tipo;
-    private int ident;
+    private String ident;
     private long identL;
     private String identS;
     private boolean verifAviao;
@@ -42,7 +42,7 @@ public class GerenciaVoo {
     public GerenciaVoo() {
     }
 
-    public void cadastro() {           
+    public void cadastrar() {           
 
         avioes = AviBd.relatorio();
         carros = CarBd.relatorio();
@@ -73,7 +73,7 @@ public class GerenciaVoo {
                     do {
                         System.out.println("--------------------------------");
                         System.out.print("Id :");
-                        ident = sc.nextInt();
+                        ident = sc.next();
                         verifAviao = false;
                         aviao = AviBd.consultar(ident);
                         if (aviao == null) {
@@ -283,7 +283,7 @@ public class GerenciaVoo {
                 do {
                     System.out.println("--------------------------------");
                     System.out.print("Id :");
-                    ident = sc.nextInt();
+                    ident = sc.next();
                     verifAviao = false;
 
                     aeroporto = AerBd.consultar(identS);
@@ -344,6 +344,21 @@ public class GerenciaVoo {
             System.out.println("\n\t--- [Não Há Aeroporto Cadastrado!!!] ----");
         }
     }
+    
+    public void alterar(){
+    	
+    }
+    
+    public void excluir(){
+    	
+    }
+ 
+    public void consultar(){
+ 	
+ }
+    public void relatorio(){
+ 	
+ }
        
 }
 

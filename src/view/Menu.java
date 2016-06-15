@@ -4,15 +4,20 @@ import java.util.Scanner;
 
 public class Menu {
 	
+	Relogio relogio = new Relogio();
+	Thread t = new Thread(relogio);
+	
 	public void telaInicial(){
 		
 		Scanner ent = new Scanner(System.in);
+		//t.start();
 		
 		System.out.println("///////////////////////////////////////////////////////////////");
 		System.out.println("//                    TABAJARA AIR LINES                    //");
 		System.out.println("///////////////////////////////////////////////////////////////");
 		System.out.println("///////////////////////////////////////////////////////////////");
 		System.out.println("//               CONTROLE DE PASSAGENS AEREAS               //");
+		
 		System.out.println("///////////////////////////////////////////////////////////////");
 		System.out.println("///////////////////////////////////////////////////////////////");
 		System.out.println("///////////////////////////////////////////////////////////////");

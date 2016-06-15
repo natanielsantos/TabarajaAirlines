@@ -2,142 +2,148 @@ package DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
-import tabajara.airlines.*;
+import model.*;
 
-public class CarroBD {
+public class CarroDAO {
 
-    private Connection con;
-    private Statement stm;
-    ConectaBD bancoDeDados = ConectaBD.getInstance();
+	private Connection con;
+	private Statement stm;
+	Conexao bancoDeDados = Conexao.getInstance();
 
-    public CarroBD() {
-        con = bancoDeDados.iniciaBanco();
-    }
+	public CarroDAO() {
+		con = bancoDeDados.iniciaBanco();
+	}
 
-    public void inserirNoBanco(Carro car) {
-        try {
-            PreparedStatement pst = con.prepareStatement("INSERT INTO carros "
-                    + "VALUES (?,?,?,?,?,?,?,?)");
+	public void inserirNoBanco(Carro car) {
+		try {
+			PreparedStatement pst = con.prepareStatement("INSERT INTO carro "
+		                                                + "VALUES (?,?,?,?,?,?,?,?)");
 
-            pst.setString(1, car.getIdentificacao());
-            pst.setString(2, car.getModelo());
-            pst.setInt(3, car.getCapacPassageiros());
-            pst.setDouble(4, car.getCapacCarga());
-            pst.setFloat(5,car.getAutonomia() );
-            pst.setString(6, car.getPiloto().getIdentidade());
-            pst.setInt(7, car.getCidadeOrigem().getIdentificacao());
-            pst.setInt(8, car.getCidadeDestino().getIdentificacao());
-            pst.executeUpdate();
-            pst.close();
-        } catch (SQLException ex) {
-            System.out.println("Erro: " + ex);
-        }
-    }
+			pst.setString(1, car.getIdentificacao());
+			pst.setString(2, car.getModelo());
+			pst.setInt(3, car.getCapacPassageiros());
+			pst.setDouble(4, car.getCapacCarga());
+			pst.setString(5, car.getPiloto().getIdentidade());
+			pst.setInt(6, car.getCidadeOrigem().getIdentificacao());
+			pst.setInt(7, car.getCidadeDestino().getIdentificacao());
+			pst.setFloat(8, car.getAutonomia());
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException ex) {
+			System.out.println("Erro: " + ex);
+		}
+	}
 
-   public void excluirDoBanco(Carro car) {
-        try {
+	public void excluirDoBanco(Carro car) {
+		try {
 
-            PreparedStatement pst = con.prepareStatement("DELETE FROM carros WHERE idcarro = ?");
-            pst.setString(1, car.getIdentificacao());
-            pst.execute();
+			PreparedStatement pst = con.prepareStatement("DELETE FROM carros WHERE idcarro = ?");
+			pst.setString(1, car.getIdentificacao());
+			pst.execute();
 
-        } catch (SQLException ex) {
-            System.out.println("Erro: " + ex);
-        }
-    }
+		} catch (SQLException ex) {
+			System.out.println("Erro: " + ex);
+		}
+	}
 
-    public void alterarNoBanco(Carro car) {
-        try {
-            PreparedStatement pst = con.prepareStatement("UPDATE carros SET modelo = ?, "
-                    + "capacidade_de_passageiros = ?, capacidade_de_carga = ?, "
-                    + "autonomia = ?, piloto = ?, cidadeOrigem = ?,cidadeDestino  = ?  "
-                    + "WHERE idcarro = ?");
+	public void alterarNoBanco(Carro car) {
+		try {
+			PreparedStatement pst = con.prepareStatement(
+					"UPDATE carros SET modelo = ?, " + "capacidade_de_passageiros = ?, capacidade_de_carga = ?, "
+							+ "autonomia = ?, piloto = ?, cidadeOrigem = ?,cidadeDestino  = ?  " + "WHERE idcarro = ?");
 
-            pst.setString(1, car.getModelo());
-            pst.setInt(2, car.getCapacPassageiros());
-            pst.setDouble(3, car.getCapacCarga());
-            pst.setFloat(4, car.getAutonomia());
-            pst.setString(5, car.getPiloto().getIdentidade());
-            pst.setInt(6, car.getCidadeOrigem().getIdentificacao());
-            pst.setInt(7, car.getCidadeDestino().getIdentificacao());
-            pst.setString(8, car.getIdentificacao());
-            pst.executeUpdate();
-            pst.close();
-        } catch (SQLException ex) {
-            System.out.println("Erro: " + ex);
-        }
-    }
+			pst.setString(1, car.getModelo());
+			pst.setInt(2, car.getCapacPassageiros());
+			pst.setDouble(3, car.getCapacCarga());
+			pst.setFloat(4, car.getAutonomia());
+			pst.setString(5, car.getPiloto().getIdentidade());
+			pst.setInt(6, car.getCidadeOrigem().getIdentificacao());
+			pst.setInt(7, car.getCidadeDestino().getIdentificacao());
+			pst.setString(8, car.getIdentificacao());
+			pst.executeUpdate();
+			pst.close();
+		} catch (SQLException ex) {
+			System.out.println("Erro: " + ex);
+		}
+	}
+	
+	public Carro consultar(String cod) {
 
-    public Carro consultar(String cod) {
+		Carro car;
+		ResultSet rs,rs2,rs3,rs4;
 
-        Carro car;
-        ResultSet rs,rs2,rs3,rs4;
+		try {
+			PreparedStatement pst = con.prepareStatement("SELECT * FROM carros WHERE identidade = ?");
+			pst.setString(1, cod);
+			rs = pst.executeQuery();
+			int cidadeOrigem = rs.getInt("cidadeorigem");
 
-        try {
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM carros WHERE identidade = ?");
-            pst.setString(1, cod);
-            rs = pst.executeQuery();
-            int cidadeOrigem = rs.getInt("cidadeorigem");
-            
-            PreparedStatement pst2 = con.prepareStatement("SELECT * FROM cidades WHERE idcidade = ?");
-            pst.setInt(1, cidadeOrigem);
-            rs2 = pst2.executeQuery();
-            Cidade cidOrigem = new Cidade(rs2.getInt("idcidade"),rs2.getString("pais"),rs2.getString("estado"),rs2.getString("nomecidade"));
-            int cidadeDestino = rs.getInt("cidadedestino");
-            
-            PreparedStatement pst3 = con.prepareStatement("SELECT * FROM cidades WHERE idcidade = ?");
-            pst.setInt(1, cidadeDestino);
-            rs3 = pst3.executeQuery();
-            Cidade cidDestino = new Cidade(rs3.getInt("idcidade"),rs3.getString("pais"),rs3.getString("estado"),rs3.getString("nomecidade"));
-            
-            String piloto;
-            piloto = rs.getString("piloto");
-            PreparedStatement pst4 = con.prepareStatement("SELECT * FROM pilotos WHERE identidade = ?");
-            pst4.setString(1, piloto);
-            Piloto pil = new Piloto(rs4)
-            
-            if()
-            
-            pst.setString(1, cod);
-            rs = pst.executeQuery();
+			PreparedStatement pst2 = con.prepareStatement("SELECT * FROM cidades WHERE idcidade = ?");
+			pst.setInt(1, cidadeOrigem);
+			rs2 = pst2.executeQuery();
+			Cidade cidOrigem = new Cidade(rs2.getInt("idcidade"),rs2.getString("pais"),rs2.getString("estado"),rs2.getString("nomecidade"));
+			int cidadeDestino = rs.getInt("cidadedestino");
 
-            if (rs.next()) {
-                car = new Carro();
+			PreparedStatement pst3 = con.prepareStatement("SELECT * FROM cidades WHERE idcidade = ?");
+			pst.setInt(1, cidadeDestino);
+			rs3 = pst3.executeQuery();
+			Cidade cidDestino = new Cidade(rs3.getInt("idcidade"),rs3.getString("pais"),rs3.getString("estado"),rs3.getString("nomecidade"));
 
-                return car;
-            } else {
-                return null;
-            }
+			String piloto;
+			piloto = rs.getString("piloto");
+			PreparedStatement pst4 = con.prepareStatement("SELECT * FROM pilotos WHERE identidade = ?");
+			pst4.setString(1, piloto);
+			Piloto pil = new Piloto(rs4)
 
-        } catch (SQLException ex) {
-            System.out.println("Erro: " + ex);
-            return null;
-        }
-    }
+					if(){
 
-    public ArrayList relatorio() {
-        ArrayList<Piloto> pilotos;
-        ResultSet rs;
+						pst.setString(1, cod);
+						rs = pst.executeQuery();
 
-        try {
-            pilotos = new ArrayList<>();
+						if (rs.next()) {
+							car = new Carro();
 
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM pilotos INNER JOIN "
-                    + "cidades ON pilotos.cidade = cidades.idcidade");
+							return car;
+						} else {
+							return null;
+						}
+					}
+				} catch (SQLException ex) {
+						System.out.println("Erro: " + ex);
+						return null;
+					}
+	}
 
-            rs = pst.executeQuery();
+	public ArrayList<Carro> relatorio() {
+		ArrayList<Carro> carros;
+		ResultSet rs;
 
-            while (rs.next()) {
+		try {
+			carros = new ArrayList<>();
 
-                pilotos.add(new Piloto(rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
-                        rs.getString("numerodobrever"), rs.getString("logradouro"), rs.getString("numero"),
-                        new Cidade(rs.getInt("idcidade"), rs.getString("pais"), rs.getString("estado"),
-                                rs.getString("nome")), rs.getString("telefone")));
-            }
-            return pilotos;
+			PreparedStatement pst = con.prepareStatement("SELECT * FROM (carro " // FUNCIONA MAS APARECE OS DOIS DA MESMA CIDADE.			                    
+					                                   + "INNER JOIN piloto pil ON carro.piloto = pil.identidade "
+					                                   + "INNER JOIN cidade AS c1 ON carro.cidade_origem = c1.idcidade) "
+														   + "INNER JOIN cidade AS c2 ON carro.cidade_destino = c2.idcidade");
 
-        } catch (SQLException ex) {
-            System.out.println("Erro: " + ex);
-            return null;
-        }
-    }
+			rs = pst.executeQuery();
+
+			
+			while (rs.next()) {
+
+				carros.add(new Carro(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                        rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
+                        new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")), rs.getString("telefone")),
+						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
+						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
+						rs.getFloat("autonomia"),rs.getString("identificacao"),rs.getString("modelo"),rs.getInt("capac_passageiros"),rs.getDouble("capac_carga")));
+			}
+			return carros;
+
+		} catch (SQLException ex) {
+			System.out.println("Erro: " + ex);
+			return null;
+		}
+	}
+	
+}

@@ -81,7 +81,7 @@ public class PilotoDAO {
             rs = pst.executeQuery();
 
             if (rs.next()) {
-                pil = new Piloto(rs.getInt("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                pil = new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
                         new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"), 
                                 rs.getString("estado")), rs.getString("telefone"));
@@ -111,7 +111,7 @@ public class PilotoDAO {
 
             while (rs.next()) {
 
-                pilotos.add(new Piloto(rs.getInt("identificacao"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
+                pilotos.add(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
                         new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"), 
                                 rs.getString("estado")), rs.getString("telefone")));
