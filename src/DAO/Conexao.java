@@ -32,7 +32,7 @@ public class Conexao {
                     senha = "admin"; // senha
             Class.forName("org.postgresql.Driver"); // drive do postgree
             con = DriverManager.getConnection(url, usuario, senha);
-            JOptionPane.showMessageDialog(null, "Banco conectado com sucesso!!");
+            //JOptionPane.showMessageDialog(null, "Banco conectado com sucesso!!");
         } catch (ClassNotFoundException | SQLException e) {
             JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             return null;

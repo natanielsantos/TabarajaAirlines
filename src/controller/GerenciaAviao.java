@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class GerenciaAviao {
 
-    private int resp;
     private Scanner ent = new Scanner(System.in);
     private final AviaoDAO ABd = new AviaoDAO();
 
@@ -15,8 +14,6 @@ public class GerenciaAviao {
     }
 
     public void cadastrar() {
-        String nome;
-        long cod;
         Aviao avi = new Aviao();
         try {
             System.out.println("==Inserção de Avião==");
@@ -46,7 +43,6 @@ public class GerenciaAviao {
 
     public void alterar() {
         String cod;
-        String nome;
 
         System.out.println("==== Alteração de aviões  ====");
         System.out.println("Qual a identificacao do avião que você deseja alterar? ");

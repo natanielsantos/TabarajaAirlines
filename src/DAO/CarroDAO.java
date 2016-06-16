@@ -7,7 +7,6 @@ import model.*;
 public class CarroDAO {
 
 	private Connection con;
-	private Statement stm;
 	Conexao bancoDeDados = Conexao.getInstance();
 
 	public CarroDAO() {
@@ -72,20 +71,24 @@ public class CarroDAO {
         ResultSet rs;
 
         try {
-        	PreparedStatement pst = con.prepareStatement("SELECT * FROM (carro " // FUNCIONA MAS APARECE OS DOIS DA MESMA CIDADE.			                    
-                    + "INNER JOIN piloto pil ON carro.piloto = pil.identidade "
-                    + "INNER JOIN cidade AS c1 ON carro.cidade_origem = c1.idcidade) "
-						   + "INNER JOIN cidade AS c2 ON carro.cidade_destino = c2.idcidade WHERE carro.identificacao=?");
+        	PreparedStatement pst = con.prepareStatement("SELECT c3.*, c1.idcidade cid1,c2.idcidade cid2,c1.municipio origem,c2.municipio destino,c1.pais porigem,c2.pais pdestino,c1.estado eorigem,c2.estado edestino,pil.*,carro.*"
+						 + "FROM carro, piloto pil, cidade c1, cidade c2, cidade c3 "
+                         + "WHERE carro.piloto = pil.identidade "
+                         + "AND carro.cidade_origem = c1.idcidade "					                                
+                         + "AND carro.cidade_destino = c2.idcidade "
+                         + "And pil.cidade = c3.idcidade "
+                         + "AND carro.identificacao=?");
 
             pst.setString(1, cod);
+            
             rs = pst.executeQuery();
 
             if (rs.next()) {
             	car = new Carro(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
                         new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")), rs.getString("telefone")),
-						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
-						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
+						new Cidade(rs.getInt("cid1"), rs.getString("origem"), rs.getString("porigem"),rs.getString("eorigem")),
+						new Cidade(rs.getInt("cid2"), rs.getString("destino"), rs.getString("pdestino"),rs.getString("edestino")),
 						rs.getFloat("autonomia"),rs.getString("identificacao"),rs.getString("modelo"),rs.getInt("capac_passageiros"),rs.getDouble("capac_carga"));
 
                 return car;
@@ -106,12 +109,16 @@ public class CarroDAO {
 		try {
 			carros = new ArrayList<>();
 
-			PreparedStatement pst = con.prepareStatement("SELECT * FROM (carro " // FUNCIONA MAS APARECE OS DOIS DA MESMA CIDADE.			                    
-					                                   + "INNER JOIN piloto pil ON carro.piloto = pil.identidade "
-					                                   + "INNER JOIN cidade AS c1 ON carro.cidade_origem = c1.idcidade) "
-														   + "INNER JOIN cidade AS c2 ON carro.cidade_destino = c2.idcidade");
+			PreparedStatement pst = con.prepareStatement("SELECT c3.*, c1.idcidade cid1,c2.idcidade cid2,c1.municipio origem,c2.municipio destino,c1.pais porigem,c2.pais pdestino,c1.estado eorigem,c2.estado edestino,pil.*,carro.* "
+					  									 + "FROM carro, piloto pil, cidade c1, cidade c2, cidade c3 "
+					                                     + "WHERE carro.piloto = pil.identidade "
+					                                     + "AND carro.cidade_origem = c1.idcidade "					                                
+					                                     + "AND carro.cidade_destino = c2.idcidade "
+					                                     + "AND pil.cidade = c3.idcidade");
 
+            
 			rs = pst.executeQuery();
+			
 
 			
 			while (rs.next()) {
@@ -119,8 +126,8 @@ public class CarroDAO {
 				carros.add(new Carro(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
                         rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
                         new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")), rs.getString("telefone")),
-						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
-						new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")),
+						new Cidade(rs.getInt("cid1"), rs.getString("origem"), rs.getString("porigem"),rs.getString("eorigem")),
+						new Cidade(rs.getInt("cid2"), rs.getString("destino"), rs.getString("pdestino"),rs.getString("edestino")),
 						rs.getFloat("autonomia"),rs.getString("identificacao"),rs.getString("modelo"),rs.getInt("capac_passageiros"),rs.getDouble("capac_carga")));
 			}
 			return carros;

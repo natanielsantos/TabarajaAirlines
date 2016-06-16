@@ -1,8 +1,6 @@
 package controller;
 
-import DAO.AeroportoDAO;
-import DAO.CidadeDAO;
-import DAO.PilotoDAO;
+import DAO.*;
 import model.Aeroporto;
 
 import java.util.ArrayList;

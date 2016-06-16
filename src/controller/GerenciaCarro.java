@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class GerenciaCarro{
-
-    private int resp;
     private Scanner ent = new Scanner(System.in);
     private final CarroDAO ABd = new CarroDAO();
     private final PilotoDAO Pil = new PilotoDAO();
@@ -18,7 +16,6 @@ public class GerenciaCarro{
     }
 
     public void cadastrar() {
-        String nome;
         long cod;
         String aux;
         Carro car = new Carro();
@@ -67,7 +64,6 @@ public class GerenciaCarro{
 
     public void alterar() {
         String cod;
-        String nome;
         String aux;
         long aux2;
 
@@ -169,7 +165,7 @@ public class GerenciaCarro{
         System.out.println("Qual a identificação do carro que você deseja consultar? ");
         cod = ent.nextLine();
 
-        Carro ca = ABd.consultar(cod);
+        Carro ca =  ABd.consultar(cod);
 
         if (ca != null) {
             System.out.println("===== Dados do carro =====");

@@ -84,7 +84,7 @@ public class HelicopteroDAO {
         }
     }
 
-    public ArrayList relatorio() {
+    public ArrayList<Helicoptero> relatorio() {
         ArrayList<Helicoptero> heli;
         ResultSet rs;
 

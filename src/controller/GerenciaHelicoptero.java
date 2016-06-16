@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class GerenciaHelicoptero {
 
-    private int resp;
     private Scanner ent = new Scanner(System.in);
     private final HelicopteroDAO HBd = new HelicopteroDAO();
 
@@ -16,8 +15,7 @@ public class GerenciaHelicoptero {
     }
 
     public void cadastrar() {
-        String nome;
-        long cod;
+
         Helicoptero hel = new Helicoptero();
 
         try {
@@ -45,7 +43,6 @@ public class GerenciaHelicoptero {
 
     public void alterar() {
         String cod;
-        String nome;
 
         System.out.println("==== Alteração de helicopteros  ====");
         System.out.println("Qual o código do helicoptero que você deseja alterar? ");
