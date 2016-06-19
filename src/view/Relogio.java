@@ -12,7 +12,7 @@ public class Relogio implements Runnable{
         while(true){
         	Date hora = Calendar.getInstance().getTime();
             try{
-            	System.out.print("\r " + hora);
+            	System.out.print("\r" + hora);
                   	
                 Thread.sleep(1000);
                 

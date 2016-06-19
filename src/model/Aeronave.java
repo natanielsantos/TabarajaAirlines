@@ -1,6 +1,6 @@
 package model;
 
-public abstract class Aeronave {
+public class Aeronave {
     private String identificacao;
     private String modelo;
     private int capacPassageiros;
@@ -9,6 +9,10 @@ public abstract class Aeronave {
 
     public Aeronave() {
     }
+    
+    public Aeronave(String identificacao) {
+    	this.identificacao = identificacao;
+    }
 
     public Aeronave(String identificacao, String modelo, int capacPassageiros, double capacCarga) {
         this.identificacao = identificacao;
@@ -16,10 +20,6 @@ public abstract class Aeronave {
         this.capacPassageiros = capacPassageiros;
         this.capacCarga = capacCarga;
     }
-
-    
-
-    
 
     public String getIdentificacao() {
         return identificacao;

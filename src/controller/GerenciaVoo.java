@@ -27,8 +27,8 @@ public class GerenciaVoo {
     private final HelicopteroDAO HelBd = new HelicopteroDAO();
     private final Conexao con = Conexao.getInstance();
     private final VooDAO VooBd = new VooDAO();
-    private Scanner sc = new Scanner(System.in);
-    private Voo voo;
+    private Scanner ent = new Scanner(System.in);
+    private Voo voo = new Voo();
     private int resp;
     private int tipo;
     private String ident;
@@ -51,18 +51,17 @@ public class GerenciaVoo {
 
         if ((avioes != null) || (carros != null) || (helicopteros != null)) {
             if (aeroportos != null) {
-                Voo voo = new Voo();
                 System.out.println("\n----------- Inserir Voo -----------");
-                System.out.println("Identificação: ");
-                voo.setId_voo(sc.nextInt());
+                //System.out.println("Identificação: ");
+                //voo.setId_voo(ent.nextInt());
                 System.out.println("Adicionar do Aeronave: ");
                 System.out.println("Escolha o tipo de Aeronave: ");
                 System.out.println("1 = Avião ");
                 System.out.println("2 = Carro ");
-                System.out.println("3 = Hélicoptero ");
+                System.out.println("3 = Helicoptero ");
                 System.out.println("Tipo: ");
-                tipo = sc.nextInt();
-                sc.skip("\n");
+                tipo = ent.nextInt();
+                ent.nextLine();
                 if (tipo == 1) { // Avião
                     avioes = AviBd.relatorio();
                     System.out.println("--------- Lista de Aviões Cadastrados -------");
@@ -73,14 +72,14 @@ public class GerenciaVoo {
                     do {
                         System.out.println("--------------------------------");
                         System.out.print("Id :");
-                        ident = sc.next();
+                        ident = ent.next();
                         verifAviao = false;
                         aviao = AviBd.consultar(ident);
                         if (aviao == null) {
                             System.out.println("\n--- [ Identificação Escolhida Inexistente ] ---\n");
                             System.out.print("Deseja Visualizar Lista De Avião? \n\t1 - Sim\n\t2 - Não\nOpção: ");
-                            resp = sc.nextInt();
-                            sc.skip("\n");
+                            resp = ent.nextInt();
+                            ent.nextLine();
                             if (resp == 1) {
                                 System.out.println("--------- Lista de Aviões Disponíveis -------");
                                 System.out.println("Id             Modelo:           ");
@@ -89,21 +88,24 @@ public class GerenciaVoo {
                                 }
                             }
                         } else {
-                            System.out.println("\n\tAvião a ser Adicionado:");
+                            System.out.println("\n\tAvião a ser INSERIDO:");
                             System.out.println("------------------------------");
                             aviao.consultar();
                             System.out.println("------------------------------\n");
                             System.out.println("Realmente deseja Adicionar (" + aviao.getModelo() + ")");
                             System.out.println("\t1 = sim\n\t2 = não ");
                             System.out.print("Opção:");
-                            resp = sc.nextInt();
-                            sc.skip("\n");
+                            resp = ent.nextInt();
+                            ent.nextLine();
                             if (resp == 1) {
-                                voo.setAviao(aviao);
+                                voo.setAeronave(aviao);
                                 voo.setTipoAeronave(1);
                                 lotacao = aviao.getCapacPassageiros();
                                 carga = aviao.getCapacCarga();
                                 verifAviao = true;
+                                System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
+                                System.out.println(voo.getTipoAeronave());
+                                System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
                             } else {
                                 System.out.println("\n\t--- [Cadastro de Avião obrigatório!!! Escolha outro Avião, para continuar o cadastro.] ---");
                             }
@@ -112,6 +114,7 @@ public class GerenciaVoo {
                 } else if (tipo == 2) { // Carro
 
                     carros = CarBd.relatorio();
+                    System.out.println("VALOR DE IDENTIFICACAO DE AVIAO: " + voo.getAeronave().getIdentificacao());
                     System.out.println("--------- Lista de Carros Disponíveis -------");
                     for (Carro c : carros) {
                         System.out.println("Identificação: " + c.getIdentificacao());
@@ -120,14 +123,14 @@ public class GerenciaVoo {
                     do {
                         System.out.println("--------------------------------");
                         System.out.print("Id :");
-                        identS = sc.nextLine();
+                        identS = ent.nextLine();
                         verifAviao = false;
                         carro = CarBd.consultar(identS);
                         if (carro == null) {
                             System.out.println("\n\t--- [Identificação Escolhida Inexistente!!!] ---\n");
                             System.out.print("Deseja Visualizar Lista De Carro? \n\t1 - Sim\n\t2 - Não\nOpção: ");
-                            resp = sc.nextInt();
-                            sc.skip("\n");
+                            resp = ent.nextInt();
+                            ent.nextLine();
                             if (resp == 1) {
                                 System.out.println("--------- Lista de Carros Disponíveis -------");
                                 System.out.println("Id             Modelo:           ");
@@ -136,6 +139,7 @@ public class GerenciaVoo {
                                 }
                             }
                         } else {
+                        	System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
                             System.out.println("\n\tCarro a ser Adicionado:");
                             System.out.println("------------------------------");
                             carro.consultar();
@@ -143,10 +147,10 @@ public class GerenciaVoo {
                             System.out.println("Realmente deseja Adicionar (" + carro.getModelo() + ")");
                             System.out.println("\t1 = sim\n\t2 = não ");
                             System.out.print("Opção:");
-                            resp = sc.nextInt();
-                            sc.skip("\n");
+                            resp = ent.nextInt();
+                            ent.nextLine();
                             if (resp == 1) {
-                                voo.setAviao(carro);
+                                voo.setAeronave(carro);
                                 voo.setTipoAeronave(2);
                                 lotacao = carro.getCapacPassageiros();
                                 carga = carro.getCapacCarga();
@@ -165,16 +169,17 @@ public class GerenciaVoo {
                         System.out.printf("%-15s%-50s\n", h.getIdentificacao(), h.getModelo());
                     }
                     do {
+                    	System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
                         System.out.println("--------------------------------");
                         System.out.print("Id :");
-                        identS = sc.nextLine();
+                        identS = ent.nextLine();
                         verifAviao = false;
                         helicoptero = HelBd.consultar(identS);
                         if (helicoptero == null) {
                             System.out.println("\n\t--- [Identificação Escolhida Inexistente!!!] ---\n");
                             System.out.print("Deseja Visualizar Lista De Helicoptero? \n\t1 - Sim\n\t2 - Não\nOpção: ");
-                            resp = sc.nextInt();
-                            sc.skip("\n");
+                            resp = ent.nextInt();
+                            ent.nextLine();
                             if (resp == 1) {
                                 System.out.println("--------- Lista de Hélicoptero Disponíveis -------");
                                 System.out.println("Id             Modelo:           ");
@@ -183,6 +188,7 @@ public class GerenciaVoo {
                                 }
                             }
                         } else {
+                        	System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
                             System.out.println("\n\tHelicoptero a ser Adicionado:");
                             System.out.println("------------------------------");
                             helicoptero.consultar();
@@ -190,10 +196,10 @@ public class GerenciaVoo {
                             System.out.println("Realmente deseja Adicionar (" + helicoptero.getModelo() + ")");
                             System.out.println("\t1 = sim\n\t2 = não ");
                             System.out.print("Opção:");
-                            resp = sc.nextInt();
-                            sc.skip("\n");
+                            resp = ent.nextInt();
+                            ent.nextLine();
                             if (resp == 1) {
-                                voo.setAviao(helicoptero);
+                                voo.setAeronave(helicoptero);
                                 voo.setTipoAeronave(3);
                                 lotacao = helicoptero.getCapacPassageiros();
                                 carga = helicoptero.getCapacCarga();
@@ -203,11 +209,15 @@ public class GerenciaVoo {
                             }
                         }
                     } while (!verifAviao);
+                    System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
                 }
             }
             if (tipo == 2) {
+            
                 voo.setAeroportoPartida(null);
             } else {
+            	System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
+            	System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
                 System.out.println("Adicionar Aeroporto de Saída: ");
                 verifAviao = false;
                 aeroportos = AerBd.relatorio();
@@ -219,7 +229,7 @@ public class GerenciaVoo {
                 do {
                     System.out.println("--------------------------------");
                     System.out.print("Id :");
-                    identS = sc.nextLine();
+                    identS = ent.nextLine();
                     verifAviao = false;
 
                     aeroporto = AerBd.consultar(identS);
@@ -227,8 +237,8 @@ public class GerenciaVoo {
                     if (aeroporto == null) {
                         System.out.println("\n\t--- [Identificação Escolhida Inexistente!!!] ---\n");
                         System.out.print("Deseja Visualizar Lista De Aéroporto? \n\t1 - Sim\n\t2 - Não\nOpção: ");
-                        resp = sc.nextInt();
-                        sc.skip("\n");
+                        resp = ent.nextInt();
+                        ent.nextLine();
                         if (resp == 1) {
                             System.out.println("--------- Lista de Aéroporto disponíveis -------");
                             System.out.println("Id             Nome:           ");
@@ -244,8 +254,9 @@ public class GerenciaVoo {
                         System.out.println("Realmente deseja Adicionar (" + aeroporto.getNome() + ")");
                         System.out.println("\t1 = sim\n\t2 = não ");
                         System.out.print("Opção:");
-                        resp = sc.nextInt();
-                        sc.skip("\n");
+                        resp = ent.nextInt();
+                        ent.nextLine();
+                        
                         if (resp == 1) {
                             voo.setAeroportoPartida(aeroporto);
                             verifAviao = true;
@@ -255,15 +266,16 @@ public class GerenciaVoo {
                     }
                 } while (!verifAviao);
             }
+            System.out.println("VALOR DE IDENTIFICACAO DE AVIAO: " + voo.getAeronave().getIdentificacao());
             System.out.print("Data de Saida: Ex(30/12/1999) >");
-            data = sc.nextLine();
+            data = ent.nextLine();
             dataDiv = data.split("/");
             int dia = Integer.parseInt(dataDiv[0]);
             int mes = Integer.parseInt(dataDiv[1]);
             int ano = Integer.parseInt(dataDiv[2]);
             voo.setDataPartida(LocalDate.of(ano, Month.of(mes), dia));
             System.out.print("Horário de Saída Ex(10:00) > ");
-            hora = sc.nextLine();
+            hora = ent.nextLine();
             horaDiv = hora.split(":");
             int horaSaida = Integer.parseInt(horaDiv[0]);
             int minutoSaida = Integer.parseInt(horaDiv[1]);
@@ -283,7 +295,7 @@ public class GerenciaVoo {
                 do {
                     System.out.println("--------------------------------");
                     System.out.print("Id :");
-                    ident = sc.next();
+                    ident = ent.next();
                     verifAviao = false;
 
                     aeroporto = AerBd.consultar(identS);
@@ -291,8 +303,8 @@ public class GerenciaVoo {
                     if (aeroporto == null) {
                         System.out.println("\n\t--- [Identificação Escolhida Inexistente!!!] ---\n");
                         System.out.print("Deseja Visualizar Lista De Aéroporto? \n\t1 - Sim\n\t2 - Não\nOpção: ");
-                        resp = sc.nextInt();
-                        sc.skip("\n");
+                        resp = ent.nextInt();
+                        ent.nextLine();
                         if (resp == 1) {
                             System.out.println("--------- Lista de Aéroporto disponíveis -------");
                             System.out.println("Id             Nome:           ");
@@ -308,8 +320,8 @@ public class GerenciaVoo {
                         System.out.println("Realmente deseja Adicionar (" + aeroporto.getNome() + ")");
                         System.out.println("\t1 = sim\n\t2 = não ");
                         System.out.print("Opção:");
-                        resp = sc.nextInt();
-                        sc.skip("\n");
+                        resp = ent.nextInt();
+                        ent.nextLine();
                         if (resp == 1) {
                             voo.setAeroportoChegada(aeroporto);
                             verifAviao = true;
@@ -320,25 +332,27 @@ public class GerenciaVoo {
                 } while (!verifAviao);
             }
             System.out.print("Data de Chegada:  Ex(30/12/1999) > ");
-            data = sc.nextLine();
+            data = ent.nextLine();
             dataDiv = data.split("/");
             int diaChegada = Integer.parseInt(dataDiv[0]);
             int mesChegada = Integer.parseInt(dataDiv[1]);
             int anoChegada = Integer.parseInt(dataDiv[2]);
             voo.setDataChegada(LocalDate.of(anoChegada, Month.of(mesChegada), diaChegada));
             System.out.print("Horário de Chegada: Ex(10:00) > ");
-            hora = sc.nextLine();
+            hora = ent.nextLine();
             horaDiv = hora.split(":");
             int horaChegada = Integer.parseInt(horaDiv[0]);
             int minutoChegada = Integer.parseInt(horaDiv[1]);
             voo.setHoraChegada(LocalTime.of(horaChegada, minutoChegada));
             System.out.println("Lotação Máxima: " + lotacao);
             System.out.println("Peso Máximo da Carga: " + carga);
-            System.out.print("Preço da Passagem: R$");
-            voo.setPrecoViagem(sc.nextFloat());
-            sc.skip("\n");
+            System.out.print("Preço da Passagem: R$ ");
+            voo.setPrecoViagem(ent.nextFloat());
+            ent.nextLine();
+            voo.getAeronave().consultar();
             //voo.setStatus(0);
             VooBd.inserirNoBanco(voo);
+            
             System.out.println("\n\t--- [Voo Adicionado com sucesso!!!] ---\n");
         } else {
             System.out.println("\n\t--- [Não Há Aeroporto Cadastrado!!!] ----");
@@ -350,10 +364,54 @@ public class GerenciaVoo {
     }
     
     public void excluir(){
-    	
+    	String cod;
+        int resp;
+
+        System.out.println("==== Exclusão de voos ====");
+
+        System.out.println("Qual a identificação do voo que você deseja excluir? ");
+        cod = ent.nextLine();;
+
+        //Voo voo = VooBd.consultar(cod);
+
+        if (voo != null) {
+            System.out.println("===== Dados do voo =====");
+            voo.consultar();
+            System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
+            resp = ent.nextInt();
+            ent.nextLine();
+
+            if (resp == 1) {
+                try {
+                    VooBd.excluirDoBanco(voo);
+                    System.out.println("Exclusão efetuada com sucesso.");
+                } catch (Exception ex) {
+                    System.out.println("Exclusão não efetuada. Erro: " + ex.getMessage());
+                }
+            } else {
+                System.out.println("Exclusão não efetuada.");
+            }
+        }
     }
  
     public void consultar(){
+    	
+    	int cod;
+
+        System.out.println("==== Consulta de voos ====");
+
+        System.out.println("Qual o codigo do voo que você deseja consultar? ");
+        cod = ent.nextInt();
+        ent.nextLine();
+
+        Voo voo = VooBd.consultar(cod);
+
+        if (voo != null) {
+            System.out.println("===== Dados do VOO =====");
+            voo.consultar();
+        } else {
+            System.out.println("Não existe voo com este código.");
+        }
  	
  }
     public void relatorio(){

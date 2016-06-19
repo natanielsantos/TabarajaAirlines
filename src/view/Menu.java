@@ -98,7 +98,7 @@ public class Menu {
 			System.out.println("                                1 - Avião");
 			System.out.println("                                2 - Carro");
 			System.out.println("                                3 - Helicóptero");
-			System.out.println("                                0 - Menu Principal      ");
+			System.out.println("                                0 - Menu Principal");
 
 			System.out.println("                                Opção:");
 			op = ent.nextInt();

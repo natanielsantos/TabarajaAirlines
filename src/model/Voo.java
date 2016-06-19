@@ -15,7 +15,7 @@ import java.time.LocalTime;
 public class Voo {
     
     private int id_voo;
-    private Aeronave aviao;
+    private Aeronave aeronave;
     private Aeroporto aeroportoPartida;
     private LocalDate dataPartida;
     private LocalTime horaPartida;
@@ -30,9 +30,9 @@ public class Voo {
     public Voo() {
     }
 
-    public Voo(int id_voo, Aeronave aviao, Aeroporto aeroportoPartida, LocalDate dataPartida, LocalTime horaPartida, Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada, int lotacao, double pesoCargaEmbarcada, double precoViagem, int tipoAeronave) {
+    public Voo(int id_voo, Aeronave aeronave, Aeroporto aeroportoPartida, LocalDate dataPartida, LocalTime horaPartida, Aeroporto aeroportoChegada, LocalDate dataChegada, LocalTime horaChegada, int lotacao, double pesoCargaEmbarcada, double precoViagem, int tipoAeronave) {
         this.id_voo = id_voo;
-        this.aviao = aviao;
+        this.aeronave = aeronave;
         this.aeroportoPartida = aeroportoPartida;
         this.dataPartida = dataPartida;
         this.horaPartida = horaPartida;
@@ -45,16 +45,12 @@ public class Voo {
         this.tipoAeronave = tipoAeronave;
     }
 
-    
-
-    
-
-    public Aeronave getAviao() {
-        return aviao;
+    public Aeronave getAeronave() {
+        return aeronave;
     }
 
-    public void setAviao(Aeronave aviao) {
-        this.aviao = aviao;
+    public void setAeronave(Aeronave aeronave) {
+        this.aeronave = aeronave;
     }
 
     public Aeroporto getAeroportoPartida() {
@@ -146,17 +142,31 @@ public class Voo {
     }
     
     
-    
-    
-    public void consultar(){
+    /*public void consultar(){
         System.out.println("=== Aeronave ===");
-        aviao.consultar();
+        aeronave.consultar();
         System.out.println("=== Aeroporto Partida ===");
         aeroportoPartida.consultar();
         System.out.println("Data Partida: " + dataPartida);
         System.out.println("Hora Partida: " + horaPartida);
         System.out.println("=== Aeroporto Chegada ===");
         aeroportoChegada.consultar();
+        System.out.println("Data Chegada: " + dataChegada);
+        System.out.println("Hora Chegada: " + horaChegada);
+        System.out.println("Lotação: " + lotacao);
+        System.out.println("Peso Carga Embarcada: " + pesoCargaEmbarcada);
+        System.out.println("Preço da Viagem: " + precoViagem);
+    }*/
+    
+    public void consultar(){
+        System.out.println("=== Aeronave ===");
+        aeronave.getIdentificacao();
+        System.out.println("=== Aeroporto Partida ===");
+        aeroportoPartida.getIdentificacao();
+        System.out.println("Data Partida: " + dataPartida);
+        System.out.println("Hora Partida: " + horaPartida);
+        System.out.println("=== Aeroporto Chegada ===");
+        aeroportoChegada.getIdentificacao();
         System.out.println("Data Chegada: " + dataChegada);
         System.out.println("Hora Chegada: " + horaChegada);
         System.out.println("Lotação: " + lotacao);

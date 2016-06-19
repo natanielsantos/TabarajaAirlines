@@ -32,6 +32,7 @@ public class Aviao extends Aeronave {
         this.capcCombustPorTurbina = capcCombustPorTurbina;
     }
 
+    @Override
     public void consultar() {
         System.out.println("===Avião===");
         super.consultar();

@@ -8,6 +8,9 @@ public class Aeroporto {
     public Aeroporto() {
     }
     
+    public Aeroporto(String identificacao) {
+    }
+    
     public Aeroporto(String identificacao, String nome, Cidade cidade) {
         this.identificacao = identificacao;
         this.nome = nome;
