@@ -159,14 +159,12 @@ public class Voo {
     }*/
     
     public void consultar(){
-        System.out.println("=== Aeronave ===");
-        aeronave.getIdentificacao();
-        System.out.println("=== Aeroporto Partida ===");
-        aeroportoPartida.getIdentificacao();
+        System.out.print("Aeronave: ");
+        System.out.println(aeronave.getIdentificacao());
+        System.out.println("Aeroporto Partida: " + aeroportoPartida.getIdentificacao());
         System.out.println("Data Partida: " + dataPartida);
         System.out.println("Hora Partida: " + horaPartida);
-        System.out.println("=== Aeroporto Chegada ===");
-        aeroportoChegada.getIdentificacao();
+        System.out.println("Aeroporto Chegada: " + aeroportoChegada.getIdentificacao());
         System.out.println("Data Chegada: " + dataChegada);
         System.out.println("Hora Chegada: " + horaChegada);
         System.out.println("Lotação: " + lotacao);
