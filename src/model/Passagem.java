@@ -95,7 +95,7 @@ public class Passagem {
 		
 		System.out.println("Numero da passagem: " + numPassagem );
 		System.out.println("Cliente: " + cliente.getIdentificacao());
-		System.out.println("Voo:" + voo.getIdentificacao());
+		System.out.println("Voo:" + voo.getId_voo());
 		System.out.println("Data da Venda: " + dataVenda);
 		System.out.println("Hora da Venda: " + horaVenda);
 		System.out.println("Carga do Cliente:" + cargaCliente);

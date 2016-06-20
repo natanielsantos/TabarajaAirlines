@@ -115,7 +115,6 @@ public class GerenciaVoo {
 				} else if (tipo == 2) { // Carro
 
 					carros = CarBd.relatorio();
-					System.out.println("VALOR DE IDENTIFICACAO DE AVIAO: " + voo.getAeronave().getIdentificacao());
 					System.out.println("--------- Lista de Carros Disponíveis -------");
 					for (Carro c : carros) {
 						System.out.println("Identificação: " + c.getIdentificacao());
@@ -140,7 +139,7 @@ public class GerenciaVoo {
 								}
 							}
 						} else {
-							System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
+		
 							System.out.println("\n\tCarro a ser Adicionado:");
 							System.out.println("------------------------------");
 							carro.consultar();
@@ -171,7 +170,7 @@ public class GerenciaVoo {
 						System.out.printf("%-15s%-50s\n", h.getIdentificacao(), h.getModelo());
 					}
 					do {
-						System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
+						
 						System.out.println("--------------------------------");
 						System.out.print("Id :");
 						identS = ent.nextLine();
@@ -190,8 +189,7 @@ public class GerenciaVoo {
 								}
 							}
 						} else {
-							System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
-							System.out.println("\n\tHelicoptero a ser Adicionado:");
+														System.out.println("\n\tHelicoptero a ser Adicionado:");
 							System.out.println("------------------------------");
 							helicoptero.consultar();
 							System.out.println("------------------------------\n");
@@ -212,7 +210,7 @@ public class GerenciaVoo {
 							}
 						}
 					} while (!verifAviao);
-					System.out.println("Teste AERONAVE: " + voo.getAeronave().getIdentificacao());
+					
 				}
 			}
 			if (tipo == 2) {
@@ -328,9 +326,7 @@ public class GerenciaVoo {
 						if (resp == 1) {
 							voo.setAeroportoChegada(aeroporto2);
 							verifAviao = true;
-							System.out.println("Partida: " + voo.getAeroportoPartida().getIdentificacao());
-							System.out.println("Chegada: " + voo.getAeroportoChegada().getIdentificacao());
-						} else {
+												} else {
 							System.out.println(
 									"\n\t--- [Cadastro de Aéroporto obrigatório!!! Escolha outro Aéroporto, para continuar o cadastro.] ---");
 						}
