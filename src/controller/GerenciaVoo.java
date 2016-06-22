@@ -154,10 +154,12 @@ public class GerenciaVoo {
 								voo.setTipoAeronave(2);
 								lotacao = carro.getCapacPassageiros();
 								carga = carro.getCapacCarga();
+								voo.setPesoCargaEmbarcada(carga);
+								voo.setLotacao(lotacao);
 								verifAviao = true;
 							} else {
 								System.out.println(
-										"\n\t--- [Cadastro de Aéronava obrigatório!!! Escolha outra Aéronave, para continuar o cadastro.] ---");
+										"\n\t--- [Cadastro de Aéronave obrigatório!!! Escolha outra Aéronave, para continuar o cadastro.] ---");
 							}
 						}
 					} while (!verifAviao);
@@ -203,6 +205,8 @@ public class GerenciaVoo {
 								voo.setTipoAeronave(3);
 								lotacao = helicoptero.getCapacPassageiros();
 								carga = helicoptero.getCapacCarga();
+								voo.setPesoCargaEmbarcada(carga);
+								voo.setLotacao(lotacao);
 								verifAviao = true;
 							} else {
 								System.out.println(

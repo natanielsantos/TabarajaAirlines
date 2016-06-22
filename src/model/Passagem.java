@@ -13,6 +13,10 @@ public class Passagem {
 	private double precoFinalViagem;
 	private double cargaCliente;
 	private String status;
+	
+	public Passagem(){
+		
+	}
 
 	public Passagem(int numPassagem, Cliente cliente, Voo voo, LocalDate dataVenda, LocalTime horaVenda,
 			double precoFinalViagem, double cargaCliente, String status) {

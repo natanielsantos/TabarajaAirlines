@@ -4,34 +4,28 @@ import java.sql.*;
 import java.util.ArrayList;
 import model.*;
 
-public class VooDAO {
+public class PassagemDAO {
 
     private Connection con;
     Conexao bancoDeDados = Conexao.getInstance();
     
-    public VooDAO() {
+    public PassagemDAO() {
         con = bancoDeDados.iniciaBanco();
     }
 
-    public void inserirNoBanco(Voo voo) {
+    public void inserirNoBanco(Passagem passagem) {
         try {
                     
-		        	PreparedStatement pst = con.prepareStatement("INSERT INTO voo (tipo, aeronave, aeroporto_partida, data_partida, hora_partida, " 
-		            + "aeroporto_chegada, data_chegada, hora_chegada, lotacao, peso_carga_embarcada, preco_viagem) "
-		                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+		        	PreparedStatement pst = con.prepareStatement("INSERT INTO passagem (cliente, voo,data_venda, hora_venda, preco_final_viagem,carga_cliente) "
+		                    								   + "VALUES (?,?,?,?,?,?)");
 		            
 		            //pst.setInt(1, voo.getId_voo());
-		            pst.setInt(1, voo.getTipoAeronave());
-		            pst.setString(2, voo.getAeronave().getIdentificacao());
-		            pst.setString(3, voo.getAeroportoPartida().getIdentificacao());
-		            pst.setDate(4, java.sql.Date.valueOf(voo.getDataPartida()));
-		            pst.setTime(5, java.sql.Time.valueOf(voo.getHoraPartida()));
-		            pst.setString(6, voo.getAeroportoChegada().getIdentificacao());
-		            pst.setDate(7, java.sql.Date.valueOf(voo.getDataChegada()));
-		            pst.setTime(8, java.sql.Time.valueOf(voo.getHoraChegada()));
-		            pst.setInt(9, voo.getLotacao());
-		            pst.setDouble(10, voo.getPesoCargaEmbarcada());
-		            pst.setDouble(11, voo.getPrecoViagem());
+		            pst.setInt(1, passagem.getCliente().getIdentificacao());
+		            pst.setInt(2, passagem.getVoo().getId_voo());
+		            pst.setDate(3, java.sql.Date.valueOf(passagem.getDataVenda()));
+		            pst.setTime(4, java.sql.Time.valueOf(passagem.getHoraVenda()));
+		            pst.setDouble(5, passagem.getPrecoFinalViagem());
+		            pst.setDouble(6, passagem.getCargaCliente());
 		            pst.executeUpdate();
 		            pst.close();
 		            
@@ -40,11 +34,11 @@ public class VooDAO {
         }
     }
 
-    public void excluirDoBanco(Voo voo) {
+    public void excluirDoBanco(Passagem passagem) {
         try {
 
-            PreparedStatement pst = con.prepareStatement("DELETE FROM voo WHERE id_voo = ?");
-            pst.setInt(1, voo.getId_voo());
+            PreparedStatement pst = con.prepareStatement("DELETE FROM passagem WHERE identificacao = ?");
+            pst.setInt(1, passagem.getNumPassagem());
             pst.execute();
 
         } catch (SQLException ex) {
@@ -52,7 +46,7 @@ public class VooDAO {
         }
     }
 
-    public void alterarNoBanco(Piloto pil) {
+    public void alterarNoBanco(Passagem passagem) {
         try {
             PreparedStatement pst = con.prepareStatement("UPDATE pilotos SET"
                     + " nome = ?, cpf = ?, numerodobrever = ?, "
