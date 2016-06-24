@@ -21,14 +21,7 @@ public class Principal {
 		GerenciaHelicoptero ghe = new GerenciaHelicoptero();
 		GerenciaCarro gca = new GerenciaCarro();
 		GerenciaVoo gvo = new GerenciaVoo();
-		
-		//GerenciaAviao gci = new GerenciaAviao();
-		//GerenciaAviao ga = new GerenciaAviao(avs);
-		
-		//GerenciaVoo gvo = new GerenciaVoo();
-		//GerenciaVoo gvo = new GerenciaVoo(vo, avs, aero);
-		//GerenciaPassagem gps = new GerenciaPassagem();
-		//GerenciaPassagem gps = new GerenciaPassagem(vo, cls, psg);
+		GerenciaPassagem gps = new GerenciaPassagem();
 		
 		Menu menus = new Menu();
 		
@@ -180,7 +173,21 @@ public class Principal {
 					}
 				} while (ops != 0);
 				break;
-
+			case 7:
+				do {
+					ops = menus.menu("Passagens");
+					System.out.println(ops);
+					
+					switch (ops) {
+					case 1:	gps.cadastrar();break;
+					case 2:	gps.alterar();break;
+					case 3:	gps.excluir(); break;
+					case 4: gps.consultar();break;
+					case 5:	gps.relatorio();break;
+					default:
+					}
+				} while (ops != 0);
+				break;
 			}
 
 		} while (op != 0);

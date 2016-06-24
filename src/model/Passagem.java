@@ -2,6 +2,8 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
 
 public class Passagem {
 
@@ -110,6 +112,62 @@ public class Passagem {
 		
 	}
 	
+	public boolean verificaCarga(Voo v, Double carga){
+		
+		boolean permissao = false;
+		
+		if(carga < v.getAeronave().getCapacCarga()){
+			
+			permissao = true;
+			
+		}else{
+			System.out.println("Carga excede o limite do voo!");
+			permissao = false;
+		}
+		
+		return permissao;
+	}
+	
+	public double calculaPrecoFinal(int dia, int mes, int ano, Double preco){
+		
+		LocalDate atual = LocalDate.now();
+		LocalDate dataVenda = LocalDate.of(ano, Month.of(mes), dia);
+		double precoFinal;
+		long diferencaDias = ChronoUnit.DAYS.between(atual, dataVenda);
+		
+		if(diferencaDias < 10){
+			
+			precoFinal = preco - (preco * (5.3/100));
+			
+		}else{
+			precoFinal = preco - (preco * (7.4/100));
+		}
+		
+		return precoFinal;
+	}
+	
+	public boolean lotacao(Voo v){
+		
+		int capPass;
+		boolean lotado;
+		
+		if(v.getAeronave().getCapacPassageiros() == 0){
+			
+			System.out.println("Voo lotado! Escolha outro voo!");
+			lotado = true;
+			
+		}else{
+			capPass = v.getAeronave().getCapacPassageiros();
+			capPass--;
+			v.getAeronave().setCapacPassageiros(capPass);
+			
+			lotado = false;
+		}
+		
+		return lotado;
+		
+	}
+		
 	
 	
 }
