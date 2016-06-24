@@ -79,7 +79,7 @@ public class Menu {
 		System.out.println("              ---------------------------------------------------");
 		System.out.println("                                1 - Venda");
 		System.out.println("                                2 - Cancalamento de passagem");
-		System.out.println("                                3 - Relatórios ");
+		System.out.println("                                3 - Relatórios de passagem ");
 		System.out.println("                                0 - Menu Principal      ");
 
 		System.out.println("                                Opção:");

@@ -68,28 +68,28 @@ public class GerenciaPassagem {
 
 					voo = VooBd.consultar(codVoo);
 
-					lotado = passagem.lotacao(voo);
-
-					if (!lotado) {
-
-						vefVoo = true;
-
-						if (voo == null) {
-							System.out.println("\n\t--- [Identificação Escolhida Inexistente!!!] ---\n");
-							System.out.print("Deseja Visualizar Lista De Voos? \n\t1 - Sim\n\t2 - Não\nOpção: ");
-							resp = ent.nextInt();
-							ent.nextLine();
-							if (resp == 1) {
-								System.out.println("--------- Lista de Clientes disponíveis -------");
-								System.out.println("Id             Nome:           ");
-								for (Voo v : voos) {
-									System.out.printf("%-15d%-50d\n", v.getId_voo(), v.getTipoAeronave());
-								}
+					if (voo == null) {
+						System.out.println("\n\t--- [Identificação Escolhida Inexistente!!!] ---\n");
+						System.out.print("Deseja Visualizar Lista De Voos? \n\t1 - Sim\n\t2 - Não\nOpção: ");
+						resp = ent.nextInt();
+						ent.nextLine();
+						if (resp == 1) {
+							System.out.println("--------- Lista de Clientes disponíveis -------");
+							System.out.println("Id             Nome:           ");
+							for (Voo v : voos) {
+								System.out.printf("%-15d%-50d\n", v.getId_voo(), v.getTipoAeronave());
 							}
+						}
 
-							vefVoo = false;
+						vefVoo = false;
 
-						} else {
+					} else {
+			
+						lotado = passagem.lotacao(voo); // TODO ralizar a verificação da lotação - Trigger ou Código?
+						
+						if (!lotado) {
+
+							vefVoo = true;
 
 							System.out.println("\n\t Voo a ser Adicionado:");
 							System.out.println("------------------------------");
@@ -107,11 +107,10 @@ public class GerenciaPassagem {
 							} else {
 								System.out.println("\n\t--- [Cadastro de Voo obrigatório!!!] ---");
 							}
+						} else {
+							System.out.println("Voo lotado! Escolha outro voo! ");
+							vefVoo = false;
 						}
-
-					} else {
-						System.out.println("Voo lotado! Escolha outro voo! ");
-						vefVoo = false;
 					}
 				} while (!vefVoo);
 
@@ -125,6 +124,8 @@ public class GerenciaPassagem {
 					System.out.println("Informe o codigo do cliente: ");
 					codCliente = ent.nextInt();
 					ent.nextLine();
+					
+					// TODO Verificar se o cliente já está cadastrado no voo.
 
 					cliente = CliDB.consultar(codCliente);
 
@@ -159,35 +160,42 @@ public class GerenciaPassagem {
 						}
 					}
 				} while (!vefCliente);
-
-				System.out.print("Data de Venda: Ex(30/12/1999) >");
-				data = ent.nextLine();
-				dataDiv = data.split("/");
-				int dia = Integer.parseInt(dataDiv[0]);
-				int mes = Integer.parseInt(dataDiv[1]);
-				int ano = Integer.parseInt(dataDiv[2]);
-				passagem.setDataVenda(LocalDate.of(ano, Month.of(mes), dia));
-				System.out.print("Horário de Venda Ex(10:00) > ");
-				hora = ent.nextLine();
-				horaDiv = hora.split(":");
-				int horaSaida = Integer.parseInt(horaDiv[0]);
-				int minutoSaida = Integer.parseInt(horaDiv[1]);
-				passagem.setHoraVenda(LocalTime.of(horaSaida, minutoSaida));
+				
+				LocalDate dia = LocalDate.now();
+				LocalTime hora = LocalTime.now();	
+				//data = ent.nextLine();
+				//dataDiv = data.split("/");
+				//int dia = Integer.parseInt(dataDiv[0]);
+				//int mes = Integer.parseInt(dataDiv[1]);
+				//int ano = Integer.parseInt(dataDiv[2]);
+				passagem.setDataVenda(dia);
+				System.out.println("Data de Venda: " + dia);
+				passagem.setHoraVenda(LocalTime.now());
+				System.out.print("Horário de Venda: " + hora);
+				//hora = ent.nextLine();
+				//horaDiv = hora.split(":");
+				//int horaSaida = Integer.parseInt(horaDiv[0]);
+				//int minutoSaida = Integer.parseInt(horaDiv[1]);
+				
 				System.out.println("--------------------------------");
 
 				boolean permitir = false;
 
-				do {
+				do {// TODO Comparar se a carga do cliente ultrapassa o limite da aeronave.
+							// Se ultrapassar, não permitir a carga.
+							// Se não ultrapassar, permitir a carga e somar ao valor da carga embarcada
+					
 					System.out.println("Qual o peso da carga levada pelo cliente?");
 					carga = ent.nextDouble();
 					permitir = passagem.verificaCarga(voo, carga);
-				} while (permitir);
+					
+				} while (!permitir);
 
 				passagem.setCargaCliente(carga);
 
 				valorViagem = voo.getPrecoViagem();
-				valorTotal = passagem.calculaPrecoFinal(dia,mes,ano, valorViagem);
-				
+				valorTotal = passagem.calculaPrecoFinal(dia, valorViagem);
+
 				passagem.setPrecoFinalViagem(valorTotal);
 
 				System.out.println("Preço Final da viagem: " + valorTotal);
@@ -212,24 +220,24 @@ public class GerenciaPassagem {
 		int cod;
 		int resp;
 
-		System.out.println("==== Exclusão de voos ====");
+		System.out.println("==== Exclusão de Passagens ====");
 
-		System.out.println("Qual o codigo do voo que você deseja excluir? ");
+		System.out.println("Qual o codigo da passagem que você deseja excluir? ");
 		cod = ent.nextInt();
 		;
 
-		Voo voo = VooBd.consultar(cod);
+		//Passagem passagem = PassagemBd.consultar(cod);
 
-		if (voo != null) {
-			System.out.println("===== Dados do voo =====");
-			voo.consultar();
+		if (passagem != null) {
+			System.out.println("===== Dados da Passagem =====");
+			//passagem.consultar();
 			System.out.println("\n\nConfirma exclusão? (1-sim/2-não) ");
 			resp = ent.nextInt();
 			ent.nextLine();
 
 			if (resp == 1) {
 				try {
-					VooBd.excluirDoBanco(voo);
+					PassagemBd.excluirDoBanco(passagem);
 					System.out.println("Exclusão efetuada com sucesso.");
 				} catch (Exception ex) {
 					System.out.println("Exclusão não efetuada. Erro: " + ex.getMessage());
@@ -244,36 +252,36 @@ public class GerenciaPassagem {
 
 		int cod;
 
-		System.out.println("==== Consulta de voos ====");
+		System.out.println("==== Consulta de Passagens ====");
 
-		System.out.println("Qual o codigo do voo que você deseja consultar? ");
+		System.out.println("Qual o codigo da passagem que você deseja consultar? ");
 		cod = ent.nextInt();
 		ent.nextLine();
 
-		Voo voo = VooBd.consultar(cod);
+		Passagem passagem = PassagemBd.consultar(cod);
 
-		if (voo != null) {
-			System.out.println("===== Dados do VOO =====");
-			voo.consultar();
+		if (passagem != null) {
+			System.out.println("===== Dados da Passagem =====");
+			passagem.consultar();
 		} else {
-			System.out.println("Não existe voo com este código.");
+			System.out.println("Não existe passagens com este código.");
 		}
 
 	}
 
 	public void relatorio() {
 
-		ArrayList<Voo> voo = new ArrayList<>();
+		ArrayList<Passagem> passagens = new ArrayList<>();
 
 		System.out.println("==== Relatório de Voos ====");
 
 		try {
-			voo = VooBd.relatorio();
+			passagens = PassagemBd.relatorio();
 
-			if (voo != null) {
+			if (passagens != null) {
 				System.out.println("===== Lista de Voos =====");
-				for (Voo v : voo) {
-					v.consultar();
+				for (Passagem p : passagens) {
+					p.consultar();
 					System.out.println("============================================");
 				}
 			} else {

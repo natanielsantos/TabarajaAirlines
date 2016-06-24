@@ -67,7 +67,7 @@ public class PassagemDAO {
         }
     }
 
-    public Voo consultar(int cod) {
+    public Voo consultar(int cod) {// TODO Criar a consulta. Essencial para o restante do código.
 
         Voo voo;
         ResultSet rs;
@@ -108,12 +108,12 @@ public class PassagemDAO {
         }
     }
 
-    public ArrayList<Voo> relatorio() {
-        ArrayList<Voo> voos;
+    public ArrayList<Passagem> relatorio() {
+        ArrayList<Passagem> passagens;
         ResultSet rs;
 
        try {
-            voos = new ArrayList<>();
+            passagens = new ArrayList<>();
 
             PreparedStatement pst = con.prepareStatement("SELECT voo.*, aero.identificacao aero1, ae1.idaeroporto partida,ae2.idaeroporto chegada "
             		+ "FROM voo, aeronave aero, aeroporto ae1,aeroporto ae2 "
@@ -125,7 +125,7 @@ public class PassagemDAO {
 
             while (rs.next()) {
 
-                voos.add(new Voo(rs.getInt("id_voo"),
+                passagens.add(new Voo(rs.getInt("id_voo"),
             		    new Aeronave(rs.getString("aero1")),
             		    new Aeroporto(rs.getString("partida")),
             		   rs.getDate("data_partida").toLocalDate(),
@@ -138,7 +138,7 @@ public class PassagemDAO {
             		   rs.getDouble("preco_viagem"),
             		   rs.getInt("tipo")));
             }
-            return voos;
+            return passagens;
 
         } catch (SQLException ex) {
             System.out.println("Erro: " + ex);

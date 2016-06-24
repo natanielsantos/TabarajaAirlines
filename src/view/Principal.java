@@ -175,7 +175,7 @@ public class Principal {
 				break;
 			case 7:
 				do {
-					ops = menus.menu("Passagens");
+					ops = menus.menuPassagem("Passagens");
 					System.out.println(ops);
 					
 					switch (ops) {
