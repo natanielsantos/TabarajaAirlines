@@ -179,11 +179,11 @@ public class Principal {
 					System.out.println(ops);
 					
 					switch (ops) {
-					case 1:	gps.cadastrar();break;
-					case 2:	gps.alterar();break;
-					case 3:	gps.excluir(); break;
-					case 4: gps.consultar();break;
-					case 5:	gps.relatorio();break;
+					case 1:	gps.vendaPassagem();break;
+					case 2:	gps.cancelaPassagem();break;
+					//case 3:	gps.excluir(); break;
+					//case 4: gps.consultar();break;
+					case 5:	gps.relatorioPassageirosPorVoo();break;
 					default:
 					}
 				} while (ops != 0);
@@ -195,7 +195,7 @@ public class Principal {
 	for(int i=0; i<2; i++)
 		System.out.println("\n");
 	
-	 System.out.println("Sistema encerrado! Obrigado pela visista!");
+	 System.out.println("Sistema encerrado!");
 
 	}
 

@@ -14,14 +14,14 @@ public class Passagem {
 	private LocalTime horaVenda;
 	private double precoFinalViagem;
 	private double cargaCliente;
-	private String status;
+	private int status;
 	
 	public Passagem(){
 		
 	}
 
 	public Passagem(int numPassagem, Cliente cliente, Voo voo, LocalDate dataVenda, LocalTime horaVenda,
-			double precoFinalViagem, double cargaCliente, String status) {
+			double precoFinalViagem, double cargaCliente, int status) {
 
 		this.cliente = cliente;
 		this.voo = voo;
@@ -89,24 +89,28 @@ public class Passagem {
 		this.cargaCliente = cargaCliente;
 	}
 
-	public String getStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 	
-	public void imprimir(){
+	public void consultar(){
 		
 		System.out.println("Numero da passagem: " + numPassagem );
-		System.out.println("Cliente: " + cliente.getIdentificacao());
+		System.out.println("Cliente: " + cliente.getNome());
 		System.out.println("Voo:" + voo.getId_voo());
 		System.out.println("Data da Venda: " + dataVenda);
 		System.out.println("Hora da Venda: " + horaVenda);
 		System.out.println("Carga do Cliente:" + cargaCliente);
 		System.out.println("Preço Final: " + precoFinalViagem);
-		System.out.println("Status da Passagem: " + status);
+		if(status == 0){
+			System.out.println("Status da Passagem: ATIVO");
+		}else{
+			System.out.println("Status da Passagem: CANCELADO");
+		}
 		System.out.println("-------------------------------------------------");
 		
 		

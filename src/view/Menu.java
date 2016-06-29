@@ -78,10 +78,14 @@ public class Menu {
 		System.out.println("                      *********====[Versão 1.2]===*********");
 		System.out.println("              ---------------------------------------------------");
 		System.out.println("                                1 - Venda");
-		System.out.println("                                2 - Cancalamento de passagem");
-		System.out.println("                                3 - Relatórios de passagem ");
-		System.out.println("                                0 - Menu Principal      ");
-
+		System.out.println("                                2 - Cancelamento de passagem");
+		System.out.println("                                3 - Lista de Passageiros em um voo");
+		System.out.println("                                4 - Lista de Passageiros por voo e valor pago ");
+		System.out.println("                                5 - Carga disponível em um voo ");
+		System.out.println("                                6 - Lugares disponíveis em um voo ");
+		System.out.println("                                7 - Valor que a empresa deixará de ganhar ");
+		System.out.println("                                8 - Total arrecadado ");
+		System.out.println("                                0 - Menu Principal");
 		System.out.println("                                Opção:");
 		op = ent.nextInt();
 
