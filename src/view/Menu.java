@@ -84,7 +84,7 @@ public class Menu {
 		System.out.println("                                5 - Carga disponível em um voo ");
 		System.out.println("                                6 - Lugares disponíveis em um voo ");
 		System.out.println("                                7 - Valor que a empresa deixará de ganhar ");
-		System.out.println("                                8 - Total arrecadado ");
+		System.out.println("                                8 - Total arrecadado para um voo ");
 		System.out.println("                                0 - Menu Principal");
 		System.out.println("                                Opção:");
 		op = ent.nextInt();

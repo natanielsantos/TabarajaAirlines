@@ -105,28 +105,38 @@ public class PassagemDAO {
        try {
             passagens = new ArrayList<>();
 
-            PreparedStatement pst = con.prepareStatement("SELECT voo.*, aero.identificacao aero1, ae1.idaeroporto partida,ae2.idaeroporto chegada "
-            		+ "FROM voo, aeronave aero, aeroporto ae1,aeroporto ae2 "
-                    + "WHERE voo.aeronave = aero.identificacao "
-                    + "AND voo.aeroporto_partida = ae1.idaeroporto "					                                
-                    + "AND voo.aeroporto_chegada = ae2.idaeroporto ");
+            PreparedStatement pst = con.prepareStatement("SELECT passagem.*,voo.*,cliente.*,aero.identificacao aero1, a1.idaeroporto partida, a2.idaeroporto chegada "
+            		+ "FROM passagem, voo, cliente, aeronave aero, aeroporto a1, aeroporto a2 "
+                    + "WHERE passagem.cliente = cliente.idcliente "
+                    + "AND passagem.voo = voo.id_voo "
+                    + "AND voo.aeronave = aero.identificacao "
+                    + "AND voo.aeroporto_partida = a1.idaeroporto "
+                    + "AND voo.aeroporto_chegada = a2.idaeroporto "
+                    + "AND voo.id_voo = ? ");
+
             
+            pst.setInt(1, cod);
             rs = pst.executeQuery();
 
             while (rs.next()) {
 
-                passagens.add(new Voo(rs.getInt("id_voo"),
-            		    new Aeronave(rs.getString("aero1")),
-            		    new Aeroporto(rs.getString("partida")),
-            		   rs.getDate("data_partida").toLocalDate(),
-            		   rs.getTime("hora_partida").toLocalTime(),
-            		   	new Aeroporto(rs.getString("chegada")),
-                       rs.getDate("data_chegada").toLocalDate(),
-            		   rs.getTime("hora_chegada").toLocalTime(),
-            		   rs.getInt("lotacao"),
-            		   rs.getDouble("peso_carga_embarcada"),
-            		   rs.getDouble("preco_viagem"),
-            		   rs.getInt("tipo")));
+                passagens.add(new Passagem(rs.getInt("identificacao"),
+             		   new Cliente(rs.getInt("idcliente"), rs.getString("nome"), rs.getString("logradouro"),
+          						rs.getInt("numero"), rs.getString("bairro"), rs.getString("municipio"), rs.getString("estado"),
+          						rs.getString("cep"), rs.getString("telefone"), rs.getString("cpf")),
+               		   new Voo(rs.getInt("id_voo"),
+               		    new Aeronave(rs.getString("aero1")),
+               		    new Aeroporto(rs.getString("partida")),
+               		    rs.getDate("data_partida").toLocalDate(),
+               		    rs.getTime("hora_partida").toLocalTime(),
+               		   	new Aeroporto(rs.getString("chegada")),
+               		   	rs.getDate("data_chegada").toLocalDate(),
+               		   	rs.getTime("hora_chegada").toLocalTime(),
+               		   	rs.getInt("lotacao"),
+               		   	rs.getDouble("peso_carga_embarcada"),
+               		   	rs.getDouble("preco_viagem"),
+               		   	rs.getInt("tipo")),rs.getDate("data_venda").toLocalDate(),rs.getTime("hora_venda").toLocalTime(),
+               		   	rs.getDouble("preco_final_viagem"),rs.getDouble("carga_cliente"),rs.getInt("status")));
             }
             return passagens;
 

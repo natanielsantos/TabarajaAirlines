@@ -181,9 +181,10 @@ public class Principal {
 					switch (ops) {
 					case 1:	gps.vendaPassagem();break;
 					case 2:	gps.cancelaPassagem();break;
-					//case 3:	gps.excluir(); break;
-					//case 4: gps.consultar();break;
-					case 5:	gps.relatorioPassageirosPorVoo();break;
+					case 3:	gps.relatorioPassageirosPorVoo();break;
+					case 4:	gps.relatorioPassageirosPorVooPago();break;
+					case 5:	gps.relatorioCargaPorVoo();break;
+					case 6:	gps.relatorioLotacao();break;
 					default:
 					}
 				} while (ops != 0);

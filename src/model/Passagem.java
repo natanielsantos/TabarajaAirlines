@@ -116,6 +116,31 @@ public class Passagem {
 		
 	}
 	
+	public void consultarPorVoo(){
+
+		if(status == 0){
+			System.out.println("Passagem: " + numPassagem );
+			System.out.println("Cliente: " + cliente.getNome());
+		}else{
+			System.out.println("Não existem passagens ativas para esse voo!");
+		}
+		System.out.println("-------------------------------------------------");
+		
+		
+	}
+	
+	public void consultarPorVooPago(){
+
+		if(status == 0){
+			System.out.println("Passagem: " + numPassagem );
+			System.out.println("Cliente: " + cliente.getNome());
+			System.out.println("Valor pago: " + precoFinalViagem);
+		}else{
+			System.out.println("Não existem passagens ativas para esse voo!");
+		}
+		System.out.println("-------------------------------------------------");
+	}
+	
 	public boolean verificaCarga(Voo v, Double carga){
 		
 		boolean permissao = false;
@@ -172,7 +197,5 @@ public class Passagem {
 		return lotado;
 		
 	}
-		
-	
 	
 }
