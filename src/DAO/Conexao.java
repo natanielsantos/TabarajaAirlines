@@ -3,7 +3,6 @@ package DAO;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 public class Conexao {
 
@@ -27,14 +26,12 @@ public class Conexao {
     public Connection iniciaBanco() {
 
         try {
-            String url = "jdbc:postgresql://localhost:5432/tabajara", // aqui e o endereço do banco de dados
-                    usuario = "postgres", // usuario 
-                    senha = "admin"; // senha
-            Class.forName("org.postgresql.Driver"); // drive do postgree
+            String url = "jdbc:postgresql://localhost:5432/tabajara",
+                    usuario = "postgres",
+                    senha = "admin";
+            Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection(url, usuario, senha);
-            //JOptionPane.showMessageDialog(null, "Banco conectado com sucesso!!");
         } catch (ClassNotFoundException | SQLException e) {
-            JOptionPane.showMessageDialog(null, "Erro: " + e.getMessage());
             return null;
         }
         return con;

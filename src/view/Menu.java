@@ -53,7 +53,7 @@ public class Menu {
 	public static int menu(String txt) {
 		Scanner ent = new Scanner(System.in);
 		int op, ops;
-
+		
 		System.out.println("               **********======[Módulo Gerenciador]=====**********" + txt + " ");
 		System.out.println("                      *********====[Versão 1.2]===*********");
 		System.out.println("              ---------------------------------------------------");
@@ -109,6 +109,5 @@ public class Menu {
 
 			return op;
 	}
-
 
 }

@@ -54,8 +54,6 @@ public class Aeronave {
         this.capacCarga = capacCarga;
     }
 
-    
-    
     public void consultar(){
         System.out.println("Identificação: "+identificacao);
         System.out.println("Modelo: "+ modelo);

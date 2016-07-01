@@ -15,8 +15,7 @@ public class CarroDAO {
 
 	public void inserirNoBanco(Carro car) {
 		try {
-			PreparedStatement pst = con.prepareStatement("INSERT INTO carro "
-		                                                + "VALUES (?,?,?,?,?,?,?,?)");
+			PreparedStatement pst = con.prepareStatement("INSERT INTO carro " + "VALUES (?,?,?,?,?,?,?,?)");
 
 			pst.setString(1, car.getIdentificacao());
 			pst.setString(2, car.getModelo());
@@ -47,9 +46,9 @@ public class CarroDAO {
 
 	public void alterarNoBanco(Carro car) {
 		try {
-			PreparedStatement pst = con.prepareStatement(
-					"UPDATE carro SET modelo = ?, " + "capac_passageiros = ?, capac_carga = ?, "
-							+ "autonomia = ?, piloto = ?, cidade_origem = ?,cidade_destino  = ?  " + "WHERE identificacao = ?");
+			PreparedStatement pst = con.prepareStatement("UPDATE carro SET modelo = ?, "
+					+ "capac_passageiros = ?, capac_carga = ?, "
+					+ "autonomia = ?, piloto = ?, cidade_origem = ?,cidade_destino  = ?  " + "WHERE identificacao = ?");
 
 			pst.setString(1, car.getModelo());
 			pst.setInt(2, car.getCapacPassageiros());
@@ -65,41 +64,47 @@ public class CarroDAO {
 			System.out.println("Erro: " + ex);
 		}
 	}
-	
+
 	public Carro consultar(String cod) {
-        Carro car;
-        ResultSet rs;
+		Carro car;
+		ResultSet rs;
 
-        try {
-        	PreparedStatement pst = con.prepareStatement("SELECT c3.*, c1.idcidade cid1,c2.idcidade cid2,c1.municipio origem,c2.municipio destino,c1.pais porigem,c2.pais pdestino,c1.estado eorigem,c2.estado edestino,pil.*,carro.*"
-						 + "FROM carro, piloto pil, cidade c1, cidade c2, cidade c3 "
-                         + "WHERE carro.piloto = pil.identidade "
-                         + "AND carro.cidade_origem = c1.idcidade "					                                
-                         + "AND carro.cidade_destino = c2.idcidade "
-                         + "And pil.cidade = c3.idcidade "
-                         + "AND carro.identificacao=?");
+		try {
+			PreparedStatement pst = con.prepareStatement(
+					"SELECT c3.*, c1.idcidade cid1,c2.idcidade cid2,c1.municipio origem,c2.municipio destino,c1.pais porigem,c2.pais pdestino,c1.estado eorigem,c2.estado edestino,pil.*,carro.*"
+							+ "FROM carro, piloto pil, cidade c1, cidade c2, cidade c3 "
+							+ "WHERE carro.piloto = pil.identidade " + "AND carro.cidade_origem = c1.idcidade "
+							+ "AND carro.cidade_destino = c2.idcidade " + "And pil.cidade = c3.idcidade "
+							+ "AND carro.identificacao=?");
 
-            pst.setString(1, cod);
-            
-            rs = pst.executeQuery();
+			pst.setString(1, cod);
 
-            if (rs.next()) {
-            	car = new Carro(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
-                        rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
-                        new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")), rs.getString("telefone")),
-						new Cidade(rs.getInt("cid1"), rs.getString("origem"), rs.getString("porigem"),rs.getString("eorigem")),
-						new Cidade(rs.getInt("cid2"), rs.getString("destino"), rs.getString("pdestino"),rs.getString("edestino")),
-						rs.getFloat("autonomia"),rs.getString("identificacao"),rs.getString("modelo"),rs.getInt("capac_passageiros"),rs.getDouble("capac_carga"));
+			rs = pst.executeQuery();
 
-                return car;
-            } else {
-                return null;
-            }
+			if (rs.next()) {
+				car = new Carro(
+						new Piloto(rs.getInt("idpiloto"), rs.getString("nome"), rs.getString("identidade"),
+								rs.getString("cpf"), rs.getString("numerodobreve"), rs.getString("logradouro"),
+								rs.getString("numero"),
+								new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),
+										rs.getString("estado")),
+								rs.getString("telefone")),
+						new Cidade(rs.getInt("cid1"), rs.getString("origem"), rs.getString("porigem"),
+								rs.getString("eorigem")),
+						new Cidade(rs.getInt("cid2"), rs.getString("destino"), rs.getString("pdestino"),
+								rs.getString("edestino")),
+						rs.getFloat("autonomia"), rs.getString("identificacao"), rs.getString("modelo"),
+						rs.getInt("capac_passageiros"), rs.getDouble("capac_carga"));
 
-        } catch (SQLException ex) {
-            System.out.println("Erro: " + ex);
-            return null;
-        }
+				return car;
+			} else {
+				return null;
+			}
+
+		} catch (SQLException ex) {
+			System.out.println("Erro: " + ex);
+			return null;
+		}
 	}
 
 	public ArrayList<Carro> relatorio() {
@@ -109,26 +114,29 @@ public class CarroDAO {
 		try {
 			carros = new ArrayList<>();
 
-			PreparedStatement pst = con.prepareStatement("SELECT c3.*, c1.idcidade cid1,c2.idcidade cid2,c1.municipio origem,c2.municipio destino,c1.pais porigem,c2.pais pdestino,c1.estado eorigem,c2.estado edestino,pil.*,carro.* "
-					  									 + "FROM carro, piloto pil, cidade c1, cidade c2, cidade c3 "
-					                                     + "WHERE carro.piloto = pil.identidade "
-					                                     + "AND carro.cidade_origem = c1.idcidade "					                                
-					                                     + "AND carro.cidade_destino = c2.idcidade "
-					                                     + "AND pil.cidade = c3.idcidade");
+			PreparedStatement pst = con.prepareStatement(
+					"SELECT c3.*, c1.idcidade cid1,c2.idcidade cid2,c1.municipio origem,c2.municipio destino,c1.pais porigem,c2.pais pdestino,c1.estado eorigem,c2.estado edestino,pil.*,carro.* "
+							+ "FROM carro, piloto pil, cidade c1, cidade c2, cidade c3 "
+							+ "WHERE carro.piloto = pil.identidade " + "AND carro.cidade_origem = c1.idcidade "
+							+ "AND carro.cidade_destino = c2.idcidade " + "AND pil.cidade = c3.idcidade");
 
-            
 			rs = pst.executeQuery();
-			
 
-			
 			while (rs.next()) {
 
-				carros.add(new Carro(new Piloto(rs.getInt("idpiloto"),rs.getString("nome"), rs.getString("identidade"), rs.getString("cpf"),
-                        rs.getString("numerodobreve"), rs.getString("logradouro"), rs.getString("numero"), 
-                        new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),rs.getString("estado")), rs.getString("telefone")),
-						new Cidade(rs.getInt("cid1"), rs.getString("origem"), rs.getString("porigem"),rs.getString("eorigem")),
-						new Cidade(rs.getInt("cid2"), rs.getString("destino"), rs.getString("pdestino"),rs.getString("edestino")),
-						rs.getFloat("autonomia"),rs.getString("identificacao"),rs.getString("modelo"),rs.getInt("capac_passageiros"),rs.getDouble("capac_carga")));
+				carros.add(new Carro(
+						new Piloto(rs.getInt("idpiloto"), rs.getString("nome"), rs.getString("identidade"),
+								rs.getString("cpf"), rs.getString("numerodobreve"), rs.getString("logradouro"),
+								rs.getString("numero"),
+								new Cidade(rs.getInt("idcidade"), rs.getString("municipio"), rs.getString("pais"),
+										rs.getString("estado")),
+								rs.getString("telefone")),
+						new Cidade(rs.getInt("cid1"), rs.getString("origem"), rs.getString("porigem"),
+								rs.getString("eorigem")),
+						new Cidade(rs.getInt("cid2"), rs.getString("destino"), rs.getString("pdestino"),
+								rs.getString("edestino")),
+						rs.getFloat("autonomia"), rs.getString("identificacao"), rs.getString("modelo"),
+						rs.getInt("capac_passageiros"), rs.getDouble("capac_carga")));
 			}
 			return carros;
 
@@ -137,5 +145,5 @@ public class CarroDAO {
 			return null;
 		}
 	}
-	
+
 }

@@ -2,7 +2,6 @@ package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.time.temporal.ChronoUnit;
 
 public class Passagem {
@@ -177,22 +176,13 @@ public class Passagem {
 	
 	public boolean lotacao(Voo v){
 		
-		int capPass;
 		boolean lotado = false;
 		
 		if(v.getLotacao() == 0){
 			
 			System.out.println("Voo lotado! Escolha outro voo!");
-			lotado = true;
-			
-		}/*else{
-			capPass = v.getLotacao();
-			System.out.println("Lotacao: " + v.getLotacao());
-			capPass--;
-			v.setLotacao(capPass);
-			
-			lotado = false;
-		}*/
+			lotado = true;	
+		}
 		
 		return lotado;
 		

@@ -121,9 +121,4 @@ public class Cliente {
         System.out.println("Telefone: " + telefone);
         System.out.println("CPF :" + cpf);
     }
-    /*
-    public void consultar() {
-        System.out.println(identificacao + "\t" + nome + "\t" + logradouro + "\t"+numero + "\t"+bairro + "\t"+municipio + "\t"+estado + "\t"+cep + "\t"+telefone + "\t"+cpf);
-       
-    }*/
 }

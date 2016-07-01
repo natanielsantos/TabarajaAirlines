@@ -11,8 +11,6 @@ import model.*;
 
 public class GerenciaVoo {
 
-	private ArrayList<Voo> voos;
-	private ArrayList<Aeronave> aeronaves;
 	private ArrayList<Aviao> avioes;
 	private ArrayList<Carro> carros;
 	private ArrayList<Aeroporto> aeroportos;
@@ -52,8 +50,6 @@ public class GerenciaVoo {
 		if ((avioes != null) || (carros != null) || (helicopteros != null)) {
 			if (aeroportos != null) {
 				System.out.println("\n----------- Inserir Voo -----------");
-				// System.out.println("Identificação: ");
-				// voo.setId_voo(ent.nextInt());
 				System.out.println("Adicionar do Aeronave: ");
 				System.out.println("Escolha o tipo de Aeronave: ");
 				System.out.println("1 = Avião ");
@@ -62,7 +58,7 @@ public class GerenciaVoo {
 				System.out.println("Tipo: ");
 				tipo = ent.nextInt();
 				ent.nextLine();
-				if (tipo == 1) { // Avião
+				if (tipo == 1) {
 					avioes = AviBd.relatorio();
 					System.out.println("--------- Lista de Aviões Cadastrados -------");
 					for (Aviao a : avioes) {
@@ -112,7 +108,7 @@ public class GerenciaVoo {
 							}
 						}
 					} while (!verifAviao);
-				} else if (tipo == 2) { // Carro
+				} else if (tipo == 2) {
 
 					carros = CarBd.relatorio();
 					System.out.println("--------- Lista de Carros Disponíveis -------");
@@ -163,7 +159,7 @@ public class GerenciaVoo {
 							}
 						}
 					} while (!verifAviao);
-				} else { // helicoptero
+				} else {
 
 					helicopteros = HelBd.relatorio();
 					System.out.println("--------- Lista de Hélicoptero Disponíveis -------");
@@ -355,7 +351,6 @@ public class GerenciaVoo {
 			System.out.print("Preço da Passagem: R$ ");
 			voo.setPrecoViagem(ent.nextFloat());
 			ent.nextLine();
-			// voo.setStatus(0);
 			VooBd.inserirNoBanco(voo);
 
 			System.out.println("\n\t--- [Voo Adicionado com sucesso!!!] ---\n");

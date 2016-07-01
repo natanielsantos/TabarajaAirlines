@@ -4,46 +4,26 @@ import DAO.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.Scanner;
 import model.*;
 
 public class GerenciaPassagem {
 
-	private ArrayList<Helicoptero> helicopteros;
-	private ArrayList<Aeroporto> aeroportos;
-	private ArrayList<Aeronave> aeronaves;
 	private ArrayList<Cliente> clientes;
-	private ArrayList<Aviao> avioes;
-	private ArrayList<Carro> carros;
 	private ArrayList<Voo> voos;
-
-	private Helicoptero helicoptero = new Helicoptero();
-	private Aeroporto aeroporto = new Aeroporto();
 	private Scanner ent = new Scanner(System.in);
 	private Passagem passagem = new Passagem();
 	private Cliente cliente = new Cliente();
-	private Aviao aviao = new Aviao();
-	private Carro carro = new Carro();
 	private Voo voo = new Voo();
 
-	private final HelicopteroDAO HelBd = new HelicopteroDAO();
-	private final AeroportoDAO AerBd = new AeroportoDAO();
-	private final Conexao con = Conexao.getInstance();
 	private final ClienteDAO CliDB = new ClienteDAO();
-	private final AviaoDAO AviBd = new AviaoDAO();
-	private final CarroDAO CarBd = new CarroDAO();
 	private final VooDAO VooBd = new VooDAO();
 	private final PassagemDAO PassagemBd = new PassagemDAO();
 
-	private int tipo, codCliente, codVoo, resp, lotacao;
-	private String ident;
-	private long identL;
-	private String identS;
-	private boolean verifAviao, vefCliente, vefVoo;
-	private double carga, precoFinal, valorViagem, valorTotal;
-	private String data, dataDiv[], hora, horaDiv[];
+	private int codCliente, codVoo, resp;
+	private boolean vefCliente, vefVoo;
+	private double carga, valorViagem, valorTotal;
 
 	public GerenciaPassagem() {
 	}
@@ -85,7 +65,9 @@ public class GerenciaPassagem {
 
 					} else {
 
-						lotado = passagem.lotacao(voo); // TODO realizar a verificação da lotação Código?
+						lotado = passagem.lotacao(voo); // TODO realizar a
+														// verificação da
+														// lotação Código?
 
 						if (!lotado) {
 
@@ -113,8 +95,6 @@ public class GerenciaPassagem {
 						}
 					}
 				} while (!vefVoo);
-
-				// CADASTRAR CLIENTE
 
 				System.out.println("Inserir cliente: ");
 
@@ -168,16 +148,11 @@ public class GerenciaPassagem {
 				passagem.setHoraVenda(LocalTime.now());
 				System.out.print("Horário de Venda: " + hora);
 
-
 				System.out.println("--------------------------------");
 
 				boolean permitir = false;
 
-				do {// TODO Comparar se a carga do cliente ultrapassa o limite
-					// da aeronave.
-					// Se ultrapassar, não permitir a carga.
-					// Se não ultrapassar, permitir a carga e somar ao valor da
-					// carga embarcada
+				do {
 
 					System.out.println("Qual o peso da carga levada pelo cliente?");
 					carga = ent.nextDouble();
@@ -208,7 +183,7 @@ public class GerenciaPassagem {
 
 	public void cancelaPassagem() {
 
-		int cod,res;
+		int cod, res;
 
 		System.out.println("==== Cancelamento de Passagens ====");
 
@@ -221,18 +196,18 @@ public class GerenciaPassagem {
 		if (passagem != null) {
 			System.out.println("===== Dados da Passagem =====");
 			passagem.consultar();
-			
+
 			System.out.println("Tem certeza que deseja cancelar essa passagem? 1-sim/2-nao");
 			res = ent.nextInt();
 			ent.hasNextLine();
-			
-			if(res == 1){
+
+			if (res == 1) {
 				PassagemBd.cancelaPassagem(cod);
 				System.out.println("Passagem cancelada com sucesso!");
-			}else{
+			} else {
 				System.out.println("Passagem não cancelada!");
 			}
-			
+
 		} else {
 			System.out.println("Não existe passagens com este código.");
 		}
@@ -240,13 +215,13 @@ public class GerenciaPassagem {
 	}
 
 	public void relatorioPassageirosPorVoo() {
-		
+
 		int cod;
 
 		ArrayList<Passagem> passagens = new ArrayList<>();
 
 		System.out.println("==== Relatório de Passageiros em um Voo ====");
-		
+
 		System.out.println("Informe o código do voo que deseja consultar as passagens");
 		cod = ent.nextInt();
 
@@ -254,10 +229,10 @@ public class GerenciaPassagem {
 			passagens = PassagemBd.relatorioPassageiroPorVoo(cod);
 
 			if (passagens != null) {
-				System.out.println("===== Lista de passageiros do Voo " + cod +" =====");
-				
-					for (Passagem p : passagens) {
-						p.consultarPorVoo();
+				System.out.println("===== Lista de passageiros do Voo " + cod + " =====");
+
+				for (Passagem p : passagens) {
+					p.consultarPorVoo();
 				}
 			} else {
 				System.out.println("\nNão existem passagens cadastradas para esse voo.");
@@ -266,15 +241,15 @@ public class GerenciaPassagem {
 			System.out.println("Erro: " + ex.getMessage());
 		}
 	}
-	
+
 	public void relatorioPassageirosPorVooPago() {
-		
+
 		int cod;
 
 		ArrayList<Passagem> passagens = new ArrayList<>();
 
 		System.out.println("==== Relatório de Passageiros e valores pagos em um Voo ====");
-		
+
 		System.out.println("Informe o código do voo que deseja consultar as passagens e o valor pago?");
 		cod = ent.nextInt();
 
@@ -282,10 +257,10 @@ public class GerenciaPassagem {
 			passagens = PassagemBd.relatorioPassageiroPorVoo(cod);
 
 			if (passagens != null) {
-				System.out.println("===== Lista de passageiros do Voo " + cod +" =====");
-				
-					for (Passagem p : passagens) {
-						p.consultarPorVooPago();
+				System.out.println("===== Lista de passageiros do Voo " + cod + " =====");
+
+				for (Passagem p : passagens) {
+					p.consultarPorVooPago();
 				}
 			} else {
 				System.out.println("\nNão existem passagens cadastradas para esse voo.");
@@ -294,15 +269,16 @@ public class GerenciaPassagem {
 			System.out.println("Erro: " + ex.getMessage());
 		}
 	}
-	
-	public void relatorioCargaPorVoo() {// TODO Cálculo para a carga incorreto. Corrigir!
-		
+
+	public void relatorioCargaPorVoo() {// TODO Cálculo para a carga incorreto.
+										// Corrigir!
+
 		int cod;
 		double totalCargaVoo = 0;
-		double cargaMaximaVoo= 0;
+		double cargaMaximaVoo = 0;
 
 		System.out.println("==== Relatório de Carga Disponível em um Voo ====");
-		
+
 		System.out.println("Informe o código do voo que deseja consultar as passagens e o valor pago?");
 		cod = ent.nextInt();
 
@@ -312,8 +288,29 @@ public class GerenciaPassagem {
 			cargaMaximaVoo = voo.getAeronave().getCapacCarga();
 
 			if (voo != null) {
-				System.out.println("===== Carga disponível no Voo " + cod +" =====");
-						voo.consultarCarga(totalCargaVoo, cargaMaximaVoo);
+				System.out.println("===== Carga disponível no Voo " + cod + " =====");
+				voo.consultarCarga(totalCargaVoo, cargaMaximaVoo);
+			}
+		} catch (Exception ex) {
+			System.out.println("Erro: " + ex.getMessage());
+		}
+	}
+
+	public void relatorioLotacao() {
+
+		int cod;
+
+		System.out.println("==== Relatório de Carga Disponível em um Voo ====");
+
+		System.out.println("Informe o código do voo que deseja consultar as passagens e o valor pago?");
+		cod = ent.nextInt();
+
+		try {
+			Voo voo = VooBd.consultar(cod);
+
+			if (voo != null) {
+				System.out.println("===== Vagas disponíveis no Voo " + cod + " =====");
+				voo.consultarLotacao();
 			} else {
 				System.out.println("\nNão existem passagens cadastradas para esse voo.");
 			}
@@ -321,28 +318,79 @@ public class GerenciaPassagem {
 			System.out.println("Erro: " + ex.getMessage());
 		}
 	}
-		
-	public void relatorioLotacao() {
 
-			int cod;
-			
-			System.out.println("==== Relatório de Carga Disponível em um Voo ====");
-			
-			System.out.println("Informe o código do voo que deseja consultar as passagens e o valor pago?");
-			cod = ent.nextInt();
+	public void valorPerdido() {
 
-			try {
-				Voo voo = VooBd.consultar(cod);
+		int cod, totalPassageiros;
+		double valorPrevisto, precoViagem, valorTotalVoo = 0, resultado;
 
-				if (voo != null) {
-					System.out.println("===== Vagas disponíveis no Voo " + cod +" =====");
-							voo.consultarLotacao();
-				} else {
-					System.out.println("\nNão existem passagens cadastradas para esse voo.");
+		ArrayList<Passagem> passagens = new ArrayList<>();
+
+		System.out.println("==== Relatório de Valor perdido ====");
+
+		System.out.println("Informe o código do voo que deseja consultar ao valor perdido: ");
+		cod = ent.nextInt();
+
+		try {
+			Voo voo = VooBd.consultar(cod);
+
+			if (voo != null) {
+
+				totalPassageiros = voo.getLotacao();
+				precoViagem = voo.getPrecoViagem();
+
+				valorPrevisto = totalPassageiros * precoViagem;
+
+				passagens = PassagemBd.relatorioPassageiroPorVoo(cod);
+
+				for (Passagem p : passagens) {
+					valorTotalVoo += p.getPrecoFinalViagem();
 				}
-			} catch (Exception ex) {
-				System.out.println("Erro: " + ex.getMessage());
+
+				resultado = valorPrevisto - valorTotalVoo;
+
+				System.out.printf("\nValor que a empresa deixou de ganhar no voo %d é de %.2f.\n\n ", cod, resultado);
+
+			} else {
+				System.out.println("\nNão existem passagens cadastradas para esse voo.");
 			}
+		} catch (Exception ex) {
+			System.out.println("Erro: " + ex.getMessage());
+		}
+
+	}
+
+	public void totalArrecadado() {
+		int cod;
+		double totalArrecadado = 0;
+
+		ArrayList<Passagem> passagens = new ArrayList<>();
+
+		System.out.println("==== Relatório de Valor perdido ====");
+
+		System.out.println("Informe o código do voo que deseja consultar ao valor perdido: ");
+		cod = ent.nextInt();
+
+		try {
+			Voo voo = VooBd.consultar(cod);
+
+			if (voo != null) {
+
+				passagens = PassagemBd.relatorioPassageiroPorVoo(cod);
+
+				for (Passagem p : passagens) {
+					totalArrecadado += p.getPrecoFinalViagem();
+				}
+
+				System.out.printf("\nValor valor total arrecadado no voo %d foi de %.2f.\n\n ", cod, totalArrecadado);
+
+			} else {
+				System.out.println("\nNão existem passagens cadastradas para esse voo.");
+			}
+		} catch (Exception ex) {
+			System.out.println("Erro: " + ex.getMessage());
+		}
+
 	}
 
 }

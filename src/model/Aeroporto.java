@@ -45,7 +45,7 @@ public class Aeroporto {
     public void consultar(){
         System.out.println("Identificação: "+ identificacao); 
         System.out.println("Nome: "+ nome); 
-        System.out.println("===Cidade===");
+        System.out.println("-- Cidade --");
         cidade.consultar();
        
     }

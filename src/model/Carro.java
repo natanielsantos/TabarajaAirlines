@@ -54,13 +54,13 @@ public class Carro extends Aeronave {
 
     @Override
     public void consultar() {
-        System.out.println("===Carro===");
+        System.out.println("-- Carro --");
         super.consultar();
-        System.out.println("===Piloto===");
+        System.out.println("-- Piloto --");
         piloto.consultar();
-        System.out.println("===Cidade de Origem===");
+        System.out.println("-- Cidade de Origem --");
         cidadeOrigem.consultar();
-        System.out.println("===Cidade de Destino===");
+        System.out.println("-- Cidade de Destino --");
         cidadeDestino.consultar();
         System.out.println("Autonomia: " + autonomia);
 

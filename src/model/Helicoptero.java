@@ -23,7 +23,7 @@ public class Helicoptero extends Aeronave{
     
     @Override
      public void consultar(){
-         System.out.println("===Helicoptero===");
+         System.out.println("-- Helicoptero --");
         super.consultar();
         System.out.println("Quantidade de Helices: "+qtdHelices);
         

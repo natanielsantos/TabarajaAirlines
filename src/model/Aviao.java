@@ -34,7 +34,7 @@ public class Aviao extends Aeronave {
 
     @Override
     public void consultar() {
-        System.out.println("===Avião===");
+        System.out.println("-- Avião --");
         super.consultar();
         System.out.println("Quantidade de Turbinas: " + qtdTurbinas);
         System.out.println("Capacidade de Combustivel Por Turbina: " + capcCombustPorTurbina);

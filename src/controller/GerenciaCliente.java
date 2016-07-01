@@ -163,7 +163,6 @@ public class GerenciaCliente {
 
             if (cli != null) {
                 System.out.println("===== Lista de clientes =====");
-                //System.out.printf("\n%-5s%s\t\t%s\n%-5s%s\n", "Id","Nome","Logradouro","----","------------\t---------------");
                 for (Cliente c : cli) {
                        c.consultar();
                        System.out.println("----------------------");

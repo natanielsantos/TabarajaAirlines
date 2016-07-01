@@ -1,10 +1,7 @@
 package view;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
 import controller.*;
-import model.*;
 
 public class Principal {
 
@@ -185,6 +182,8 @@ public class Principal {
 					case 4:	gps.relatorioPassageirosPorVooPago();break;
 					case 5:	gps.relatorioCargaPorVoo();break;
 					case 6:	gps.relatorioLotacao();break;
+					case 7:	gps.valorPerdido();break;
+					case 8:	gps.totalArrecadado();break;
 					default:
 					}
 				} while (ops != 0);

@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-/**
- *
- * @author MaxVictor
- */
 public class Voo {
 
 	private int id_voo;
@@ -142,19 +133,6 @@ public class Voo {
 	public void setTipoAeronave(int tipoAeronave) {
 		this.tipoAeronave = tipoAeronave;
 	}
-
-	/*
-	 * public void consultar(){ System.out.println("=== Aeronave ===");
-	 * aeronave.consultar(); System.out.println("=== Aeroporto Partida ===");
-	 * aeroportoPartida.consultar(); System.out.println("Data Partida: " +
-	 * dataPartida); System.out.println("Hora Partida: " + horaPartida);
-	 * System.out.println("=== Aeroporto Chegada ===");
-	 * aeroportoChegada.consultar(); System.out.println("Data Chegada: " +
-	 * dataChegada); System.out.println("Hora Chegada: " + horaChegada);
-	 * System.out.println("Lotação: " + lotacao); System.out.println(
-	 * "Peso Carga Embarcada: " + pesoCargaEmbarcada); System.out.println(
-	 * "Preço da Viagem: " + precoViagem); }
-	 */
 
 	public void consultar() {
 		System.out.print("Aeronave: ");
